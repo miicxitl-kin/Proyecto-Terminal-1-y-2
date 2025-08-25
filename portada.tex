@@ -1,0 +1,54 @@
+\begin{titlepage}
+    \begin{tikzpicture}[remember picture,overlay]
+        % Logo superior izquierdo
+        \node[anchor=north west, yshift=-1cm, xshift=1cm] (logoSup)
+            at (current page.north west) 
+            {\includegraphics[width=3cm]{logos/logo_ipn.png}};
+
+        % Texto al lado del logo superior
+        \node[anchor=west, yshift=-0.5cm, xshift=2cm](titulo) at (logoSup.east) 
+            {\Large \textbf{Instituto Polit\'ecnico Nacional}};
+            
+ \draw[line width=1pt] 
+  ([xshift=-1.5cm, yshift=-0.5cm] titulo.south west) --
+  ([xshift= 1.5cm, yshift=-0.5cm] titulo.south east);
+
+        % Logo inferior izquierdo
+        \node[anchor=south west, yshift=3cm, xshift=1cm] 
+            at (current page.south west) 
+            {\includegraphics[width=3cm]{logos/upiita_logo.png}};
+
+        % Tres líneas negras pegadas al margen izquierdo
+        \draw[line width=2pt] (current page.north west) ++(2cm,-5cm) -- ++(0,-18cm);
+        \draw[line width=2pt] (current page.north west) ++(2.5cm,-5cm) -- ++(0,-18cm);
+        \draw[line width=2pt] (current page.north west) ++(3cm,-5cm) -- ++(0,-18cm);
+    \end{tikzpicture}
+
+    % =========================
+    % Contenido central de la portada
+    % =========================
+    \centering
+
+    \vspace*{1.5cm} % bajamos un poco el bloque central
+
+    {\large \textbf{UNIDAD PROFESIONAL INTERDISCIPLINARIA EN INGENIERÍA Y TECNOLOG\'IAS AVANZADAS}}\\[2cm]
+
+    {\Large \textbf{Proyecto Terminal I}}\\[1cm]
+
+    {\huge \textbf{{Prototipo de un sistema telem\'atico para el monitoreo de la fermentaci\'on artesanal del k\'efir de leche}}}\\[1cm]
+
+    {\large Que para obtener el t\'itulo de}\\[0.5cm]
+    {\Large \textbf{Ingeniero en Telem\'atica}}\\[1.5cm]
+
+    {\large Presenta:}\\[0.5cm]
+    {\large
+    Garcia Ledezma Miicxitl Kin}\\[1cm]
+
+    {\large Asesores:}\\[0.5cm]
+    {\large
+    Dra. Bella Citlali Mart\'inez Seis\\
+    Dra. Iclia Villordo Jim\'enez\\
+    Ing. Jonas Mart\'inez Lim\'on}\\[1cm]
+
+    {\large \today \par} %esto crea la fecha de hoy
+\end{titlepage}

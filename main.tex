@@ -1,0 +1,73 @@
+\documentclass[12pt,a4paper]{report}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[spanish]{babel}
+\usepackage{graphicx}
+\usepackage{geometry}
+\usepackage{tikz}
+\usepackage{tikz}
+\usetikzlibrary{calc}
+
+% Márgenes
+\geometry{
+  top=2.5cm,
+  bottom=2.5cm,
+  left=3cm,
+  right=2.5cm
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%% PIE DE PAGINA %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Definir el estilo de página personalizado
+
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancypagestyle{mypagestyle}{
+    \fancyfoot{}                       % Limpia cualquier configuración previa
+    \fancyfoot[R]{\thepage}       % Número de página en el lado derecho
+}
+
+% Aplicar el estilo de página personalizado a todas las páginas
+\pagestyle{mypagestyle}
+\setlength{\footskip}{-3cm}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% ENCABEZADO DE LAS PÁGINAS TIPO UNICAFAM %%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\setlength{\hoffset}{-0.5cm} 
+% Ajustar margen superior
+\setlength{\topmargin}{-1cm}  % mueve el encabezado más arriba
+\newcommand{\MYhead}{\smash{\scriptsize
+\hfil\parbox[t][\height][t]{\textwidth}{\centering
+\begin{picture}(0,0) 
+\put(-150,-19){\includegraphics[width=1.5cm, height=1.5cm]{logos/logo_ipn.png}} \end{picture} 
+Prototipo de un sistema telem\'atico \\
+\hspace{1.5cm}para el monitoreo de la fermentaci\'on artesanal del k\'efir de leche \hspace{1.5cm} 
+\begin{picture}(0,0) 
+\put(20,-7){\includegraphics[width=1.5cm, height=1.5cm]{logos/upiita_logo.png}} \end{picture} 
+\underline{\hspace{ \textwidth}}}\hfil\hbox{}}}
+\makeatletter
+% normal pages
+\def\ps@headings{%
+\def\@oddhead{\MYhead}%
+\def\@evenhead{\MYhead}}%
+% title page
+\def\ps@IEEEtitlepagestyle{%
+\def\@oddhead{\MYhead}%
+\def\@evenhead{\MYhead}}%
+\makeatother
+% make changes take effect
+\pagestyle{headings}
+
+% Ajustar espacio entre el encabezado y el cuerpo del texto
+\setlength{\headsep}{1.5cm} % Puedes ajustar este valor según tus necesidades
+
+
+
+\begin{document}
+
+\include{portada}
+\include{resumen}
+\include{abstract}
+\end{document}
