@@ -1,0 +1,49 @@
+\section{Requerimientos}
+
+\begin{enumerate}
+    \item \textbf{Módulo 1:Sistema de Sensores}
+        \begin{enumerate}
+            \item \textbf{Verificaciones de validez de las entradas}
+            \begin{enumerate}
+                \item El sistema deberá verificar que el pH inicial de la leche esté entre 6.6 y 6.8.
+                \item El sistema deberá verificar que la temperatura ambiente esté entre 18°C y 30
+            \end{enumerate}   
+        \end{enumerate}
+        \begin{enumerate}
+            \item \textbf{Secuencia exacta de operaciones}
+            \begin{enumerate}
+                \item El sistema deberá entrar en modo prueba si se le indica para verificar el estado de los sensores.
+                \item El sistema deberá entrar en modo monitoreo si se le indica para iniciar la recolección de datos.
+                \item El sistema deberá enviar los datos recopilados por los 3 sensores cada 10 minuots, si esta en modo recolección[revisar con jonnas)
+            
+            \end{enumerate}   
+        \end{enumerate}
+        \begin{enumerate}
+            \item \textbf{Respuestas a situaciones anormales}
+            \begin{enumerate}
+                \item El sistema deberá enviar una alerta a la base de datos cuando se interrumpa la comunicación con un sensor por más de 5 minutos.
+                \item El sistema deberá registrar en un log todos los intentos de conexión fallidos al servidor de base de datos
+                \item El sistema deberá recuperar automáticamente la conexión con el servidor de base de datos tras una caída temporal.
+            \end{enumerate}   
+        \end{enumerate}
+        \begin{enumerate}
+            \item \textbf{Efecto de los parámetros}
+            \begin{enumerate}
+                \item El sistema deberá verificar que el pH inicial de la leche esté entre 6.6 y 6.8.
+                \item El sistema deberá verificar que la temperatura ambiente esté entre 18°C y 30
+            \end{enumerate}   
+        \end{enumerate}
+        \begin{enumerate}
+            \item \textbf{Relación entre las salidas y las entradas}
+            \begin{enumerate}
+                \item El sistema deberá convertir los datos de concentración de CO₂ (mV) a unidades de ppm utilizando la fórmula definida en la documentación técnica del sensor.
+            \end{enumerate}   
+        \end{enumerate}
+    \item \textbf{Módulo 2:Analisis de Datos} 
+    \item \textbf{Módulo 3:Base de Datos}
+    \item \textbf{Módulo 4:Página web} 
+    
+
+    
+
+\end{enumerate}

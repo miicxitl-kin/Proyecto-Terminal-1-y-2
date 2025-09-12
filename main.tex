@@ -64,6 +64,10 @@ Prototipo de un sistema telem\'atico \\
 
 % Ajustar espacio entre el encabezado y el cuerpo del texto
 \setlength{\headsep}{1.5cm} % Puedes ajustar este valor según tus necesidades
+% enumeración personalizada
+\renewcommand{\labelenumii}{\arabic{enumi}.\arabic{enumii}}
+\renewcommand{\labelenumiii}{\arabic{enumi}.\arabic{enumii}.\arabic{enumiii}}
+\renewcommand{\labelenumiv}{\arabic{enumi}.\arabic{enumii}.\arabic{enumiii}.\arabic{enumiv}}
 
 
 
@@ -76,4 +80,7 @@ Prototipo de un sistema telem\'atico \\
 \tableofcontents
 \newpage
 \include{Introduccion}
+\include{problema}
+\include{Requerimientos}
+
 \end{document}
