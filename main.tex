@@ -1,4 +1,4 @@
-\documentclass[12pt,a4paper]{report}
+\documentclass[letterpaper,12pt]{article}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage[spanish]{babel}
@@ -7,6 +7,13 @@
 \usepackage{tikz}
 \usepackage[utf8]{inputenc}
 \usepackage[spanish]{babel}
+\usepackage{adjustbox}
+\usepackage{cite}
+\usepackage{array} % ¡Asegúrate de incluir este paquete en el preámbulo!
+\usepackage{graphicx} % Ya lo tienes, pero es fundamental para \includegraphics
+\usepackage{lscape}
+\usepackage{pdflscape}
+
 
 \usetikzlibrary{calc}
 
@@ -17,6 +24,7 @@
   left=3cm,
   right=2.5cm
 }
+% Bibliografia
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%% PIE DE PAGINA %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -32,7 +40,7 @@
 
 % Aplicar el estilo de página personalizado a todas las páginas
 \pagestyle{mypagestyle}
-\setlength{\footskip}{-3cm}
+\setlength{\footskip}{1.0cm}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%% ENCABEZADO DE LAS PÁGINAS TIPO UNICAFAM %%%%%%%%%%%%%%
@@ -63,7 +71,8 @@ Prototipo de un sistema telem\'atico \\
 \pagestyle{headings}
 
 % Ajustar espacio entre el encabezado y el cuerpo del texto
-\setlength{\headsep}{1.5cm} % Puedes ajustar este valor según tus necesidades
+\setlength{\headsep}{1cm} % Puedes ajustar este valor según tus necesidades
+
 % enumeración personalizada
 \renewcommand{\labelenumii}{\arabic{enumi}.\arabic{enumii}}
 \renewcommand{\labelenumiii}{\arabic{enumi}.\arabic{enumii}.\arabic{enumiii}}
@@ -72,7 +81,8 @@ Prototipo de un sistema telem\'atico \\
 
 
 \begin{document}
-
+\renewcommand{\tablename}{Tabla}
+\newcolumntype{P}[1]{>{\centering\arraybackslash}p{#1}}
 \include{portada}
 \include{resumen}
 \include{abstract}
@@ -82,5 +92,8 @@ Prototipo de un sistema telem\'atico \\
 \include{Introduccion}
 \include{problema}
 \include{Requerimientos}
+\include{Análisisi}
 
+\bibliographystyle{IEEEtran}
+\bibliography{PT1}
 \end{document}
