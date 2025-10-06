@@ -1,5 +1,5 @@
 
-\section{Análisis de herramientas y tecnologías}
+\section{Capitulo 5}
 A continuacón se presenta un análisis, comparación y selecccion de las 
 herramientas y tecnologías a  utilizar en el desarrollo de este proyecto 
 ,así como las razones que justifican su elección considerando aspectos 
@@ -7,12 +7,12 @@ técnicos, económicos y de disponibilidad en base a las necesidades del
 proyecto. Se incluyen herramientas de hardware, software y plataformas 
 evalúando las ventajas y desventajas
 de cada una, así como su adecuación al proyecto.
-\section{Análisis del Módulo 1}
+\subsection{Análisis del Módulo 1}
 En esta sección se presenta un análisis,comparacción y selección tanto de los sensores,como del microcontrolador 
 a implementar en el Módulo 1 de este proyecto mediante una tabla comparativa de las diferentes opciones
 disponibles en el mercado que cumplen con los requerimientos funcionales del proyecto.
 A continuació se describen los componentes principales del Módulo 1:
-\subsection{Sensor de pH}
+\subsubsection{Sensor de pH}
 Para medir el pH del kéfir de leche durante la fermentación, se
 utilizará un sensor de pH analógico. Este sensor debe ser capaz de proporcionar
 una salida de voltaje proporcional al valor de pH medido.
@@ -43,17 +43,18 @@ considerados para el proyecto:
 \begin{table}[h!]
     \centering
     \small
+    \caption{Sensores de pH.}
 % Anchos de columna reducidos para encoger la tabla horizontalmente.
-\begin{tabular}{|P{2.2cm}|P{1.2cm}|P{1.2cm}|P{2.2cm}|P{1.0cm}|P{1.2cm}|P{1.8cm}|P{1.5cm}|P{1.5cm}|P{1.4cm}|P{1.4cm}|P{2.0cm}|}
+\begin{tabular}{|m{1.6cm}|m{1cm}|m{1.3cm}|m{2cm}|m{1cm}|m{1cm}|m{1.8cm}|m{1.5cm}|m{1.5cm}|m{1.4cm}|m{1.4cm}|m{2.0cm}|}
 \hline
 % FILA DE ENCABEZADOS
 \textbf{Modelo} & 
-\textbf{Rangos de medición pH} & 
-\textbf{Voltaje} & 
+\textbf{Rango} & 
+\textbf{Volta- je} & 
 \textbf{Referencia} & 
 \textbf{Pre- cisión} & 
-\textbf{Tiempo de Respuesta} & 
-\textbf{Temp. de operación C} & 
+\textbf{Tiem- po de Respuesta} & 
+\textbf{Tempe- ratura de operación °C} & 
 \textbf{Cuerpo} & 
 \textbf{Punta} & 
 \textbf{Tipo de Salida} & 
@@ -61,24 +62,24 @@ considerados para el proyecto:
 \textbf{Imagen} \\ 
 \hline
 % DATOS - Heredan el tamaño \small
-Hanna Instruments-FC200B\cite{zotero-item-24} & 0 a 12 & 3.3V-5.5V & Ag/AgC (Plata/cloruro de plata) & 0,1 & N/A & 0 a 50 & PVDF & Cónica de vidrio & BNC & \$5233.92 &\includegraphics[width=20mm]{./Imagenes/Módulo1/pH/S1.jpg} \\ \hline
+Hanna Instrume- nts-FC200B\cite{zotero-item-24} & 0 a 12pH & 3.3V-5.5V & Ag/AgC (Plata/cloruro de plata) & 0,1 & N/A & 0 a 50°C & PVDF & Cónica de vidrio & BNC & \$5233.92 &\includegraphics[width=20mm]{./Imagenes/Módulo1/pH/S1.jpg} \\ \hline
 
-Milwaukee SE-220\cite{zotero-item-27} & 0 a 14 & 3.3V-5.5V & doble unión Ag/AgC & 0,02 & N/A & -5 a 70 & Resina-PEI & esférica & BNC & \$1762 & \includegraphics[width=20mm]{./Imagenes/Módulo1/pH/images.jpeg} \\ \hline
+Milwaukee SE-220\cite{ElectronicsKft.2019} & 0 a 14pH & 3.3V-5.5V & doble unión Ag/AgC & 0,02 & N/A & -5 a 70°C & Resina-PEI & esférica & BNC & \$1762 & \includegraphics[width=20mm]{./Imagenes/Módulo1/pH/images.jpeg} \\ \hline
 
-Atlas Científic-ENV-40-pH \cite{zotero-item-35} & 0 a 14 & 3.3V-5.5V & doble unión Ag/AgC & 0,001 & 1 seg. & 5 - 99 & Polica- rbonato & esférica & BNC & \$3000-4000 & \includegraphics[width=20mm]{./Imagenes/Módulo1/pH/MFG_ENV-40-pH_primary_sml.jpg} \\ \hline
+Atlas Científic-ENV-40-pH \cite{zotero-item-35} & 0 a 14pH & 3.3V-5.5V & doble unión Ag/AgC & 0,001 & 1 seg. & 5 - 99°C & Polica- rbonato & esférica & BNC & \$3000-4000 & \includegraphics[width=20mm]{./Imagenes/Módulo1/pH/MFG_ENV-40-pH_primary_sml.jpg} \\ \hline
 
-Atlas Científic-ENV-30-pH \cite{zotero-item-33} & 2 a 12 & 3.3V-5.5V & Ag/AgC & 0.1 & 4 seg. & 1-60 & Polica- rbonato & esférica & BNC & \$1000-2000 & \includegraphics[width=20mm]{./Imagenes/Módulo1/pH/MFG_ENV-30-pH _primary_sml.jpg} \\ \hline
+Atlas Científic-ENV-30-pH \cite{zotero-item-33} & 2 a 12pH & 3.3V-5.5V & Ag/AgC & 0.1 & 4 seg. & 0-60°C & Polica- rbonato & esférica & BNC & \$1000-2000 & \includegraphics[width=20mm]{./Imagenes/Módulo1/pH/MFG_ENV-30-pH _primary_sml.jpg} \\ \hline
 
-PH-E201C \cite{zotero-item-47} & 0 a 14 & 5V & Ag/AgCl & 0.02 & 5 seg. & 0-80 & Polica- rbonato & esférica & BNC & \$250-500 & \includegraphics[width=20mm]{./Imagenes/Módulo1/pH/electrodo-para-medición-de-ph-e201c.jpg} \\ \hline
+PH-E201C \cite{zotero-item-47} & 0 a 14pH & 5V & Ag/AgCl & 0.02 & 5 seg. & 0-80°C & Polica- rbonato & esférica & BNC & \$250-500 & \includegraphics[width=20mm]{./Imagenes/Módulo1/pH/electrodo-para-medición-de-ph-e201c.jpg} \\ \hline
 \end{tabular}
-\caption{Sensores de pH.}
+
 \label{tab:sensorespH}
 \end{table}
 \end{landscape}
 
-Tras un análisis comparativo detallado de los sensores presentados en la Tabla \ref{tab:sensorespH}, se ha determinado que el electrodo PH-E201C \cite{zotero-item-47} es la opción más viable para la integración en este proyecto. Si bien los modelos alternativos cumplen con la mayoría de los requerimientos funcionales, el PH-E201C ofrece una combinación óptima de rendimiento y coste. Este sensor destaca por su excelente precisión de 0.02 unidades de pH y un tiempo de respuesta rápido de 5 segundos. Además de estas características técnicas sólidas, su bajo coste y alta disponibilidad en el mercado lo convierten en la solución más accesible y eficiente frente a las opciones de mayor precio.
+Tras un análisis comparativo detallado de los sensores presentados en la \cref{tab:sensorespH}, se ha determinado que el electrodo PH-E201C \cite{zotero-item-47} es la opción más viable para la integración en este proyecto. Si bien los modelos alternativos cumplen con la mayoría de los requerimientos funcionales, el PH-E201C ofrece una combinación óptima de rendimiento y coste. Este sensor destaca por su excelente precisión de 0.02 unidades de pH y un tiempo de respuesta rápido de 5 segundos. Además de estas características técnicas sólidas, su bajo coste y alta disponibilidad en el mercado lo convierten en la solución más accesible y eficiente frente a las opciones de mayor precio.
 
-\subsection{Sensor de Temperatura}
+\subsubsection{Sensor de Temperatura}
 Para medir la temperatura del kéfir de leche durante la fermentación, se
 utilizará un sensor de temperatura digital. Este sensor debe ser capaz de
 proporcionar una lectura precisa de la temperatura en grados Celsius.
@@ -104,23 +105,23 @@ considerados para el proyecto:
 
 \begin{table}[h!]
     \centering
+    \caption{sensores de temperatura.}
     \resizebox{\textwidth}{!}{
 \begin{tabular}{|m{2.5cm}|m{2.5cm}|m{1.8cm}|m{2.5cm}|m{3.5cm}|m{2cm}|m{2cm}|m{2cm}|}
 \hline
 \textbf{Modelo}  & \textbf{Rangos de medición} & \textbf{Voltaje} & \textbf{Material} & \textbf{Error} & \textbf{Tipo de salida} & \textbf{Precio (MXN)} & \textbf{Imagen} \\ \hline
-DS18B20\cite{zotero-item-43} & –55 °C a 125 °C & 3.3–5.5 V & Acero inoxidable & \begin{tabular}[c]{@{}c@{}}–10 °C a 85 °C\\ ±0.5 °C\end{tabular} & 1-Wire & \$50–150 & \includegraphics[width=20mm]{./Imagenes/Módulo1/Temperatura/t1.jpg} \\ \hline
+DS18B20\cite{zotero-item-78} & –55 °C a 125 °C & 3.3–5.5 V & Acero inoxidable & \begin{tabular}[c]{@{}c@{}}–10 °C a 85 °C\\ ±0.5 °C\end{tabular} & 1-Wire & \$50–150 & \includegraphics[width=20mm]{./Imagenes/Módulo1/Temperatura/t1.jpg} \\ \hline
 E52-CA6DN 4M\cite{zotero-item-45} & 0–350 °C & 3.3–5.5 V & Acero inoxidable & \begin{tabular}[c]{@{}c@{}}0–333 °C\\ ±2.5 °C\end{tabular} & 1-Wire & \$2104 & \includegraphics[width=20mm]{./Imagenes/Módulo1/Temperatura/t2.jpg} \\ \hline
 \end{tabular}
     }
-\caption{Tabla comparativa de sensores de temperatura.}
 \label{tab:sensoresTemp}
 \end{table}
 
-En base a los sensores presentados en la Tabla \ref{tab:sensoresTemp}, 
-el sensor DS18B20 \cite{zotero-item-43} se integra mucho mejor al proyecto a diferencia de los otros sensores,
+En base a los sensores presentados en la \cref{tab:sensoresTemp}, 
+el sensor DS18B20 \cite{zotero-item-78} se integra mucho mejor al proyecto a diferencia de los otros sensores,
 ya que presenta un índice de error de solo +/-0.5C combinada con su bajo coste lo convierte en la elección más eficiente.
 
-\subsection{Sensor de $CO_{2}$}
+\subsubsection{Sensor de $CO_{2}$}
 Para medir la concentración de dióxido de carbono ($CO_{2}$) en el ambiente
 circundante al kéfir de leche durante la fermentación, se utilizará un
 sensor de $CO_{2}$. Este sensor debe ser capaz de proporcionar una lectura precisa
@@ -148,6 +149,7 @@ considerados para el proyecto:
 \begin{table}[h!]
     \centering
     \small % Tamaño de fuente pequeño para que quepa
+    \caption{Sensores de $CO_{2}$}
  \resizebox{\textwidth}{!}{
 % Definición de 7 columnas (m{ancho}) para el texto/datos + 1 columna de imagen = 8 COLUMNAS TOTALES
 \begin{tabular}{|m{2.5cm}|m{2.5cm}|m{1.8cm}|m{2.5cm}|m{3.5cm}|m{2cm}|m{2cm}|} 
@@ -166,13 +168,12 @@ SCD30 (Sensirion)\cite{zotero-item-52} &+/- (30ppm+3\%)  & 0-40000 ppm & 0 a 50�
 MG-811\cite{zotero-item-54} & +/- (30ppm+5\%)  & 350-10000 ppm & 20 a 50°C & 5-6 V& \$600-740 & \includegraphics[width=20mm]{./Imagenes/Módulo1/Gas/md-mg81.jpg} \\ \hline
 \end{tabular}
     }
-    \caption{Sensores de $CO_{2}$}
     \label{tab:sensoresCO2}
 \end{table}
 Uno de los par\'ametros m\'as dif\'iciles de medir en la fermentaci\'on es 
 el \textbf{${CO}_{2}$}. Dado que la fermentaci\'on del k\'efir libera grandes 
 cantidades de este gas, se requiere un sensor con una excelente precisi\'on y un 
-amplio rango de medici\'on. En base a los sensores presentados en la Tabla \ref{tab:sensoresCO2},
+amplio rango de medici\'on. En base a los sensores presentados en la  \cref{tab:sensoresCO2},
 el sensor \textbf{SCD30 (Sensirion)} \cite{zotero-item-52} es la mejor opci\'on para el proyecto.
 Esto se debe a que presenta un \'indice de error de solo +/-(30ppm+3\%) y un rango de 
 medici\'on superior (0-40,000 ppm). Aunque no es el m\'as barato, su especializaci\'on en 
@@ -180,173 +181,109 @@ la medici\'on de ${CO}_{2}$ evita los problemas de precisi\'on que tendr\'ian ot
 de menor calidad, como el MQ-135 (sensible a otros gases), o el rango limitado de los modelos MG-811 
 y MH-Z19 en el contexto espec\'ifico de la fermentaci\'on del k\'efir.
 
+Para facilitar la elección del microcontrolador, se van analizar los siguientes puntos, 
+esto con la finalidad de tener un mejor entendimiento de las capacidades y limitaciones de cada uno.
+\subsubsection{Formato de Datos}
+La elección del formato de datos es un aspecto crítico en el diseño del sistemas 
+, ya que influye directamente en la eficiencia, la interoperabilidad y 
+la escalabilidad del sistema. Con base en los formatos analizados en la 
+\cref{tab:datos}, se identifica a JSON (JavaScript Object Notation)
+como la opción más adecuada esto debido a que permite estructurar datos de 
+manera jerárquica, agrupando valores y metadatos en objetos anidados, lo que facilita la integración 
+entre los módulos del sistema, características que cumplen con los requerimientos funcionales de interoperabilidad, 
+eficiencia y escalabilidad.
+En contraste, otros formatos presentan limitaciones significativas. CSV, aunque simple y compacto, carece de anidamiento 
+y contexto, lo que lo hace inadecuado para datos complejos o flexibilidad en su estructura, ya que cualquier 
+cambio en los datos implica modificaciones manuales en el esquema de lectura. Por su parte, XML, si bien es robusto para manejar 
+metadatos complejos y ofrece validación estricta de esquemas, resulta demasiado pesado y verboso debido a su estructura de etiquetas, 
+lo que incrementa el consumo de recursos en los sistemas.
 
-
-\subsection{Microcontrolador}
-En base a los sensores seleccionados y los requerimientos del proyecto, seconsideraron los siguientes microcontroladores:
-\begin{table}[h]
-    \centering
-    \caption{Resumen de Frameworks de Backend de Python para IoT}
-    \label{tab:backend_resumen_corregido}
-    \begin{tabular}{|l|l|l|l|}
-        \hline
-        \textbf{Característica} & \textbf{FastAPI} & \textbf{Flask} & \textbf{Django} \\
-        \hline
-        \textbf{Tipo de Framework} & Asíncrono (API-first) & Microframework & Full-Stack \\
-        \hline
-        \textbf{Rendimiento} & Excelente & Bueno & Aceptable \\
-        \hline
-        \textbf{Lógica Asíncrona} & Nativa & Requiere Ext. & Requiere Config. \\
-        \hline
-        \textbf{Gestión de Usuarios} & Manual/Ext. & Requiere Ext. & Integrada \\
-        \hline
-        \textbf{Documentación API} & Automática & Requiere Ext. & Requiere Ext. \\
-        \hline
-        \textbf{Curva de Aprendizaje} & Media & Baja & Alta \\
-        \hline
-    \end{tabular}
+\begin{table}[htbp]
+	\centering
+	\caption{Formatos de Datos}
+    \footnotesize
+	\begin{tabular}{|p{1cm}|p{1cm}|p{1.5cm}|p{2.5cm}|p{1.5cm}|p{2.5cm}|p{3.0cm}|}
+\hline
+\textbf{Nom- bre} & \textbf{Tipo de Formato} & \textbf{Estructura Base} & \textbf{Caracterisit- icas} & \textbf{Enfoque} & \textbf{Ventaja} & \textbf{Desventaja} \\
+\hline
+\textbf{JSON}\cite{2025}& Clave-Valor & JSON objetos anidados y arrays & Elimina la necesidad de un diseño de esquemas predeterminados al serializar datos semiestructurados y transmitirlos. & Enfoque a desarrollo con documentos JSON.  & Simplicidad y legibilidad lo que permite gran escalabilidad en diferentes lenguajes de programción & Mayor consumo de memoria dependiendo del formato JSON. \\
+\hline
+\textbf{CSV}\cite{zotero-item-76} & Comma Separated Values & Valores separados por un delimitador (coma, \texttt{|}, etc.). Sin anidamiento. & Permite la iterarión de grandes cadenas de valores & Enfoque a más especializado a hojas de datos. & Los valores son obvios,sin etiquetas. & Al trabajar con solo valores y delimitadores lo que ocasiona escasa escalabilidad. \\
+\hline
+\textbf{XML}\cite{zotero-item-73} & Lengua- je de marcado extensible & Documento estructurado con etiquetas jerárquicas. & Documentos XML estan compuestos por una estructura fisica la cual contiene entidades y una logica como referencias de caracteres, instucciones de procesamiento,etc. & Enfocado a facilitar la implementación para la interoperabilidad con SGML y HTML. & Permite metadatos complejos y validación estricta del esquema (\textit{Schema Validation}). & Debido al cierre de etiquetas se vuelve demasiado pesado para microcontroladores. \\
+\hline
+\end{tabular}
+    \label{tab:datos}
 \end{table}
 
-\subsection{Formato de envio de datos}
-Para el envío de datos desde los sensores al microcontrolador, se
-consideraron los siguientes formatos de comunicación:
-\begin{table}[h]
+\subsubsection{Topología de red}
+En esta sección, se analiza y selecciona la topología de conexión a imple-
+mentar específicamente para la comunicación entre el microcontrolador y el
+servidor. Con base en los requerimientos funcionales establecidos y las car-
+acterísticas de las topologías de red presentadas en la \cref{tab:comparacion_topologias} comparativa, se
+optó por la topología en estrella. Esta elección se fundamenta en su capaci-
+dad para permitir la conexión de múltiples microcontroladores de manera
+independiente, de modo que el fallo de uno no comprometa la comunicación
+de los demás con el servidor. Además, esta topología ofrece una notable es-
+calabilidad, lo que facilita la incorporación de nuevos dispositivos sin afectar
+el rendimiento general del sistema. En contraste, otras topologías, como la
+de bus o anillo, presentan limitaciones significativas en términos de tolerancia
+a fallos y capacidad de expansión, ya que un fallo en un punto crítico puede
+interrumpir toda la red o dificultar la adición de nuevos nodos. Por lo tanto,
+la topología en estrella se considera la más adecuada para satisfacer los re-
+querimientos del sistema, garantizando una comunicación robusta, eficiente
+y adaptable a futuras necesidades
+\begingroup
+\setlength{\tabcolsep}{2pt} % Espacio entre columnas muy reducido
+\renewcommand{\arraystretch}{1.1} % Altura de las filas
+% Usamos \scriptsize: el tamaño de fuente más pequeño, necesario para tablas anchas
+\scriptsize
+\begingroup
+\setlength{\tabcolsep}{2pt} % Espacio entre columnas muy reducido
+\renewcommand{\arraystretch}{1.1} % Altura de las filas
+% Usamos \scriptsize: el tamaño de fuente más pequeño, necesario para tablas anchas
+\scriptsize
+\begin{table}[htbp]
 \centering
-\caption{Formatos de Datos Comunes (Resumen)}
-\label{tab:data_formats}
-\begin{tabular}{|l|l|l|l|}
+\caption{Topologías de conexión\cite{CalderaPalma}}
+\label{tab:comparacion_topologias}
+% Reducción crítica de anchos: El ancho total es ahora ≈ 15cm para caber.
+\begin{tabular}{|>{\raggedright\arraybackslash}p{1.7cm}|>{\raggedright\arraybackslash}p{4.4cm}|>{\raggedright\arraybackslash}p{4.4cm}|>{\raggedright\arraybackslash}p{4.4cm}|}
 \hline
-\textbf{Formato} & \textbf{Tipo} & \textbf{Ventaja Clave} & \textbf{Desventaja Clave} \\
+\textbf{Topolo- gía} & \textbf{Descripción} & \textbf{Ventajas} & \textbf{Desventajas} \\
 \hline
-\textbf{JSON} & Texto (Clave-Valor) & Fácil de usar, estándar de la industria. & Más verboso que binario (mayor tamaño). \\
+\textbf{Bus o multiacceso} & Todos los dispositivos están conectados a un único medio de transmisión compartido, formando una línea común. & Fácil de implementar y configurar, adecuado para redes pequeñas con costos iniciales bajos. & Un fallo en el medio principal afecta toda la red. Dificultad para diagnosticar problemas y rendimiento que disminuye con muchos dispositivos debido a colisiones. \\
 \hline
-\textbf{XML} & Texto (Etiquetas) & Estructura jerárquica y flexible. & Más verboso que JSON (mayor tamaño). \\
+\textbf{Anillo} & Cada dispositivo está conectado al siguiente, formando un círculo cerrado donde los datos fluyen en una dirección. & Transmisión ordenada que evita colisiones. Rendimiento predecible en redes pequeñas y fácil de gestionar en configuraciones simples. & Un fallo en un dispositivo o enlace puede interrumpir toda la red. Difícil de reconfigurar o escalar, y presenta retrasos en redes grandes debido al paso secuencial de datos. \\
 \hline
-\textbf{Protobuf} & Binario & Muy compacto y eficiente en velocidad. & No es legible por humanos (requiere compilación). \\
+\textbf{Malla} & Cada dispositivo está conectado directamente a todos los demás, formando múltiples enlaces. & Proporciona alta redundancia y tolerancia a fallos, gran capacidad de transmisión debido a conexiones directas y escalabilidad en redes críticas. & Configuración y mantenimiento complejos. Costos elevados debido a múltiples conexiones, poco práctica para redes muy grandes. \\
 \hline
-\textbf{CSV} & Texto (Delimitado) & Extremadamente simple de implementar. & Carece de estructura para datos complejos. \\
+\textbf{Estrella} & Todos los dispositivos están conectados a un punto central, como un *switch* o *hub*. & Fácil de instalar y gestionar. Un fallo en un dispositivo no afecta a los demás y facilita el escalado al añadir nuevos dispositivos. & Depende del punto central, cuyo fallo afecta toda la red. Costos mayores debido al dispositivo central y mayor complejidad en su gestión. \\
 \hline
-\textbf{Binario} & Binario (Custom) & Máxima eficiencia en tamaño (cero sobrecarga). & Requiere implementación personalizada compleja. \\
+\textbf{Árbol jerárquico} & Combina topologías en estrella organizadas en niveles, con un nodo raíz que conecta subredes. & Escalable para redes grandes y jerárquicas. Facilita la gestión segmentada de la red y permite una expansión modular. & Presenta complejidad en diseño y configuración. Depende del nodo raíz, cuyo fallo afecta niveles inferiores. Costos elevados por la infraestructura jerárquica. \\
 \hline
 \end{tabular}
 \end{table}
+\endgroup
 
-\subsection{Protocolo de Comunicación}
-Para la comunicación entre el microcontrolador y la base de datos se consideraron los siguientes protocolos de comunicación:
-\begin{table}[h]
+\subsubsection{Protocolo de Comunicación}
+Para garantizar una comunicación eficiente y confiable entre el Módulo 1  y el Módulo 3 , se requiere un protocolo que soporte la topología estrella definida en los requisitos funcionales. Con base en la comparación de protocolos presentada en la Tabla \cref{tab:protocolo}, MQTT (Message Queuing Telemetry Transport) se identifica como la opción óptima debido a su modelo de publicación/suscripción (Pub/Sub) sobre TCP, que se alinea perfectamente con la arquitectura propuesta.
+
+En esta topología, cada microcontrolador publica datos de sensores (pH, CO2, temperatura) en tópicos específicos asociados a un usuario, y el broker central distribuye estos datos a suscriptores como los módulos de análisis y visualización. Esta estructura permite escalar el número de dispositivos y el volumen de datos sin sobrecargar la red, gracias a la ligereza de MQTT y sus niveles de QoS configurables, que aseguran entrega confiable incluso en conexiones inestables.
+
+En contraste, HTTP, aunque compatible con APIs, genera un alto overhead debido a su modelo request-response, resultando ineficiente para transmisiones frecuentes desde dispositivos de bajo consumo. WebSocket, pese a su baja latencia, mantiene conexiones persistentes que incrementan el consumo energético, haciéndolo inadecuado para los microcontroladores. Zigbee, optimizado para redes mesh y bajo consumo, requiere hardware específico y un gateway, lo que añade complejidad y limita su integración en entornos .
+\begin{table}[htbp]
 \centering
-\caption{Comparación de Protocolos de Comunicación para ESP32}
-\label{tab:protocol_comparison}
-\begin{tabular}{|l|l|l|l|}
+\caption{Protocolos de Comunicación}
+\footnotesize
+\begin{tabularx}{\textwidth}{|p{1cm}|p{2.2cm}|p{1.5cm}|p{2.8cm}|p{3.2cm}|p{2.8cm}|}
 \hline
-\textbf{Protocolo} & \textbf{Arquitectura} & \textbf{Eficiencia/Uso} & \textbf{Mejor para} \\
-\hline
-\textbf{MQTT} & Publicador/Suscriptor & Muy eficiente, baja latencia/ancho de banda. & Monitoreo con muchos sensores (\textbf{IoT}). \\
-\hline
-\textbf{HTTP/HTTPS} & Solicitud/Respuesta & Menos eficiente (cabeceras grandes). & Interacciones \textbf{Web}, peticiones únicas (API). \\
-\hline
-\textbf{CoAP} & Solicitud/Respuesta (Ligero) & Muy eficiente, diseñado para redes con restricciones. & \textbf{Dispositivos muy limitados} o redes \textbf{LPWAN}. \\
-\hline
-\textbf{WebSocket} & Cliente/Servidor (Persistente) & Bajo overhead, conexión \textbf{bidireccional} continua. & Actualizaciones en tiempo real (\textbf{Dashboards}). \\
-\hline
-\textbf{TCP/UDP} & Punto a Punto (Raw) & Máximo control (TCP seguro, UDP rápido/sin garantía). & Transmisión de datos \textbf{personalizada} o streaming. \\
-\hline
-\end{tabular}
+\textbf{Prot- ocolo} & \textbf{Arquitectura} & \textbf{Trans- porte} & \textbf{Características} & \textbf{Ventajas} & \textbf{Desventajas} \\ \hline
+MQTT\cite{zotero-item-80} & Pub/Sub & TCP & Mensajería ligera, basada en broker, en donde se envia un topic al cual uno o varios suscriptores pueden recibir dicho mensaje. & Ligero y con una gran escalabilidad en redes grandes de dispositivos atraves de QoS. & Dependencia de un broker. \\ \hline
+HTTP\cite{2025a} & Request-Response & TCP & Transferencia de hipertexto, solicitudes/re- spuestas mediante GET-POST. & Ideal para monitoreo esporadico, al ser universal es fácil la integración con APIs, ya que es estandarizado. & Tiene un alto overhead y no es apto para tiempo real. \\ \hline
+Web- Socket\cite{2025b} & Bidirec. Full-Duplex & TCP & Conexión bidireccional y en tiempo real mediante una unica solicitud-respuesta HTTP. & Permite una conexión continua lo que es ideal para tiempo real, bidireccional, baja latencia. & Alto consumo, conexiones persistentes, no apto para bajo consumo. \\ \hline
+Zigbee\cite{AllianInc.2015} & Mesh Networking & IEEE 802.15.4 & Enfocada en comunicaciónes locales atraves de una Red de malla lo que permite un muy bajo consumo, & Baja interferencia, alta seguridad de los datos (AES-128) y una gran escalabilidad entre los dispositivos Zigbee & Hardware muy específico y dependencia de un gateway. \\ \hline
+\end{tabularx}
+\label{tab:protocolo}
 \end{table}
-\subsection{Fuente de alimentación}
 
-\section{Análisis del Módulo 2}
-Para llevar acabo el analisis de datos en base a los requerimientos funcionales se 
-consideran los siguientes lenguajes:
-\begin{table}[h]
-    \centering
-    \caption{Comparativa de Lenguajes para Lógica Difusa y JSON}
-    \label{tab:lenguajes_fuzzy}
-    \begin{tabular}{|l|c|c|c|l|}
-        \hline
-        \textbf{Lenguaje} & \textbf{Adecuación para Lógica Difusa} & \textbf{Librería Principal} & \textbf{Manejo de JSON} & \textbf{Uso Típico en el Proyecto} \\
-        \hline
-        \textbf{Python} & Excelente & \texttt{scikit-fuzzy} & Excelente (Nativo) & Backend de Análisis, API, y lógica difusa \\
-        \hline
-        \textbf{R} & Adecuada/Buena & \texttt{sets}, \texttt{FuzzyR} & Buena (Con \texttt{jsonlite}) & Análisis Estadístico Avanzado \\
-        \hline
-        \textbf{C\#} & Adecuada & \texttt{FuzzyLogic}, \texttt{FuzzySharp} & Muy Buena (Nativo con \texttt{System.Text.Json}) & Aplicaciones de Escritorio/Servidor (.NET) \\
-        \hline
-    \end{tabular}
-\end{table}
-\section{Análisis del Módulo 3}
-Para llevar acabo el analisis de datos en base a los requerimientos funcionales se 
-consideran los siguientes lenguajes:
-\begin{table}[h]
-    \centering
-    \caption{Resumen de Bases de Datos para Proyectos IoT}
-    \label{tab:bd_resumen}
-    \begin{tabular}{|l|l|l|l|}
-        \hline
-        \textbf{Característica} & \textbf{InfluxDB (Series de Tiempo)} & \textbf{PostgreSQL (Relacional)} & \textbf{MongoDB (Documentos)} \\
-        \hline
-        \textbf{Uso Principal en IoT} & Datos de Sensores (pH, Temp, etc.) & Gestión de Usuarios y Metadatos & Datos Semiestructurados \\
-        \hline
-        \textbf{Optimización TS*} & \textbf{Excelente} (Diseño Nativo) & Baja (Requiere Extensiones) & Baja (No Optimizado) \\
-        \hline
-        \textbf{Manejo de JSON} & Muy Buena (API y Formato) & \textbf{Excelente} (\texttt{jsonb} Nativo) & \textbf{Excelente} (Formato Nativo) \\
-        \hline
-        \textbf{Flexibilidad Esquema} & Baja (Esquema Fijo) & Baja (Esquema Estricto) & \textbf{Excelente} (Esquema Dinámico) \\
-        \hline
-        \textbf{Escalabilidad} & Alta & Media-Alta & \textbf{Alta} \\
-        \hline
-        \multicolumn{4}{l}{\small *TS: Series de Tiempo} \\
-    \end{tabular}
-\end{table}
-\section{Análisis del Módulo 4}
-En esta sección se presenta un análisis comparativo de las opciones de frontend para el monitoreo del sistema IoT, considerando las necesidades específicas del proyecto, como la visualización de datos en tiempo real, la personalización de la interfaz y la integración con la base de datos InfluxDB.
-Se evaluaron dos opciones principales: Grafana y un framework de desarrollo web como React o Vue
-\begin{table}[h]
-    \centering
-    \caption{Resumen de Opciones de Frontend para Monitoreo IoT}
-    \label{tab:frontend_resumen}
-    \begin{tabular}{|l|l|l|l|}
-        \hline
-        \textbf{Característica} & \textbf{Grafana}  & \textbf{React (o Vue.js)}  & \textbf{Apto para tu Proyecto} \\
-        \hline
-        \textbf{Tipo de Solución} & Herramienta de Visualización & Framework de Desarrollo & \\
-        \hline
-        \textbf{Personalización de UI} & Limitada (Paneles y Plugins) & \textbf{Total} & \multicolumn{1}{l|}{} \\
-        \hline
-        \textbf{Integración con InfluxDB} & \textbf{Nativa y Directa} & Vía \textbf{Backend API} & \multicolumn{1}{l|}{} \\
-        \hline
-        \textbf{Gestión de Usuarios Específica} & Requiere Plugins/Configuración Compleja & \textbf{Ideal} (Manejada por Backend) & \multicolumn{1}{l|}{} \\
-        \hline
-        \textbf{Velocidad de Desarrollo} & \textbf{Rápida} (Dashboard Básico) & Lenta (Aplicación Completa) & \multicolumn{1}{l|}{} \\
-        \hline
-        \textbf{Recomendación} & Pruebas y Visualización Básica & \textbf{Desarrollo de Aplicación Completa} & \textbf{React (o Vue.js)} \\
-        \hline
-    \end{tabular}
-\end{table}
-\section{Framework}
-En esta sección se presenta un análisis comparativo de los principales frameworks de backend en Python, evaluando su idoneidad para el desarrollo de una API RESTful que maneje la lógica del sistema IoT, la comunicación con la base de datos InfluxDB y la gestión de usuarios.
-\begin{table}[h]
-    \centering
-    \caption{Resumen de Frameworks de Backend de Python para IoT}
-    \label{tab:backend_resumen}
-    \begin{tabular}{|l|l|l|l|}
-        \hline
-        \textbf{Característica} & \textbf{FastAPI}  & \textbf{Flask}  & \textbf{Django} \\
-        \hline
-        \textbf{Tipo de Framework} & Asíncrono (API-first) & Microframework & Full-Stack \\
-        \hline
-        \textbf{Rendimiento} & \textbf{Excelente} (El más rápido) & Bueno & Aceptable \\
-        \hline
-        \textbf{Lógica Asíncrona} & \textbf{Nativa} (Ideal para MQTT) & Requiere Ext. & Requiere Config. \\
-        \hline
-        \textbf{Gestión de Usuarios} & Requiere Desarrollo Manual & Requiere Ext. & \textbf{Integrada} \\
-        \hline
-        \textbf{Documentación API} & \textbf{Automática (Swagger/OpenAPI)} & Requiere Ext. & Requiere Ext. \\
-        \hline
-        \textbf{Curva de Aprendizaje} & Media & \textbf{Baja} & Alta \\
-        \hline
-        \textbf{Recomendación para IoT} & \textbf{Mejor Opción} (Rendimiento y API) & Buena Opción (Simplicidad) & No Recomendado (Sobrecarga) \\
-        \hline
-    \end{tabular}
-\end{table}
-\section{Servidor}

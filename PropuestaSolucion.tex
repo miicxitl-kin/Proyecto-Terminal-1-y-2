@@ -1,0 +1,232 @@
+\subsection{Propuesta de Solucion}
+Con base en la problemática presentada, para mejorar el proceso de monitoreo del
+kéfir se propone el desarrollo de un Prototipo de un sistema telemático para el
+monitoreo de la fermentación artesanal del kéfir mediante sensores y un análisis de
+datos. El diseño del sistema busca proporcionar a los productores artesanales de
+kéfir una herramienta eficiente que les permita evaluar el estado del kéfir y
+determinar si este alcanzo el rango de pH ideal(4.2-4.6) y determinar si la
+temperatura durante toda la fermentación se mantuvo de igual manera en el rango
+ideal de 18°C a 30°C, mejorando su proceso de producción, reduciendo la
+variabilidad en sus resultados al tomar decisiones basadas en datos precisos y
+estructurados haciendo comparaciones entre los diferentes parámetros de la
+fermentación a través de un historial detallado de fermentaciones previas.
+El sistema propuesto se compondrá de cuatro módulos principales como se puede
+observar en la \cref{fig:modulos}, cada uno diseñado para abordar un aspecto específico
+del proceso de monitoreo de la fermentación.
+\begin{figure}[htb]
+\centering
+\includegraphics[width=0.7\textwidth]{./Imagenes/Propuesta_Solución/Sistema.JPG}
+\caption{Diagrama a Bloques de la interacción de los módulos del sistema}
+\label{fig:modulos}
+\end{figure} 
+A continuación, se describe cada uno de los módulos del sistema:
+\subsubsection{Sistema de Sensores} 
+Para el desarrollo de este módulo, se integrarán tres sensores, cuya implementación
+dentro del proceso de fermentación es permitida por la NOM-251-SSA1-2009 \cite{zotero-item-56},
+siempre y cuando no resulten invasivos para la fermentación.Los sensores se colocarán en la parte interna de la tapa de un frasco
+de vidrio hermético, mientras que en la parte superior de dicha tapa se instalará un
+microcontrolador, conectado a través de un circuito que enlazará los sensores con
+este componente, como se muestra en la \cref{fig:tapa}. Dado que los sensores de
+pH y temperatura estarán en contacto directo con el medio de fermentación,
+deberán ubicarse cuidadosamente en el interior del frasco, posicionados a una
+altura intermedia dentro del líquido. Esta ubicación es crucial, ya que en la parte
+superior del kéfir suele formarse una capa de grasa que podría interferir con las
+mediciones, mientras que en el fondo se acumulan los búlgaros. Por tanto,
+mantenerlos en la zona media del líquido garantiza una lectura representativa y
+confiable del proceso de fermentación.
+En contraste, el sensor de gas se colocará en el exterior del frasco, conectado
+mediante una salida especializada que permitirá la liberación controlada del dióxido
+de carbono ($CO_{2}$) generado durante la fermentación. Esta salida evitará la
+acumulación de gas dentro del recipiente, lo cual podría generar sobrepresión,
+comprometiendo la seguridad del sistema y alterando las condiciones del proceso,
+como se muestra en la \cref{fig:frasco}.
+\begin{figure}[htb]
+\centering
+\includegraphics[width=0.5\textwidth]{./Imagenes/Propuesta_Solución/m1_1.JPG}
+\caption{Vista Inferior y superior de la tapa del frasco}
+\label{fig:tapa}
+\end{figure} 
+\newline Si bien el prototipo se diseñará inicialmente para un frasco de 1 litro, el sistema
+podrá adaptarse a frascos de diferente capacidad, siempre que sean compatibles
+con la misma tapa, lo cual garantiza flexibilidad sin comprometer la funcionalidad
+del módulo de monitoreo. Dichos sensores se describen a continuación:
+\begin{figure}[b!]
+\centering
+\includegraphics[width=0.5\textwidth]{./Imagenes/Propuesta_Solución/m1_2.JPG}
+\caption{Vista completa del frasco}
+\label{fig:frasco}
+\end{figure} 
+\begin{itemize}
+    \item \textbf{Sensor de pH:}Censar la disminución gradualmente del pH de la leche
+    durante la fermentación y evaluar el pH inicial que este dentro del rango de
+    6.6 a 6.8.
+     \item \textbf{Sensor de Gas ($CO_{2}$):}Censar la concentración de dióxido de carbono ($CO_{2}$)
+    liberado durante la fermentación, lo cual es un indicador adicional de la
+    actividad microbiológica y el progreso de la fermentación. Siendo que niveles
+    constantes de $CO_{2}$ reflejan una fermentación activa y saludable.
+    \item \textbf{Sensor de Temperatura:}Censar la temperatura durante el proceso de la
+fermentación y la temperatura inicial de la fermentación.
+\end{itemize}
+
+\subsubsection{Análisis de Datos}
+El módulo de análisis de datos se implementará a través de un modelo reglas
+basado en un algoritmo de lógica difusa. Su función
+será evaluar el estado del proceso de fermentación mediante un modelo de reglas
+previamente definidas en las cuales no se requiere una gran cantidad de datos de
+parte de los sensores y de la base de datos. Dicho funcionamiento de este módulo
+se muestra en la \cref{fig:mod2} y se describe a continuación:
+Con base en los datos recolectados por los sensores, el módulo analizará si se ha alcanzado el pH
+ideal ubicado entre 4.2 y 4.6, junto con el comportamiento de la temperatura y la
+liberación de gas. De esta manera, el sistema no solo verificará si el pH final es
+adecuado, sino también si las condiciones de temperatura y producción de gas han
+sido consistentes con una fermentación exitosa. En caso contrario, podrá detectar
+si, a pesar de que el pH se haya alcanzado, las condiciones de temperatura o de
+gas no fueron las adecuadas, lo que indicaría una fermentación no óptima. Además,
+si durante el proceso la temperatura se sale del rango ideal, el sistema emitirá
+alertas. Todas estas alertas se enviarán a la base de datos para su registro y
+visualización en la página web.
+\begin{figure}[htb]
+\centering
+\includegraphics[width=0.5\textwidth]{./Imagenes/Propuesta_Solución/M2.JPG}
+\caption{Diagrama a bloques de la integración del módulo 2 con el sistema}
+\label{fig:mod2}
+\end{figure} 
+\subsubsection{Base de Datos}
+Este módulo es crucial para almacenar y gestionar la información relacionada con
+las fermentaciones. Sus funciones principales incluyen:
+\begin{itemize}
+    \item \textbf{Almacenamiento de Datos}Los datos obtenidos por los sensores serán
+    almacenados en una base de datos. Además, de las alertas emitidas por el
+    análisis de datos.
+    \item \textbf{Historial de Fermentaciones}La base de datos mantendrá un historial de
+    todas las fermentaciones realizadas por cada productor, lo que permitirá
+    realizar un seguimiento detallado de la evolución de cada proceso a lo largo
+    del tiempo.
+    \item \textbf{Gestión de Usuarios}El sistema almacenará información sobre los
+    administradores (productores en jefe) y los productores (usuarios),
+    permitiendo una gestión adecuada de los permisos y accesos al sistema
+    llevados a cabo en la Página Web.
+\end{itemize}
+\subsubsection{Página Web}
+La página web es la interfaz de usuario que permitirá a los productores y
+administradores interactuar con el sistema. Los usuarios tendrán diferentes niveles
+de acceso según su rol, ya sea como productor en jefe (administrador) o como
+productores Inicial o Raíz (usuarios). Siendo que estos usuarios tendrán las
+siguientes funciones de la página web:
+\subsubsection{Productor en jefe (Administrador)}
+La interacción de este usuario con el sistema se puede observar en la \cref{fig:admin}, así como se describe a continuación sus principales funciones:
+\begin{itemize}
+    \item \textbf{Gestión de Usuarios:}El administrador podrá dar de alta o suspender a
+    usuarios dentro del sistema, y visualizar la productividad de cada productor
+    inicial y raíz así como su relación entre ellos, facilitando la gestión de
+    permisos y accesos.
+    \item \textbf{Monitoreo de Fermentaciones:}El administrador podrá visualizar el historial
+    de fermentaciones de cada productor, así como la fermentación en curso de
+    cada uno y recibir alertas si alguna fermentación en curso no está en
+    condiciones óptimas. Asimismo, podrá manipular visualmente el historial de
+    fermentaciones para poder comparar de manera estadística las
+    fermentaciones.
+\end{itemize}
+\begin{figure}[htb]
+\centering
+\includegraphics[width=0.5\textwidth]{./Imagenes/Propuesta_Solución/m4_admin.JPG}
+\caption{Interacción del Administrador con la Página Web}
+\label{fig:admin}
+\end{figure} 
+El productor tendra dos categorias, productor inicial y productor raiz, mismos que se
+describen a continuación:
+\subsubsection{Productores Inicial y Raíz (Usuarios)}
+\begin{figure}[htb]
+\centering
+\includegraphics[width=0.5\textwidth]{./Imagenes/Propuesta_Solución/m4_usuario.JPG}
+\caption{Interacción del Productor con el sistema}
+\label{fig:usuario}
+\end{figure} 
+El productor, es decir, el usuario registrado en el sistema será responsable de llevar
+a cabo el proceso de fermentación del kéfir. Para ello, es indispensable que cada
+productor cuente con el frasco descrito en el Módulo 1. La interacción de este
+usuario con el sistema se ilustra en la \cref{fig:usuario}, y sus funciones en la plataforma
+web se describen a continuación:
+\begin{itemize}
+    \item \textbf{Registro de parámetros iniciales y finales de la fermentación:}Una vez
+que el sistema detecte el inicio de la fermentación en el frasco, se solicitará
+al productor que ingrese los datos iniciales: tipo y marca de la leche utilizada,
+así como la cantidad de búlgaros empleados. Al finalizar la fermentación, el
+productor deberá registrar la cantidad final de búlgaros y proporcionar una
+breve descripción del sabor del kéfir obtenido.
+    \item \textbf{Monitoreo de la fermentación en curso:}Una vez iniciado el proceso, el
+productor podrá visualizar los datos recopilados por los sensores conectados
+al frasco de fermentación. Así, como las alarmas emitidas por el módulo 2
+(análisis de datos) sobre el estado de la fermentación.
+    \item \textbf{Historial de Fermentaciones:}El productor podrá consultar en cualquier
+momento su historial de fermentaciones previas, visualizando los registros
+completos de cada proceso.
+\end{itemize}
+\begin{figure}[htb]
+\centering
+\includegraphics[width=0.5\textwidth]{./Imagenes/Propuesta_Solución/m4_usuarios.JPG}
+\caption{Relación usuarios raíz con su origen}
+\label{fig:raiz}
+\end{figure} 
+Mientras que el prodcutor raíz será otra categoría la cual contará con las mismas funciones que el
+productor inicial; sin embargo, se considerará un usuario derivado de uno o más
+productores como se ejemplifica en la \cref{fig:raiz}, ya que en el proceso de
+fermentación del kéfir los búlgaros se reproducen y pueden ser compartidos con
+otros productores. De esta forma, el nuevo usuario hereda los cultivos del productor
+original, pero se considera independiente, ya que sus parámetros de fermentación
+como el tipo de leche, la temperatura o el tiempo pueden diferir. Esta relación entre
+usuarios permite trazar el origen de los búlgaros y analizar su trayectoria, lo cual
+puede ser útil para los productores al conocer el linaje o procedencia de sus cultivos.
+\subsection{Objetivo}
+Diseñar e implementar un prototipo de un sistema telemática de monitoreo no
+invasivo para la fermentación de kéfir artesanal de leche de vaca, mediante la 
+recopilación, análisis y visualización de los datos obtenidos por parte de los
+sensores.
+\subsection{Objeivos específicos}
+\begin{enumerate}
+    \item Seleccionar e integrar un microcontrolador y sensores no invasivos de
+            temperatura, pH y $CO_{2}$ mediante un circuito que permita su conexión y el
+            envío de datos hacia la base de datos.
+    \item  Desarrollar una interfaz web enfocada a cada usuario (administrador,
+            productor inicial y raíz), que permita la visualización de los datos recopilados
+            por los sensores y del análisis de datos, así como de las alarmas generadas
+            por el sistema.
+    \item Diseñar e implementar un modelo de reglas basado en criterios definidos que
+            interprete los datos de los sensores y evalúe el estado de la fermentación,
+            verificando que el pH alcance el rango ideal (4.2 a 4.6) y que la temperatura
+            se mantenga dentro del intervalo óptimo durante todo el proceso.
+    \item Analizar, estructurar e implementar una base de datos que permita almacenar
+            los datos del monitoreo, así como las alarmas emitidas por el sistema, y
+            gestionar la autenticación de los usuarios de la página web
+    \item Realizar pruebas de fermentación con distintos parámetros iniciales para
+            validar el funcionamiento del sistema.
+\end{enumerate}
+
+\subsection{Alcances}
+\begin{enumerate}
+    \item El sistema va dirigido únicamente a pequeños y medianos productores de
+        kéfir artesanal elaborado con leche de vaca de origen comercial que cumplan
+        con la Norma Oficial Mexicana NMX-F-446-1984, ubicados en la ciudad de
+        México que requieran tener un mejor monitoreo en los parámetros de sus
+        fermentaciones, los cuales deberán contar con una computadora para
+        acceder al sistema.
+    \item Dado que es un prototipo, el sistema se enfocará únicamente en la
+        visualización de los datos recolectados por los sensores e interpretados por
+        el análisis de datos a través de la página web con el único fin de monitorear.
+        El sistema no contara con funciones de manipulación o control de los
+        parámetros en los sensores ni del módulo 2(análisis de datos).
+    \item El sistema estará limitado a un frasco por usuario (productor), con el fin de
+        facilitar un monitoreo más preciso y controlado durante las pruebas del
+        prototipo. Asimismo, el sistema solo permitirá una sesión activa por usuario,
+        evitando la duplicación de datos o posibles inconsistencias.
+    \item Se establecerán los parámetros específicos que debe cumplir el proceso de
+        fermentación, con base en normativas técnicas y condiciones óptimas del
+        kéfir, los cuales serán utilizados por el análisis de datos para evaluar el
+        proceso y emitir alertas si es necesario.
+    \item Debido a la sensibilidad y variabilidad que pueden presentar los sensores,
+        deberán calibrarse y limpiarse manualmente después de cada proceso de
+        fermentación, para esto se le incorporará al sistema una función de prueba
+        para realizar dicha calibración, esto con el fin de tener una mejor medición
+        por parte de los sensores.
+\end{enumerate}
+

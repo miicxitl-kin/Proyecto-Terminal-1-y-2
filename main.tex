@@ -14,6 +14,16 @@
 \usepackage{lscape}
 \usepackage{pdflscape}
 \usepackage{cleveref}
+\usepackage{array} % Para usar >{} y <{} en las columnas
+\usepackage{booktabs} % Para mejores líneas en la tabla (toprule, midrule, bottomrule)
+\usepackage{longtable}
+\usepackage{tabularx}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{ragged2e}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\crefname{table}{Tabla No.}{Tablas No.}
 \setcounter{tocdepth}{4}
 \usetikzlibrary{calc}
 
@@ -94,6 +104,9 @@ Prototipo de un sistema telem\'atico \\
 \include{PropuestaSolucion}
 \include{Requerimientos}
 \include{Análisisi}
+%\include{AnalisisMicro}
+\include{Analisismodulo2}
+%\include{AnalisisBase}
 
 \bibliographystyle{IEEEtran}
 \bibliography{PT1}
