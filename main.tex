@@ -23,6 +23,7 @@
 \usepackage{ragged2e}
 \usepackage{xcolor}
 \usepackage{graphicx}
+\usepackage{amssymb}
 \crefname{table}{Tabla No.}{Tablas No.}
 \setcounter{tocdepth}{4}
 \usetikzlibrary{calc}
@@ -98,15 +99,19 @@ Prototipo de un sistema telem\'atico \\
 \include{abstract}
 
 \tableofcontents
+\listoffigures   % ÍNDICE DE FIGURAS
+\listoftables    % ÍNDICE DE TABLAS
 \newpage
 \include{Introduccion}
 \include{problema}
 \include{PropuestaSolucion}
+\include{estadodelarte}
+\include{marcoteorico}
 \include{Requerimientos}
 \include{Análisisi}
 %\include{AnalisisMicro}
 \include{Analisismodulo2}
-%\include{AnalisisBase}
+\include{AnalisisBase}
 
 \bibliographystyle{IEEEtran}
 \bibliography{PT1}
