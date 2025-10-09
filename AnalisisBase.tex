@@ -9,7 +9,6 @@ hola ff ff
 \begin{longtable}{|p{3.5cm}|p{5.5cm}|p{5.5cm}|}
 \caption{Modelo de base de datos.}
 \label{tab:modelodb} \\
-\\
 \hline
 \textbf{Característica} & \textbf{SQL (Relacional)}\cite{Oppel2011} & \textbf{NoSQL (No Relacional)}\cite{Gomez} \\
 \hline
@@ -43,7 +42,7 @@ hola ff ff
 \hline
 \textbf{Base} & \textbf{Modelo de Datos} & \textbf{CAP}& \textbf{Características} & \textbf{Licencia} & \textbf{Propiedades ACID} & \textbf{Propiedades BASE} & \textbf{Implementación en la Nube o Local} \\
 \hline
-\textbf{MongoDB}\cite{zotero-item-107} & Documento (BSON/JSON) & CP & Permite esquemas flexibles, asignando cada documento a un objeto. & Código abierto SSPL/Apache & Media:Permite transacciones ACID entre documentos pero de forma limitada. & Fuerte (Consistencia Eventual en clústeres distribuidos). & Nube (MongoDB Atlas, AWS, GCP, Azure) y Local\\
+\textbf{MongoDB}\cite{zotero-item-107} & Documento (nativo BSON/JSON) & CP & Permite esquemas flexibles, asignando cada documento a un objeto. & Código abierto SSPL/Apache & Media:Permite transacciones ACID entre documentos pero de forma limitada. & Fuerte (Consistencia Eventual en clústeres distribuidos). & Nube (MongoDB Atlas, AWS, GCP, Azure) y Local\\
 \hline
 \textbf{Cassandra}\cite{zotero-item-108} & Columna Amplia (Wide-Column) & AP & Permite una escalabilidad lineal al optimiza las consultas por medio de CQL(Lenguaje de consulta de Cassandra) para grandes cantidades de datos. & Apache & Bajo (Garantías mínimas de consistencia y aislamiento). & Fuerte (Alta disponibilidad y particionamiento automático).& Nube (AWS, GCP, Azure) y Local \\
 \hline
