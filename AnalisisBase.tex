@@ -1,144 +1,57 @@
-\subsection{Microcontrolador}
-En base a los sensores seleccionados y los requerimientos del proyecto, seconsideraron los siguientes microcontroladores:
-\begin{landscape}
+\subsection{Análisis del Módulo 3}
+hola ff ff
+\subsubsection{Modelo de base de datos}
+% Tabla comparativa entre SQL y NoSQL
 \begingroup
-\setlength{\tabcolsep}{5pt} % Reduce el espacio entre columnas
-\renewcommand{\arraystretch}{1.5} % Aumenta la altura de las filas
-\begin{longtable}{|p{2.5cm}|p{2.5cm}|p{2.5cm}|p{2.5cm}|p{2cm}|p{2cm}|p{1.5cm}|m{2cm}|}
-\caption{Microcontroladores}
-\label{tab:microcontroladores}
+\setlength{\tabcolsep}{6pt} % Espacio entre columnas
+\renewcommand{\arraystretch}{1.5} % Altura de las filas
+
+\begin{longtable}{|p{3.5cm}|p{5.5cm}|p{5.5cm}|}
+\caption{Modelo de base de datos.}
+\label{tab:modelodb} \\
 \\
 \hline
-\textbf{Modelo} & \textbf{Procesador / Frecuencia} & \textbf{Memoria} & \textbf{Conectividad} & \textbf{Puertos} & \textbf{Voltaje de Operación} & \textbf{Precio (USD)} & \textbf{Imagen} \\
+\textbf{Característica} & \textbf{SQL (Relacional)}\cite{Oppel2011} & \textbf{NoSQL (No Relacional)}\cite{Gomez} \\
 \hline
-\endfirsthead
+\textbf{Modelo de Datos} & \textbf{Esquema Fijo} (Tablas, Filas y Columnas predefinidas en una estructura). & \textbf{Esquema Dinámico/Flexible} (Documentos, Pares Clave-Valor, Grafos, etc.). \\
 \hline
-\textbf{Modelo} & \textbf{Procesador / Frecuencia} & \textbf{Memoria} & \textbf{Conectividad} & \textbf{Puertos} & \textbf{Voltaje de Operación} & \textbf{Precio (USD)} & \textbf{Imagen} \\
+\textbf{Escalabilidad} & Escalabilidad  principalmente Vertical (mejorar servidor) y horizontal (sharding). & Principalmente permite una escalabilidad horizontal (añadir más servidores o nodos), lo que permite mayor distribución \\
 \hline
-\endhead
+\textbf{Transacciones } & ACID (Atomicidad, Consistencia, Aislamiento, Durabilidad). & BASE (Básicamente Disponible, Estado Suave, Consistencia Eventual). \\
 \hline
-\endfoot
-\endlastfoot
-
-XIAO ESP32C6 \cite{zotero-item-58} & RISC-V 32-bit Single-Core / 160 MHz & ROM 320KB, SRAM 512KB, Flash 4MB & Wi-Fi 6, BLE 5, Zigbee 3.0, Thread & 1xI2C, 1xUART, 1xSPI, 1xI2S, 11xGPIO & 3.3V (5V VCC) & $\sim$7 & \includegraphics[width=20mm]{./Imagenes/Módulo1/Microcontrolador/1-113991254-seeedxiao-esp32c6-45font_1.jpg}\\
+\textbf{Arquitectura} & Monolítica, centralizada en un único servidor o clúster. & Distribuida, diseñada para clústeres de nodos a lo largo de múltiples servidores. \\
 \hline
-ESP32-C3 SuperMini \cite{K} & RISC-V 32-bit Single-Core / 160 MHz & ROM 400KB, SRAM 400KB, Flash 4MB & Wi-Fi 4 (802.11n), BLE 5 & 2xUART, 2xI2C, 1xSPI, 13xGPIO & 3.3V (5V VCC) & $\sim$4 &\includegraphics[width=20mm]{./Imagenes/Módulo1/Microcontrolador/esp32-c6.png} \\
+\textbf{Ventajas} & Basado en el modelo relacional permite la integridad de datos,garantizada, consultas complejas con JOINs eficientes y modelado de relaciones claro. & Permite una alta velocidad y consistencia en inserción/lectura, adaptabilidad a cambios, y rendimiento en grandes volúmenes de datos. \\
 \hline
-ESP32-H2M-1 (Módulo) \cite{zotero-item-61} & RISC-V 32-bit Single-Core / 96 MHz & ROM 320KB, SRAM 256KB, Flash 4MB & BLE 5, Zigbee 3.0, Thread & 1xSPI, 2xUART, 1xI2C, 1xI2S, 18xGPIO & 3.3V & $\sim$3 & \includegraphics[width=20mm]{./Imagenes/Módulo1/Microcontrolador/esp32-h2-devkitm-1-45-20230303.png}\\
-\hline
-ESP32-C6-DEVKITC-1-N8 \cite{zotero-item-62}& RISC-V 32-bit Single-Core / 160 MHz & ROM 320KB, SRAM 512KB, Flash 8MB & Wi-Fi 6, BLE 5, Zigbee 3.0, Thread & 4xSPI, 3xUART, 2xI2C, 2xI2S, 23xGPIO & 3.3V (5V Micro-USB) & $\sim$8 & \includegraphics[width=20mm]{./Imagenes/Módulo1/Microcontrolador/esp32-c6.png}\\
-\hline
-ESP32-DevKitC-32E \cite{Embajadores} & Xtensa LX6 Dual-Core / 240 MHz & ROM 448KB, SRAM 520KB, Flash 4MB & Wi-Fi 4 (802.11n), BT 4.2 & 3xSPI, 3xUART, 2xI2C, 2xI2S, 34xGPIO & 3.3V (5V Micro-USB) & $\sim$6 & \includegraphics[width=20mm]{./Imagenes/Módulo1/Microcontrolador/esp32.jpg}\\
-\hline
-ESP32-C2 (Módulo) \cite{zotero-item-52}& RISC-V 32-bit Single-Core / 120 MHz & ROM 320KB, SRAM 272KB, Flash 4MB & Wi-Fi 4 (802.11n), BLE 5 & 2xSPI, 2xUART, 1xI2C, 1xI2S, 14xGPIO & 3.3V & $\sim$2 & \includegraphics[width=20mm]{./Imagenes/Módulo1/Microcontrolador/c2.jpg}\\
-\hline
-Raspberry Pi Pico 2 W \cite{zotero-item-68}& ARM Cortex M0+ Dual-Core / 133 MHz & SRAM 264KB, Flash 4MB & Wi-Fi 4 (802.11n), BT 5.2 & 2xSPI, 2xI2C, 2xUART, 16xPWM, 26xGPIO & 3.3V (5V Micro-USB) & $\sim$6 & \includegraphics[width=20mm]{./Imagenes/Módulo1/Microcontrolador/1-113991254-seeedxiao-esp32c6-45font_1.jpg}\\
-\hline
-Raspberry Pi Pico 2 WH \cite{zotero-item-68} & ARM Cortex M0+ Dual-Core / 133 MHz & SRAM 264KB, Flash 4MB & Wi-Fi 4 (802.11n), BT 5.2 & 2xSPI, 2xI2C, 2xUART, 16xPWM, 26xGPIO & 3.3V (5V Micro-USB) & $\sim$8 & \includegraphics[width=20mm]{./Imagenes/Módulo1/Microcontrolador/1-113991254-seeedxiao-esp32c6-45font_1.jpg}\\
+\textbf{Desventajas} & Bastante robustas lo que las vuelve menos flexibles a cambios en el esquema. Teniendo un rendimiento limitado para escrituras y lecturas distribuidas. & Compromete la fiabilidad a cambio de rendimiento, y al tener no tener propiedades ACID tan estrucuturadas no permite relaciones complejas. \\
 \hline
 \end{longtable}
 \endgroup
+
+\subsubsection{Base de datos NoSQL}
+\begin{landscape}
+\begingroup
+\setlength{\tabcolsep}{.1pt} % Espacio entre columnas reducido
+\renewcommand{\arraystretch}{1.5} % Altura de las filas ligeramente reducida
+
+\begin{table}[h!]
+
+\caption{Bases de datos NoSQL}
+\label{tab:nosql}
+\footnotesize 
+\begin{tabular}{|>{\raggedright\arraybackslash}p{2.5cm}|>{\raggedright\arraybackslash}p{2.5cm}|>{\raggedright\arraybackslash}m{2.5cm}|>{\raggedright\arraybackslash}p{4cm}|>{\raggedright\arraybackslash}p{2.5cm}|>{\raggedright\arraybackslash}p{2.5cm}|>{\raggedright\arraybackslash}p{2.5cm}|>{\raggedright\arraybackslash}p{3cm}|}
+\hline
+\textbf{Base} & \textbf{Modelo de Datos} & \textbf{CAP}& \textbf{Características} & \textbf{Licencia} & \textbf{Propiedades ACID} & \textbf{Propiedades BASE} & \textbf{Implementación en la Nube o Local} \\
+\hline
+\textbf{MongoDB}\cite{zotero-item-107} & Documento (BSON/JSON) & CP & Permite esquemas flexibles, asignando cada documento a un objeto. & Código abierto SSPL/Apache & Media:Permite transacciones ACID entre documentos pero de forma limitada. & Fuerte (Consistencia Eventual en clústeres distribuidos). & Nube (MongoDB Atlas, AWS, GCP, Azure) y Local\\
+\hline
+\textbf{Cassandra}\cite{zotero-item-108} & Columna Amplia (Wide-Column) & AP & Permite una escalabilidad lineal al optimiza las consultas por medio de CQL(Lenguaje de consulta de Cassandra) para grandes cantidades de datos. & Apache & Bajo (Garantías mínimas de consistencia y aislamiento). & Fuerte (Alta disponibilidad y particionamiento automático).& Nube (AWS, GCP, Azure) y Local \\
+\hline
+\textbf{Redis}\cite{zotero-item-111} & Clave-Valor (Key-Value) & CP & Almacenamiento en memoria (*in-memory*), uso primario como caché y broker de mensajes. & BSD & Parcial (Transacciones atómicas básicas en comandos únicos). & Fuerte (Alta velocidad y disponibilidad por naturaleza *in-memory*). & Nube (ElastiCache, Memorystore) y Local\\
+\hline
+\textbf{InfluxDB}\cite{zotero-item-113} & Series de Tiempo (TSDB) & AP & Optimizado para ingesta masiva de datos indexados por secuencias de tiempo. & MIT y Comercial & Bajo (Prioriza la velocidad de ingesta sobre la atomicidad). & Fuerte (Alta disponibilidad, optimizado para particionamiento temporal). & Nube (InfluxDB Cloud) y Local\\
+\hline
+    \end{tabular}
+\end{table}
+\endgroup
 \end{landscape}
-
-
-
-\subsection{Fuente de alimentación}
-
-\section{Análisis del Módulo 2}
-Para llevar acabo el analisis de datos en base a los requerimientos funcionales se 
-consideran los siguientes lenguajes:
-\begin{table}[h]
-    \centering
-    \caption{Comparativa de Lenguajes para Lógica Difusa y JSON}
-    \label{tab:lenguajes_fuzzy}
-    \begin{tabular}{|l|c|c|c|l|}
-        \hline
-        \textbf{Lenguaje} & \textbf{Adecuación para Lógica Difusa} & \textbf{Librería Principal} & \textbf{Manejo de JSON} & \textbf{Uso Típico en el Proyecto} \\
-        \hline
-        \textbf{Python} & Excelente & \texttt{scikit-fuzzy} & Excelente (Nativo) & Backend de Análisis, API, y lógica difusa \\
-        \hline
-        \textbf{R} & Adecuada/Buena & \texttt{sets}, \texttt{FuzzyR} & Buena (Con \texttt{jsonlite}) & Análisis Estadístico Avanzado \\
-        \hline
-        \textbf{C\#} & Adecuada & \texttt{FuzzyLogic}, \texttt{FuzzySharp} & Muy Buena (Nativo con \texttt{System.Text.Json}) & Aplicaciones de Escritorio/Servidor (.NET) \\
-        \hline
-    \end{tabular}
-\end{table}
-\section{Análisis del Módulo 3}
-Para llevar acabo el analisis de datos en base a los requerimientos funcionales se 
-consideran los siguientes lenguajes:
-\begin{table}[h]
-    \centering
-    \caption{Resumen de Bases de Datos para Proyectos IoT}
-    \label{tab:bd_resumen}
-    \begin{tabular}{|l|l|l|l|}
-        \hline
-        \textbf{Característica} & \textbf{InfluxDB (Series de Tiempo)} & \textbf{PostgreSQL (Relacional)} & \textbf{MongoDB (Documentos)} \\
-        \hline
-        \textbf{Uso Principal en IoT} & Datos de Sensores (pH, Temp, etc.) & Gestión de Usuarios y Metadatos & Datos Semiestructurados \\
-        \hline
-        \textbf{Optimización TS*} & \textbf{Excelente} (Diseño Nativo) & Baja (Requiere Extensiones) & Baja (No Optimizado) \\
-        \hline
-        \textbf{Manejo de JSON} & Muy Buena (API y Formato) & \textbf{Excelente} (\texttt{jsonb} Nativo) & \textbf{Excelente} (Formato Nativo) \\
-        \hline
-        \textbf{Flexibilidad Esquema} & Baja (Esquema Fijo) & Baja (Esquema Estricto) & \textbf{Excelente} (Esquema Dinámico) \\
-        \hline
-        \textbf{Escalabilidad} & Alta & Media-Alta & \textbf{Alta} \\
-        \hline
-        \multicolumn{4}{l}{\small *TS: Series de Tiempo} \\
-    \end{tabular}
-\end{table}
-\section{Análisis del Módulo 4}
-En esta sección se presenta un análisis comparativo de las opciones de frontend para el monitoreo del sistema IoT, considerando las necesidades específicas del proyecto, como la visualización de datos en tiempo real, la personalización de la interfaz y la integración con la base de datos InfluxDB.
-Se evaluaron dos opciones principales: Grafana y un framework de desarrollo web como React o Vue
-\begin{table}[h]
-    \centering
-    \caption{Resumen de Opciones de Frontend para Monitoreo IoT}
-    \label{tab:frontend_resumen}
-    \begin{tabular}{|l|l|l|l|}
-        \hline
-        \textbf{Característica} & \textbf{Grafana}  & \textbf{React (o Vue.js)}  & \textbf{Apto para tu Proyecto} \\
-        \hline
-        \textbf{Tipo de Solución} & Herramienta de Visualización & Framework de Desarrollo & \\
-        \hline
-        \textbf{Personalización de UI} & Limitada (Paneles y Plugins) & \textbf{Total} & \multicolumn{1}{l|}{} \\
-        \hline
-        \textbf{Integración con InfluxDB} & \textbf{Nativa y Directa} & Vía \textbf{Backend API} & \multicolumn{1}{l|}{} \\
-        \hline
-        \textbf{Gestión de Usuarios Específica} & Requiere Plugins/Configuración Compleja & \textbf{Ideal} (Manejada por Backend) & \multicolumn{1}{l|}{} \\
-        \hline
-        \textbf{Velocidad de Desarrollo} & \textbf{Rápida} (Dashboard Básico) & Lenta (Aplicación Completa) & \multicolumn{1}{l|}{} \\
-        \hline
-        \textbf{Recomendación} & Pruebas y Visualización Básica & \textbf{Desarrollo de Aplicación Completa} & \textbf{React (o Vue.js)} \\
-        \hline
-    \end{tabular}
-\end{table}
-\section{Framework}
-En esta sección se presenta un análisis comparativo de los principales frameworks de backend en Python, evaluando su idoneidad para el desarrollo de una API RESTful que maneje la lógica del sistema IoT, la comunicación con la base de datos InfluxDB y la gestión de usuarios.
-\begin{table}[h]
-    \centering
-    \caption{Resumen de Frameworks de Backend de Python para IoT}
-    \label{tab:backend_resumen}
-    \begin{tabular}{|l|l|l|l|}
-        \hline
-        \textbf{Característica} & \textbf{FastAPI}  & \textbf{Flask}  & \textbf{Django} \\
-        \hline
-        \textbf{Tipo de Framework} & Asíncrono (API-first) & Microframework & Full-Stack \\
-        \hline
-        \textbf{Rendimiento} & \textbf{Excelente} (El más rápido) & Bueno & Aceptable \\
-        \hline
-        \textbf{Lógica Asíncrona} & \textbf{Nativa} (Ideal para MQTT) & Requiere Ext. & Requiere Config. \\
-        \hline
-        \textbf{Gestión de Usuarios} & Requiere Desarrollo Manual & Requiere Ext. & \textbf{Integrada} \\
-        \hline
-        \textbf{Documentación API} & \textbf{Automática (Swagger/OpenAPI)} & Requiere Ext. & Requiere Ext. \\
-        \hline
-        \textbf{Curva de Aprendizaje} & Media & \textbf{Baja} & Alta \\
-        \hline
-        \textbf{Recomendación para IoT} & \textbf{Mejor Opción} (Rendimiento y API) & Buena Opción (Simplicidad) & No Recomendado (Sobrecarga) \\
-        \hline
-    \end{tabular}
-\end{table}
-\section{Servidor}
-
-
-

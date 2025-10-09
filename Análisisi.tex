@@ -198,7 +198,7 @@ cambio en los datos implica modificaciones manuales en el esquema de lectura. Po
 metadatos complejos y ofrece validación estricta de esquemas, resulta demasiado pesado y verboso debido a su estructura de etiquetas, 
 lo que incrementa el consumo de recursos en los sistemas.
 
-\begin{table}[htbp]
+\begin{table}[h]
 	\centering
 	\caption{Formatos de Datos}
     \footnotesize
@@ -215,6 +215,7 @@ lo que incrementa el consumo de recursos en los sistemas.
 \end{tabular}
     \label{tab:datos}
 \end{table}
+
 
 \subsubsection{Topología de red}
 En esta sección, se analiza y selecciona la topología de conexión a imple-
@@ -272,11 +273,11 @@ Para garantizar una comunicación eficiente y confiable entre el Módulo 1  y el
 En esta topología, cada microcontrolador publica datos de sensores (pH, CO2, temperatura) en tópicos específicos asociados a un usuario, y el broker central distribuye estos datos a suscriptores como los módulos de análisis y visualización. Esta estructura permite escalar el número de dispositivos y el volumen de datos sin sobrecargar la red, gracias a la ligereza de MQTT y sus niveles de QoS configurables, que aseguran entrega confiable incluso en conexiones inestables.
 
 En contraste, HTTP, aunque compatible con APIs, genera un alto overhead debido a su modelo request-response, resultando ineficiente para transmisiones frecuentes desde dispositivos de bajo consumo. WebSocket, pese a su baja latencia, mantiene conexiones persistentes que incrementan el consumo energético, haciéndolo inadecuado para los microcontroladores. Zigbee, optimizado para redes mesh y bajo consumo, requiere hardware específico y un gateway, lo que añade complejidad y limita su integración en entornos .
-\begin{table}[htbp]
+\begin{table}[h!]
 \centering
 \caption{Protocolos de Comunicación}
 \footnotesize
-\begin{tabularx}{\textwidth}{|p{1cm}|p{2.2cm}|p{1.5cm}|p{2.8cm}|p{3.2cm}|p{2.8cm}|}
+\begin{tabularx}{\textwidth}{|p{1.5cm}|p{2.5cm}|p{1.5cm}|p{3.3cm}|p{3.3cm}|p{3.1cm}|}
 \hline
 \textbf{Prot- ocolo} & \textbf{Arquitectura} & \textbf{Trans- porte} & \textbf{Características} & \textbf{Ventajas} & \textbf{Desventajas} \\ \hline
 MQTT\cite{zotero-item-80} & Pub/Sub & TCP & Mensajería ligera, basada en broker, en donde se envia un topic al cual uno o varios suscriptores pueden recibir dicho mensaje. & Ligero y con una gran escalabilidad en redes grandes de dispositivos atraves de QoS. & Dependencia de un broker. \\ \hline
@@ -286,4 +287,47 @@ Zigbee\cite{AllianInc.2015} & Mesh Networking & IEEE 802.15.4 & Enfocada en comu
 \end{tabularx}
 \label{tab:protocolo}
 \end{table}
+
+\subsubsection{Microcontrolador}
+En base a los sensores seleccionados y los requerimientos del proyecto, seconsideraron los siguientes microcontroladores:
+\begin{landscape}
+\begingroup
+\setlength{\tabcolsep}{5pt} % Reduce el espacio entre columnas
+\renewcommand{\arraystretch}{1.5} % Aumenta la altura de las filas
+\begin{longtable}{|p{2.5cm}|p{2.5cm}|p{2.5cm}|p{2.5cm}|p{2cm}|p{2cm}|p{1.5cm}|m{2cm}|}
+\caption{Microcontroladores}
+\label{tab:microcontroladores}
+\\
+\hline
+\textbf{Modelo} & \textbf{Procesador / Frecuencia} & \textbf{Memoria} & \textbf{Conectividad} & \textbf{Puertos} & \textbf{Voltaje de Operación} & \textbf{Precio (USD)} & \textbf{Imagen} \\
+\hline
+\endfirsthead
+\hline
+\textbf{Modelo} & \textbf{Procesador / Frecuencia} & \textbf{Memoria} & \textbf{Conectividad} & \textbf{Puertos} & \textbf{Voltaje de Operación} & \textbf{Precio (USD)} & \textbf{Imagen} \\
+\hline
+\endhead
+\hline
+\endfoot
+\endlastfoot
+
+XIAO ESP32C6 \cite{zotero-item-58} & RISC-V 32-bit Single-Core / 160 MHz & ROM 320KB, SRAM 512KB, Flash 4MB & Wi-Fi 6, BLE 5, Zigbee 3.0, Thread & 1xI2C, 1xUART, 1xSPI, 1xI2S, 11xGPIO & 3.3V (5V VCC) & $\sim$7 & \includegraphics[width=20mm]{./Imagenes/Módulo1/Microcontrolador/1-113991254-seeedxiao-esp32c6-45font_1.jpg}\\
+\hline
+ESP32-C3 SuperMini \cite{K} & RISC-V 32-bit Single-Core / 160 MHz & ROM 400KB, SRAM 400KB, Flash 4MB & Wi-Fi 4 (802.11n), BLE 5 & 2xUART, 2xI2C, 1xSPI, 13xGPIO & 3.3V (5V VCC) & $\sim$4 &\includegraphics[width=20mm]{./Imagenes/Módulo1/Microcontrolador/esp32-c6.png} \\
+\hline
+ESP32-H2M-1 (Módulo) \cite{zotero-item-61} & RISC-V 32-bit Single-Core / 96 MHz & ROM 320KB, SRAM 256KB, Flash 4MB & BLE 5, Zigbee 3.0, Thread & 1xSPI, 2xUART, 1xI2C, 1xI2S, 18xGPIO & 3.3V & $\sim$3 & \includegraphics[width=20mm]{./Imagenes/Módulo1/Microcontrolador/esp32-h2-devkitm-1-45-20230303.png}\\
+\hline
+ESP32-C6-DEVKITC-1-N8 \cite{zotero-item-62}& RISC-V 32-bit Single-Core / 160 MHz & ROM 320KB, SRAM 512KB, Flash 8MB & Wi-Fi 6, BLE 5, Zigbee 3.0, Thread & 4xSPI, 3xUART, 2xI2C, 2xI2S, 23xGPIO & 3.3V (5V Micro-USB) & $\sim$8 & \includegraphics[width=20mm]{./Imagenes/Módulo1/Microcontrolador/esp32-c6.png}\\
+\hline
+ESP32-DevKitC-32E \cite{Embajadores} & Xtensa LX6 Dual-Core / 240 MHz & ROM 448KB, SRAM 520KB, Flash 4MB & Wi-Fi 4 (802.11n), BT 4.2 & 3xSPI, 3xUART, 2xI2C, 2xI2S, 34xGPIO & 3.3V (5V Micro-USB) & $\sim$6 & \includegraphics[width=20mm]{./Imagenes/Módulo1/Microcontrolador/esp32.jpg}\\
+\hline
+ESP32-C2 (Módulo) \cite{zotero-item-52}& RISC-V 32-bit Single-Core / 120 MHz & ROM 320KB, SRAM 272KB, Flash 4MB & Wi-Fi 4 (802.11n), BLE 5 & 2xSPI, 2xUART, 1xI2C, 1xI2S, 14xGPIO & 3.3V & $\sim$2 & \includegraphics[width=20mm]{./Imagenes/Módulo1/Microcontrolador/c2.jpg}\\
+\hline
+Raspberry Pi Pico 2 W \cite{zotero-item-68}& ARM Cortex M0+ Dual-Core / 133 MHz & SRAM 264KB, Flash 4MB & Wi-Fi 4 (802.11n), BT 5.2 & 2xSPI, 2xI2C, 2xUART, 16xPWM, 26xGPIO & 3.3V (5V Micro-USB) & $\sim$6 & \includegraphics[width=20mm]{./Imagenes/Módulo1/Microcontrolador/1-113991254-seeedxiao-esp32c6-45font_1.jpg}\\
+\hline
+Raspberry Pi Pico 2 WH \cite{zotero-item-68} & ARM Cortex M0+ Dual-Core / 133 MHz & SRAM 264KB, Flash 4MB & Wi-Fi 4 (802.11n), BT 5.2 & 2xSPI, 2xI2C, 2xUART, 16xPWM, 26xGPIO & 3.3V (5V Micro-USB) & $\sim$8 & \includegraphics[width=20mm]{./Imagenes/Módulo1/Microcontrolador/1-113991254-seeedxiao-esp32c6-45font_1.jpg}\\
+\hline
+\end{longtable}
+\endgroup
+\end{landscape}
+
 

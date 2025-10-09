@@ -1,16 +1,15 @@
-\section{Requerimientos}
+\section{Capítulo 4: Requerimientos Funcionales}
+\subsection{Módulo 1}
 
 \begin{enumerate}
-    \item \textbf{RF01-Módulo 1:Sistema de Sensores}
+    \item \textbf{RF01-Sensores}
         \begin{enumerate}
             \item \textbf{Verificaciones de validez de las entradas}
                 \begin{enumerate}
                     \item El sensor de pH deberá ser capaz de trabajar en líquidos en un rango de temperatura de 18°C a 30°C, sin contaminar ni interferir con la fermentación del kéfir, atraves de una precisión de ±0.1 pH ,un tiempo de respuesta de 1 minuto y un rango de medición de 4.0 a 7.0 de pH.
                     \item El sensor de temperatura deberá ser capaz de trabajar en líquidos , sin contaminar ni interferir con la fermentación del kéfir, atraves de una precisión de ±0.5 °C y un rango de medición de 18°C a 30°C.
-                    \item El sistema deberá contar con un sensor de $CO_{2}$  capaz de medir niveles en el aire dentro del frasco de fermentación, operando en el mismo rango de temperatura (18°C a 30°C).
-                    \item El microcontrolador debera tener al menos 3 entradas analógicas para conectar los sensores de pH, temperatura y $CO_{2}$.
-                    \item El microcontrolador deberá tener una memoria suficiente para almacenar datos temporalmente en caso de fallos de conexión con la base de datos.
-                    \item El microcontroladror debera permitir enviar los datos de manera sincróno a la base de datos.
+                    \item El sistema deberá contar con un sensor de $CO_{2}$  capaz de medir niveles de $CO_{2}$ en el aire dentro del frasco de fermentación, operando en el mismo rango de temperatura (18°C a 30°C).
+                    \item El formato de datos deberá agrupar las lecturas de los sensores en un solo paquete, incluyendo un identificador único para cada conjunto de datos y una marca de tiempo.
                 \end{enumerate}   
             
             \item \textbf{Secuencia exacta de operaciones}
@@ -20,10 +19,75 @@
                     \item En modo monitoreo, el sistema deberá verificar que el pH inicial de la leche esté entre 6.6 a 6.8 y su temperaturaesté entre 18°C a 30°C, en caso contrario, no iniciar el monitoreo y enviar una alerta a la base de datos.
                     \item En modo monitoreo, el sistema deberá verificar la conexión con la base de datos antes de iniciar la recolección de datos, y en caso de fallo, no iniciar el monitoreo y enviar una alerta.
                     \item En modo monitoreo, el sistema deberá iniciar la recolección y envío de datos a la base de datos.
-                    \item En modo monitoreo, el sistema deberá enviar los datos recopilados por los sensores de pH y $CO_{2}$  cada 10 minutos si el pH está en el rango de 6.8 a 6.0.
-                    \item En modo monitoreo, el sistema deberá enviar los datos recopilados por los sensores cada de pH y $CO_{2}$  cada 5 minutos si el pH está en el rango de 6.0 a 5.0.
+                    \item En modo monitoreo, el sistema deberá enviar los datos recopilados por los sensores de pH y $CO_{2}$  cada 10 minutos si el pH está en el rango de 6.8 a 5.6.
+                    \item En modo monitoreo, el sistema deberá enviar los datos recopilados por los sensores cada de pH y $CO_{2}$  cada 5 minutos si el pH está en el rango de 5.5 a 5.0.
                     \item En modo monitoreo, el sistema deberá recopilar y enviar los datos de los tres sensores (pH, $CO_{2}$  y temperatura) cada 1 minuto si el pH está en el rango de 5.0 a 4.2 en adelante.
                     \item En modo monitoreo, el sistema deberá recopilar y enviar los datos del sensor de temperatura cada 2.5 minutos de manera independiente, y ajustar la frecuencia a cada 1 minuto de todos los sensores si la temperatura supera los 28°C.
+                \end{enumerate}   
+        
+            \item \textbf{Respuestas a situaciones anormales}
+                \begin{enumerate}
+                    \item El sistema deberá generar una alerta y registrarla en la base de datos si la comunicación con cualquier sensor (pH, temperatura, CO) se interrumpe ya sea en modo prueba o monitoreo.
+                    \item El sistema deberá reenviar los datos recolectados por los 3 sensores en caso de un fallo en la conexión con la base de datos.
+                \end{enumerate}   
+       
+            \item \textbf{Efecto de los parámetros}
+                \begin{enumerate} 
+                    \item El formato de datos debera deberá soportar diferentes tipos de datos (números decimales para pH y temperatura, enteros para CO2, cadenas para ID y timestamp) en una estructura anidada, permitiendo flexibilidad para futuros sensores.
+                \end{enumerate}   
+        
+            \item \textbf{Relación entre las salidas y las entradas}
+                \begin{enumerate}
+                    \item Los sensores deberan entregar valores crudos y el formato de datos debera integrar dichos valores de forma anidada.
+                \end{enumerate}
+        \end{enumerate}
+
+    \item \textbf{RF02-Cónexion del Microcontrolador a la Base de Datos}
+        \begin{enumerate}
+            \item \textbf{Verificaciones de validez de las entradas}
+                \begin{enumerate}
+                    \item El protocolo de conexión debera permitir la conexión de multiples microcontroladores de manera simultanea.
+                    \item El protocolo de conexión debera permitir la identificación única de cada microcontrolador mediante un ID único.
+                    \item Se debe considerar que la conexión de cada microcontrolador es independiente y no interfiere con la conexión de otros microcontroladores.
+                \end{enumerate}   
+            
+            \item \textbf{Secuencia exacta de operaciones}
+                \begin{enumerate}
+                    \item El microcontrolador deberá iniciar la conexión con la base de datos al encenderse y verificar la conexión antes de enviar cualquier dato.
+                \end{enumerate}   
+        
+            \item \textbf{Respuestas a situaciones anormales}
+                \begin{enumerate}
+                    \item El sistema deberá registrar en un log todos los intentos de conexión fallidos al servidor de base de datos.
+                \end{enumerate}   
+       
+            \item \textbf{Efecto de los parámetros}
+                \begin{enumerate} 
+                    \item El protocolo de conexión deberá ser escalable para soportar un aumento en el número de microcontroladores conectados sin degradar el rendimiento.
+                \end{enumerate}   
+        
+            \item \textbf{Relación entre las salidas y las entradas}
+                \begin{enumerate}
+                    \item El protocolo de conexión del microcontrolador debera ser compatible con el servidor de base de datos para asegurar la correcta transmisión de datos.
+                    \item El protocolo de conexión deberá garantizar que los datos enviados a la base de datos incluyan una marca de tiempo para cada lectura, permitiendo un seguimiento preciso de la evolución de los parámetros monitoreados.
+                    \item El protocolo de conexión deberá asegurar que los datos enviados a la base de datos estén en el formato requerido por el módulo de análisis de datos para su procesamiento posterior.
+                \end{enumerate}
+        \end{enumerate}
+
+
+
+    \item \textbf{RF03-Microcontrolador}
+        \begin{enumerate}
+            \item \textbf{Verificaciones de validez de las entradas}
+                \begin{enumerate}
+                    \item El microcontrolador debera tener las entradas analógicas necesarias para conectar los sensores de pH, temperatura y $CO_{2}$.
+                    \item El microcontrolador deberá tener una memoria suficiente para almacenar datos temporalmente en caso de fallos de conexión con la base de datos.
+                    \item El microcontroladror debera contar con la conexión requerida para hacer uso del protocolo de conexión.
+                    \item El microcontrolador deberá ser capaz de manejar la lógica de control para los dos modos de operación (prueba y monitoreo) y ajustar la frecuencia de recolección de datos según los parámetros medidos.
+                \end{enumerate}   
+            
+            \item \textbf{Secuencia exacta de operaciones}
+                \begin{enumerate}
                     \item El microcontrolador deberá recopilar los datos de los sensores de manera secuencial (primero pH, luego $CO_{2}$ , luego temperatura) en cada ciclo de medición para optimizar el procesamiento.
                 \end{enumerate}   
         
@@ -43,119 +107,8 @@
             \item \textbf{Relación entre las salidas y las entradas}
                 \begin{enumerate}
                     \item El microcontrolador debera recibir lecturas crudas(haciendo la conversión de datos analogicos a digitales) de los sensores y genera paquetes de datos estructurados junto con un identificador del microcontrolador para su envío a la base de datos.
-                    \item El protocolo de conexión del microcontrolador debera ser compatible con el servidor de base de datos para asegurar la correcta transmisión de datos.
-                    \item El protocolo de conexión deberá garantizar que los datos enviados a la base de datos incluyan una marca de tiempo para cada lectura, permitiendo un seguimiento preciso de la evolución de los parámetros monitoreados.
-                    \item El protocolo de conexión deberá asegurar que los datos enviados a la base de datos estén en el formato requerido por el módulo de análisis de datos para su procesamiento posterior.
                 \end{enumerate}
         \end{enumerate}
-
-    \item \textbf{Módulo 2:Analisis de Datos} 
-        \begin{enumerate}
-            \item \textbf{Verificaciones de validez de las entradas}
-                \begin{enumerate}
-                    \item El sistema deberá verificar que los datos recibidos de la base de datos estén completos y no contengan valores nulos.
-                    \item El sistema deberá verificar que los datos de pH estén dentro del rango esperado (4.0 a 7.0).
-                    \item El sistema deberá verificar que los datos de temperatura estén dentro del rango esperado (0°C a 40°C).
-                    \item El sistema deberá verificar que los datos de CO estén dentro del rango esperado (0 a 1000 ppm).
-                    El sistema deberá verificar que los datos incluyan un timestamp válido y estén ordenados cronológicamente para garantizar la correcta secuencia temporal del análisis.
-                \end{enumerate}   
-            
-            \item \textbf{Secuencia exacta de operaciones}
-                \begin{enumerate}
-                    \item El sistema deberá iniciar el análisis de datos automáticamente cada hora.
-                    \item El sistema deberá procesar los datos en el orden en que fueron recibidos.
-                    \item El sistema deberá generar un informe de análisis después de procesar un lote completo de datos.
-                \end{enumerate}   
-        
-            \item \textbf{Respuestas a situaciones anormales}
-                \begin{enumerate}
-                    \item El sistema deberá generar una alerta si se detectan valores fuera del rango esperado en cualquiera de los parámetros (pH, temperatura, CO).
-                    \item El sistema deberá registrar en un log cualquier error encontrado durante el análisis de datos.
-                    \item El sistema deberá notificar al administrador si se detectan patrones anormales en los datos, como una caída rápida del pH o un aumento inusual en los niveles de CO.
-                \end{enumerate}   
-       
-            \item \textbf{Efecto de los parámetros}
-                \begin{enumerate}
-                    \item El sistema deberá ajustar la frecuencia del análisis de datos si se detectan cambios significativos en los parámetros monitoreados.
-                    \item El sistema deberá priorizar el análisis de datos si se detectan valores críticos en cualquiera de los parámetros.
-                \end{enumerate}   
-        
-            \item \textbf{Relación entre las salidas y las entradas}
-                \begin{enumerate}
-                    \item El sistema deberá generar informes detallados basados en los datos analizados, incluyendo gráficos y tendencias.
-                    \item El sistema deberá actualizar la base de datos con los resultados del análisis para su posterior consulta.
-               \end{enumerate}
-        \end{enumerate}
-    \item \textbf{Módulo 3:Base de Datos}
-        \begin{enumerate}
-            \item \textbf{Verificaciones de validez de las entradas}
-                \begin{enumerate}
-                    \item El sistema deberá verificar que los datos recibidos del sistema de sensores estén completos y no contengan valores nulos.
-                    \item El sistema deberá verificar que los datos de pH estén dentro del rango esperado (4.0 a 7.0).
-                    \item El sistema deberá verificar que los datos de temperatura estén dentro del rango esperado (0°C a 40°C).
-                    \item El sistema deberá verificar que los datos de CO estén dentro del rango esperado (0 a 1000 ppm).
-                \end{enumerate}   
-            
-            \item \textbf{Secuencia exacta de operaciones}
-                \begin{enumerate}
-                    \item El sistema deberá almacenar los datos recibidos en la base de datos en el orden en que fueron recibidos.
-                    \item El sistema deberá realizar copias de seguridad automáticas de la base de datos cada 24 horas.
-                    \item El sistema deberá permitir consultas y recuperaciones de datos por parte del módulo de análisis de datos.
-                \end{enumerate}   
-        
-            \item \textbf{Respuestas a situaciones anormales}
-                \begin{enumerate}
-                    \item El sistema deberá generar una alerta si se detectan intentos no autorizados de acceso a la base de datos.
-                    \item El sistema deberá registrar en un log cualquier error encontrado durante las operaciones de almacenamiento o recuperación de datos.
-                    \item El sistema deberá notificar al administrador si se detectan problemas recurrentes con la integridad de los datos.
-                \end{enumerate}   
-       
-            \item \textbf{Efecto de los parámetros}
-                \begin{enumerate}
-                    \item El sistema deberá ajustar la frecuencia de las copias de seguridad si se detectan cambios significativos en el volumen de datos almacenados.
-                    \item El sistema deberá optimizar las consultas si se detectan patrones comunes en las solicitudes de datos.
-                \end{enumerate}   
-        
-            \item \textbf{Relación entre las salidas y las entradas}
-                \begin{enumerate}
-                    \item El sistema deberá proporcionar acceso rápido y eficiente a los datos almacenados para su análisis y visualización.
-                    \item El sistema deberá mantener la integridad y seguridad de los datos almacenados en la base de datos.
-                \end{enumerate}
-        \end{enumerate}
-
-    \item \textbf{Módulo 4:Página web} 
-        \begin{enumerate}
-            \item \textbf{Verificaciones de validez de las entradas}
-                \begin{enumerate}
-                    \item El sistema deberá verificar que los datos recibidos del módulo de análisis de datos estén completos y no contengan valores nulos.
-                    \item El sistema deberá verificar que los datos de pH, temperatura y CO estén dentro del rango esperado antes de mostrarlos en la interfaz web.
-                \end{enumerate}   
-            
-            \item \textbf{Secuencia exacta de operaciones}
-                \begin{enumerate}
-                    \item El sistema deberá actualizar la interfaz web con los datos más recientes cada 10 minutos.
-                    \item El sistema deberá permitir a los usuarios filtrar y ordenar los datos mostrados en la interfaz web.
-                    \item El sistema deberá proporcionar gráficos y visualizaciones basadas en los datos analizados.
-                \end{enumerate}   
-        
-            \item \textbf{Respuestas a situaciones anormales}
-                \begin{enumerate}
-                    \item El sistema deberá mostrar un mensaje de error si no se pueden cargar los datos debido a problemas de conexión con la base de datos.
-                    \item El sistema deberá registrar en un log cualquier error encontrado durante la actualización o visualización de datos en la interfaz web.
-                    \item El sistema deberá notificar al administrador si se detectan problemas recurrentes con la carga de datos en la interfaz web.
-                \end{enumerate}   
-       
-            \item \textbf{Efecto de los parámetros}
-                \begin{enumerate}
-                    \item El sistema deberá ajustar la frecuencia de actualización de la interfaz web si se detectan cambios significativos en los parámetros monitoreados.
-                    \item El sistema deberá optimizar la visualización de datos si se detectan patrones comunes en las solicitudes de los usuarios.
-                \end{enumerate}   
-        
-            \item \textbf{Relación entre las salidas y las entradas}
-                \begin{enumerate}
-                    \item El sistema deberá proporcionar una interfaz intuitiva y fácil de usar para que los usuarios puedan acceder y comprender los datos monitoreados.
-                    \item El sistema deberá garantizar que los datos mostrados en la interfaz web sean precisos y reflejen el estado actual del monitoreo.
-                \end{enumerate}
-        \end{enumerate}
-
 \end{enumerate}
+
+
