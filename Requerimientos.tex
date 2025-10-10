@@ -2,7 +2,8 @@
 \subsection{Módulo 1}
 
 \begin{enumerate}
-    \item \textbf{RF01-Sensores}
+    % \ref{it:RF01} 
+    \item \textbf{RF01-Sensores} \label{it:RF01}
         \begin{enumerate}
             \item \textbf{Verificaciones de validez de las entradas}
                 \begin{enumerate}
@@ -42,7 +43,7 @@
                 \end{enumerate}
         \end{enumerate}
 
-    \item \textbf{RF02-Cónexion del Microcontrolador a la Base de Datos}
+    \item \textbf{RF02-Cónexion del Microcontrolador a la Base de Datos}\label{it:RF02}
         \begin{enumerate}
             \item \textbf{Verificaciones de validez de las entradas}
                 \begin{enumerate}
@@ -74,9 +75,7 @@
                 \end{enumerate}
         \end{enumerate}
 
-
-
-    \item \textbf{RF03-Microcontrolador}
+    \item \textbf{RF03-Microcontrolador}\label{it:RF03}
         \begin{enumerate}
             \item \textbf{Verificaciones de validez de las entradas}
                 \begin{enumerate}
@@ -110,5 +109,129 @@
                 \end{enumerate}
         \end{enumerate}
 \end{enumerate}
+
+\begin{figure}[htb]
+\centering
+\includegraphics[width=0.4\textwidth]{./UML/Modulo1/RF1.drawio.png}
+\caption{Diagrama a bloques de la integración del módulo 2 con el sistema}
+\label{fig:RF01}
+\end{figure} 
+
+\begin{figure}[htb]
+\centering
+\includegraphics[width=0.65\textwidth]{./UML/Modulo1/RF01_2.drawio.png}
+\caption{Diagrama a bloques de la integración del módulo 2 con el sistema}
+\label{fig:RF02}
+\end{figure} 
+\subsection{Módulo 2}
+        \begin{enumerate}
+            \item \textbf{Verificaciones de validez de las entradas}
+                \begin{enumerate}
+                    \item El sistema deberá verificar que los datos recibidos de la base de datos estén completos y no contengan valores nulos.
+                    \item El sistema deberá verificar que los datos de pH estén dentro del rango esperado (4.0 a 7.0).
+                    \item El sistema deberá verificar que los datos de temperatura estén dentro del rango esperado (0°C a 40°C).
+                    \item El sistema deberá verificar que los datos de CO estén dentro del rango esperado (0 a 1000 ppm).
+                    El sistema deberá verificar que los datos incluyan un timestamp válido y estén ordenados cronológicamente para garantizar la correcta secuencia temporal del análisis.
+                \end{enumerate}   
+            
+            \item \textbf{Secuencia exacta de operaciones}
+                \begin{enumerate}
+                    \item El sistema deberá iniciar el análisis de datos automáticamente cada hora.
+                    \item El sistema deberá procesar los datos en el orden en que fueron recibidos.
+                    \item El sistema deberá generar un informe de análisis después de procesar un lote completo de datos.
+                \end{enumerate}   
+        
+            \item \textbf{Respuestas a situaciones anormales}
+                \begin{enumerate}
+                    \item El sistema deberá generar una alerta si se detectan valores fuera del rango esperado en cualquiera de los parámetros (pH, temperatura, CO).
+                    \item El sistema deberá registrar en un log cualquier error encontrado durante el análisis de datos.
+                    \item El sistema deberá notificar al administrador si se detectan patrones anormales en los datos, como una caída rápida del pH o un aumento inusual en los niveles de CO.
+                \end{enumerate}   
+       
+            \item \textbf{Efecto de los parámetros}
+                \begin{enumerate}
+                    \item El sistema deberá ajustar la frecuencia del análisis de datos si se detectan cambios significativos en los parámetros monitoreados.
+                    \item El sistema deberá priorizar el análisis de datos si se detectan valores críticos en cualquiera de los parámetros.
+                \end{enumerate}   
+        
+            \item \textbf{Relación entre las salidas y las entradas}
+                \begin{enumerate}
+                    \item El sistema deberá generar informes detallados basados en los datos analizados, incluyendo gráficos y tendencias.
+                    \item El sistema deberá actualizar la base de datos con los resultados del análisis para su posterior consulta.
+               \end{enumerate}
+        \end{enumerate}
+  
+
+\subsection{Módulo 3}
+    \begin{enumerate}
+            \item \textbf{Verificaciones de validez de las entradas}
+                \begin{enumerate}
+                    \item El sistema deberá verificar que los datos recibidos del sistema de sensores estén completos y no contengan valores nulos.
+                    \item El sistema deberá verificar que los datos de pH estén dentro del rango esperado (4.0 a 7.0).
+                    \item El sistema deberá verificar que los datos de temperatura estén dentro del rango esperado (0°C a 40°C).
+                    \item El sistema deberá verificar que los datos de CO estén dentro del rango esperado (0 a 1000 ppm).
+                \end{enumerate}   
+            
+            \item \textbf{Secuencia exacta de operaciones}
+                \begin{enumerate}
+                    \item El sistema deberá almacenar los datos recibidos en la base de datos en el orden en que fueron recibidos.
+                    \item El sistema deberá realizar copias de seguridad automáticas de la base de datos cada 24 horas.
+                    \item El sistema deberá permitir consultas y recuperaciones de datos por parte del módulo de análisis de datos.
+                \end{enumerate}   
+        
+            \item \textbf{Respuestas a situaciones anormales}
+                \begin{enumerate}
+                    \item El sistema deberá generar una alerta si se detectan intentos no autorizados de acceso a la base de datos.
+                    \item El sistema deberá registrar en un log cualquier error encontrado durante las operaciones de almacenamiento o recuperación de datos.
+                    \item El sistema deberá notificar al administrador si se detectan problemas recurrentes con la integridad de los datos.
+                \end{enumerate}   
+       
+            \item \textbf{Efecto de los parámetros}
+                \begin{enumerate}
+                    \item El sistema deberá ajustar la frecuencia de las copias de seguridad si se detectan cambios significativos en el volumen de datos almacenados.
+                    \item El sistema deberá optimizar las consultas si se detectan patrones comunes en las solicitudes de datos.
+                \end{enumerate}   
+        
+            \item \textbf{Relación entre las salidas y las entradas}
+                \begin{enumerate}
+                    \item El sistema deberá proporcionar acceso rápido y eficiente a los datos almacenados para su análisis y visualización.
+                    \item El sistema deberá mantener la integridad y seguridad de los datos almacenados en la base de datos.
+                \end{enumerate}
+    \end{enumerate}
+
+\subsection{Módulo 4}
+    \begin{enumerate}
+            \item \textbf{Verificaciones de validez de las entradas}
+                \begin{enumerate}
+                    \item El sistema deberá verificar que los datos recibidos del módulo de análisis de datos estén completos y no contengan valores nulos.
+                    \item El sistema deberá verificar que los datos de pH, temperatura y CO estén dentro del rango esperado antes de mostrarlos en la interfaz web.
+                \end{enumerate}   
+            
+            \item \textbf{Secuencia exacta de operaciones}
+                \begin{enumerate}
+                    \item El sistema deberá actualizar la interfaz web con los datos más recientes cada 10 minutos.
+                    \item El sistema deberá permitir a los usuarios filtrar y ordenar los datos mostrados en la interfaz web.
+                    \item El sistema deberá proporcionar gráficos y visualizaciones basadas en los datos analizados.
+                \end{enumerate}   
+        
+            \item \textbf{Respuestas a situaciones anormales}
+                \begin{enumerate}
+                    \item El sistema deberá mostrar un mensaje de error si no se pueden cargar los datos debido a problemas de conexión con la base de datos.
+                    \item El sistema deberá registrar en un log cualquier error encontrado durante la actualización o visualización de datos en la interfaz web.
+                    \item El sistema deberá notificar al administrador si se detectan problemas recurrentes con la carga de datos en la interfaz web.
+                \end{enumerate}   
+       
+            \item \textbf{Efecto de los parámetros}
+                \begin{enumerate}
+                    \item El sistema deberá ajustar la frecuencia de actualización de la interfaz web si se detectan cambios significativos en los parámetros monitoreados.
+                    \item El sistema deberá optimizar la visualización de datos si se detectan patrones comunes en las solicitudes de los usuarios.
+                \end{enumerate}   
+        
+            \item \textbf{Relación entre las salidas y las entradas}
+                \begin{enumerate}
+                    \item El sistema deberá proporcionar una interfaz intuitiva y fácil de usar para que los usuarios puedan acceder y comprender los datos monitoreados.
+                    \item El sistema deberá garantizar que los datos mostrados en la interfaz web sean precisos y reflejen el estado actual del monitoreo.
+                \end{enumerate}
+    \end{enumerate}
 
 
