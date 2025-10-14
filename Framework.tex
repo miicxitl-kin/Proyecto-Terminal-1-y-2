@@ -1,0 +1,19 @@
+\subsection{Framework}
+\begingroup
+% Reduce el espacio entre columnas
+% Aumenta la altura de las filas
+\centering
+\small % Usamos fuente pequeña para aprovechar el ancho
+
+\begin{tabularx}{\textwidth}{|l|X|X|X|X|}
+\hline
+\textbf{Framework} & \textbf{Característica (Modularidad y Extensibilidad)} & \textbf{Estructura} & \textbf{Ventaja} & \textbf{Desventaja} \\
+\hline
+\textbf{Django} \cite{zotero-item-140}& Posee una \textbf{alta modularidad} gracias a su sistema de "aplicaciones" (\textit{apps}), sin embargo, su extensibilidad es más enfocada a bases de datos SQL. & Sigue un patrón \textbf{MTV} (\textit{Model-Template-View}) rígido que dicta la organización del código; por lo tanto, es un framework "con opinión". & Ofrece una \textbf{solución completa} (\textit{full-stack}) con ORM, \textit{admin panel}, enrutamiento y seguridad integrados, acelerando el desarrollo inicial. & Su \textbf{rigidez estructural} y su diseño intrínseco para SQL complican la integración completa y nativa de MongoDB. \\
+\hline
+\textbf{Flask} \cite{zotero-item-142}& Al ser un microframework permit una \textbf{excelente modularidad} y \textbf{máxima extensibilidad}, lo que facilita el desarrollador al elegir e integrar librerías externas para cada funcionalidad. & Adopta un patrón \textbf{MVC} (\textit{Model-View-Controller}) flexible o similar, donde el desarrollador define la organización. & Es una framework nativo de Python y JSON, permitiendo una integración directa y de bajo acoplamiento con bases de datos NoSQL basadas en documentos. & Requiere que el desarrollador \textbf{integre y configure} manualmente cada componente o librería externa, incrementando la complejidad de la configuración inicial. \\
+\hline
+\textbf{FastAPI} \cite{zotero-item-144}& Ofrece \textbf{alta modularidad} al separar la lógica en archivos y rutas (\textit{routers}). Su extensibilidad es simple, gracias al uso de tipado estándar de Python. & Se basa en el concepto de \textbf{funciones de ruta} y \textit{Pydantic models} para la validación de datos. Su estructura está diseñada para la construcción de APIs. & Integración automática y fluida con Python y JSON, gracias al tipado de datos lo que complementa con la generación automática de documentación interactiva(\textit{OpenAPI/ Swagger}). & Está \textbf{estrictamente enfocado en APIs}, por lo tanto, no incluye módulos para \textit{templates} o frontend, lo cual debe ser manejado externamente. \\
+\hline
+\end{tabularx}
+\endgroup
