@@ -14,14 +14,25 @@ en lo que respecta a la adquisición de datos y su posterior análisis.
 fermentador aplicado a la conversión de azúcares en etanol
 }
 \label{sec:In1}
-En este proyecto, se desarrolló un sistema embebido basado en Arduino y NodeRED, diseñado para supervisar y ajustar en tiempo real parámetros críticos como
-temperatura y pH en un biorreactor. Permitiendo el seguimiento remoto del proceso
-fermentativo mediante una aplicación móvil y visualización web, mejorando así la
-eficiencia, la reproducibilidad y la flexibilidad operativa. Validando dicho proceso en
-fermentaciones con kéfir, destacando su utilidad para controlar procesos con
-levaduras y bacterias en aplicaciones alimentarias o bioenergéticas. Destacando
-que el uso de sistemas embebidos es una herramienta clave para el monitoreo y
-control de fermentaciones \cite{Paredes}.
+En este proyecto, se desarrolló un sistema embebido basado en Arduino y Node-RED para 
+supervisar y ajustar en tiempo real parámetros críticos como temperatura y pH en un biorreactor. 
+El sistema incorporo un controlador PID que mantintuvo la temperatura dentro de los límites deseados con mínima variación, 
+permitiendo un seguimiento remoto del proceso fermentativo mediante una aplicación
+móvil y visualización web, lo que mejora la eficiencia, reproducibilidad y flexibilidad operativa. 
+Los resultados obtenidos muestraron una evolución estable de estas variables, con la validación realizada en 
+una primera fermentacion con 10 g de granos de kéfir a 35 °C durante 18 horas, 
+como se observa en la \cref{fig:est1}\cite{Paredes}, destacando su utilidad para controlar procesos con 
+levaduras y bacterias en aplicaciones alimentarias o bioenergéticas. Esto confirma que los sistemas 
+embebidos son una herramienta clave para el monitoreo y control preciso de fermentaciones
+\cite{Paredes}.
+\begin{figure}[htb]
+\centering
+\includegraphics[width=0.9\textwidth]{./Imagenes/Estado_del__arte/1.png}
+\caption{Evolución de pH y temperatura para la fermentación de lactosa. A.
+Evolución de pH a lazo abierto. B. Control de Temperatura utilizando un
+control PID.}
+\label{fig:est1}
+\end{figure} 
 
 \subsubsection{Modelado de la producción de kéfir con lógica difusa}
 \label{sec:In2}
@@ -39,35 +50,77 @@ cual es especialmente útil en sistemas alimentarios con variabilidad biológica
 usando el microcontrolador ATMEGA32}
 \label{sec:In3}
 Este proyecto desarrolló un fermentador de yogurt equipado con un sistema de
-control basado en lógica difusa implementado en un microcontrolador ATMega32.
+control basado en lógica difusa implementado en un microcontrolador ATMega32 
+como se muestra en la \cref{fig:est2}\cite{AlRiza2015}.
 El objetivo fue estabilizar la temperatura de fermentación entre 40°C y 45°C, rango
 óptimo para el crecimiento de Lactobacillus y Streptococcus. A diferencia del control
 ON-OFF tradicional, el sistema con lógica difusa ofreció un perfil térmico más
 estable, reduciendo errores de medición y mejorando la calidad del producto final.
 El yogurt resultante mostró valores óptimos de pH (3.66) y una mayor concentración
 de bacterias, evidenciando la efectividad del enfoque difuso en sistemas no lineales
-y biológicos como la fermentación [16].
+y biológicos como la fermentación \cite{AlRiza2015}.
+\begin{figure}[htb]
+\centering
+\includegraphics[width=0.9\textwidth]{./Imagenes/Estado_del__arte/2.png}
+\caption{Esquema del sistema}
+\label{fig:est2}
+\end{figure} 
+
 \subsection{Nacional}
 \subsubsection{Sistema de aprendizaje automático para la predicción del avance de
 fermentación en cervecería artesanal}
 \label{sec:Na1}
 Este proyecto, realizado en colaboración con la cervecería artesanal Loba en
-Guadalajara, Jalisco, implementó un sistema basado en la nube para monitorear la
-temperatura durante la fermentación de la cerveza. Haciendo uso de una IA, el
+Guadalajara, Jalisco,se implementó un sistema basado en la nube para obtener  
+monitorear la temperatura durante la fermentación de la cerveza,a travez del diseño de
+un sistema de adquisición de datos y una interfaz web para el análisis de los
+datos en tiempo real, como se observa en la \cref{fig:est3}\cite{HermosilloDiaz2023}. Haciendo uso de una IA, el
 sistema predice la densidad del mosto y clasifica las etapas de fermentación,
 mejorando la consistencia entre lotes y reduciendo pérdidas por variaciones no
 detectadas de temperatura. Demostrando ser una solución accesible y efectiva para
-pequeñas cervecerías artesanales [17].
+pequeñas cervecerías artesanales \cite{HermosilloDiaz2023}.
+\begin{figure}[htb]
+\centering
+\includegraphics[width=1\textwidth]{./Imagenes/Estado_del__arte/3.png}
+\caption{Flujo de información}
+\label{fig:est3}
+\end{figure} 
 
 \subsubsection{Diseño de un proceso automatizado de fermentación de tepache}
 \label{sec:Na2}
-En el Tecnológico Nacional de México, se diseñó un prototipo automatizado para la
-fermentación de tepache utilizando kéfir. El sistema controla la fermentación
-mediante el monitoreo del pH y la regulación de la temperatura, deteniendo el
-proceso automáticamente al alcanzar los parámetros establecidos. Este enfoque
-busca estandarizar la producción del tepache, mejorando su calidad y seguridad
-alimentaria, y facilitando su producción a mayor escala [18].
+En colaboración con el Tecnológico Nacional de México, en este proyecto se diseñó e 
+implementó un prototipo automatizado para la fermentación de tepache utilizando kéfir. 
+Como se muestra en la \cref{fig:est3} \cite{GonzalezSanchez2024}, el sistema permite seleccionar 
+entre distintos métodos de fermentación y, en base a ello, controlar el proceso seleccionado mediante el 
+monitoreo del pH y la regulación de la temperatura, deteniendo automáticamente la fermentación al alcanzar 
+los parámetros establecidos. Los resultados, observados en las \cref{fig:est4} y \cref{fig:est5} \cite{GonzalezSanchez2024}, 
+establecieron un pH objetivo de 4.5, logrando un descenso controlado del pH ajustando la temperatura a 27 °C. Este enfoque 
+busca estandarizar la producción de tepache, mejorando su calidad y seguridad alimentaria, y facilitando su escalabilidad 
+\cite{GonzalezSanchez2024}.
 
+\begin{figure}[htb]
+\centering
+\includegraphics[width=1\textwidth]{./Imagenes/Estado_del__arte/4.png}
+\caption{Flujo de información}
+\label{fig:est4}
+\end{figure} 
+\newpage
+\begin{figure}[b!] % Se fuerza el bloque a la parte inferior
+    \centering
+
+    % --- Figura 1 (Normal) ---
+    \includegraphics[width=0.6\textwidth]{./Imagenes/Estado_del__arte/5.png}
+    \caption{pH durante la fermentación de piña.}
+    \label{fig:est5}
+    
+    \vspace{1em} % Espacio entre figuras
+    
+    % --- Figura 2 (Con Leyenda Propia) ---
+    \includegraphics[width=0.6\textwidth]{./Imagenes/Estado_del__arte/6.png}
+    \captionof{figure}{Temperatura durante la fermentación de piña.} % Usa captionof para numerar individualmente
+    \label{fig:est6} 
+\end{figure}
+\newpage
 \subsubsection{Desarrollo de un sensor de $CO_{2}$ y etanol para el monitoreo en
 procesos biológicos empleando una plataforma de código abierto}
 \label{sec:Na3}
@@ -78,33 +131,47 @@ procesos de fermentación. En el sistema se implementó una tarjeta Arduino con
 microcontrolador Atmega 328 y sensores electroquímicos, ofreciendo una
 alternativa económica para el monitoreo en bioprocesos. Demostrando su eficacia
 en la detección de cambios en la concentración de gases, permitiendo un
-seguimiento preciso del proceso fermentativo [19].
+seguimiento preciso del proceso fermentativo \cite{Burdge2014}.
 
 \subsubsection{Análisis de la innovación de proceso y producto de un sistema de
 control y monitoreo de la fermentación alcohólica en vino}
 \label{sec:Na4}
-Este estudio, realizado en CETYS Universidad, evaluó la viabilidad de implementar
-un sistema de control para monitorear la fermentación del vino. Analizando
-parámetros clave en el proceso de calidad y se propusieron mejoras tecnológicas
-para optimizar y reducir costos de producción. Concluyendo que la automatización
-del monitoreo de la fermentación puede mejorar la calidad del vino y aumentar la
-competitividad de las bodegas mexicanas en el mercado nacional e internacional
-[20].
-
+Este proyecto, realizado en CETYS Universidad, evaluó la viabilidad de implementar 
+un sistema para controlar y monitorear parámetros clave como la temperatura durante 
+la maceración de la uva o el pH en las diferentes etapas de la fermentación del vino, de manera 
+remota a través de una interfaz web, como se observa en la \cref{fig:est7} \cite{Moreno2020}. 
+Se identificaron y evaluaron parámetros esenciales del proceso de calidad, proponiendo mejoras tecnológicas 
+para optimizar la producción y reducir costos. El estudio concluyó que la automatización del monitoreo de la 
+fermentación puede mejorar la calidad del vino y aumentar la competitividad de las bodegas mexicanas en los mercados 
+nacional e internacional
+\cite{Moreno2020}.
+\begin{figure}[b!]
+\centering
+\includegraphics[width=1\textwidth]{./Imagenes/Estado_del__arte/7.png}
+\caption{Pantalla principal del sistema.}
+\label{fig:est7}
+\end{figure} 
+\newpage
 \subsection{Institucional IPN-UPIITA}
 \subsubsection{Sistema Telemático para el monitoreo y control de huertos urbanos
 basado en una red inalámbrica de sensores}
 \label{sec:IPN1}
-En este trabajo realizado por estudiantes de telemática de la UPIITA, se desarrolló
-un sistema telemático de monitoreo para el control de huertos, implementando 3
-módulos. El primer módulo encardado de la red de sensores y actuadores. El
-segundo modulo encargado del servidor y de la base de datos, y por último el tercer
-módulo siendo la página web donde el usuario da seguimiento al estado de los
-huertos por medio de una interfaz gráfica. Destacando en este trabajo la importancia
-del monitoreo en los huertos para mantener un control de calidad en los cultivos
-finales de estos [21]. 
+En este trabajo, realizado por estudiantes de Telemática de la UPIITA, 
+se desarrolló un sistema telemático de monitoreo para el control de huertos, 
+implementando tres módulos. El primer módulo se encarga de una red de sensores y 
+actuadores interconectados de manera inalámbrica mediante el protocolo Zigbee hacia un nodo 
+concentrador, responsable de comunicar la red de sensores con el servidor. El segundo módulo 
+gestiona el servidor y la base de datos, mientras que el tercer módulo, una página web, permite al 
+usuario seguir el estado de los huertos a través de una interfaz gráfica. Este trabajo destaca la 
+importancia del monitoreo en los huertos para mantener un control de calidad en los cultivos finales \cite{Denisse2024}. 
 \subsubsection{Prototipo de sistema inálambrico de monitoreo y advertencia para visibilizar fugas de mónoxido de carbono en un entorno limitado mediante técnicas de realidad aumentada}
 \label{sec:IPN2}
+En este proyecto realizado e implementado por estudiantes de Telemática de la UPIITA, 
+se desarrolló un prototipo de una red de sensores inalámbricos para monitorear y advertir sobre
+fugas de monóxido de carbono ($CO_{2}$) en un entorno limitado.A traves de una pagina wev el usuario 
+podra visualizar en tiempo real los niveles de $CO_{2}$ y recibir alertas mediante técnicas de realidad aumentada
+cuando se detecten niveles peligrosos del gas. El sistema utiliza sensores de $CO_{2}$ conectados a nodos inalámbricos que transmiten datos a un servidor central, 
+donde se procesan y analizan para generar las alertas visuales en la interfaz de realidad aumentada \cite{DiazAvila2021}.
 \subsection{Tabla comparativa}
 A continuación, se presenta la \cref{table:proyec} cual muestra tanto las principales
 características, así como los módulos en donde presentan similitudes marcados con
@@ -134,7 +201,7 @@ un \checkmark, los proyectos, investigaciones y estudios antes mencionados con e
 \ref{sec:Na3} & \begin{tabular}[c]{@{}c@{}}\checkmark\\ 1)Sensor de\\ $CO_{2}$\\ 3)Arduino\\ Nano\end{tabular} & & & \begin{tabular}[c]{@{}c@{}}\checkmark\\ LABVIEW\\ 2014\end{tabular} & \begin{tabular}[c]{@{}c@{}}Tecnología \\ implementada\end{tabular} \\ \hline
 \ref{sec:Na4} & \begin{tabular}[c]{@{}c@{}}\checkmark\\ 1)Sensor de\\ pH\\ 2)Sensor de \\ temperatura\\ 3)Raspberry \\Pi 3\end{tabular} & & & & \begin{tabular}[c]{@{}c@{}}Tecnología \\ implementada\end{tabular} \\ \hline
 \ref{sec:IPN1} & \begin{tabular}[c]{@{}c@{}}\checkmark\\ 1)Sensor de\\ pH\\ 2)Sensor de \\ temperatura\\ 3)ESP32\end{tabular} & & \begin{tabular}[c]{@{}c@{}}\checkmark\\ Servidor de \\Azure\\ Database\\ para \\MySQL\end{tabular} & \begin{tabular}[c]{@{}c@{}}\checkmark\\ Framework\\ express\end{tabular} & \begin{tabular}[c]{@{}c@{}}Tecnología \\ implementada\end{tabular} \\ \hline
-\ref{sec:IPN2} & \begin{tabular}[c]{@{}c@{}}\checkmark\\ 1)Sensor de\\ $CO_{2}$\end{tabular} & \checkmark & \begin{tabular}[c]{@{}c@{}}\checkmark\\ AWS \\ Dynamo DB\end{tabular} & \checkmark & \begin{tabular}[c]{@{}c@{}}Tecnología \\ implementada\end{tabular} \\ \hline
+\ref{sec:IPN2} & \begin{tabular}[c]{@{}c@{}}\checkmark\\ 1)Sensor de\\ $CO_{2}$ \\2) Raspberry \\PI\end{tabular}& \begin{tabular}[c]{@{}c@{}}\checkmark  \\ 1) Amazon \\ Sumerion \end{tabular}& \begin{tabular}[c]{@{}c@{}}\checkmark\\ AWS Cloud \\ Dynamo DB\end{tabular} & \begin{tabular}[c]{@{}c@{}}\checkmark  \\ 1) Amazon\\ Cloudfront \end{tabular} & \begin{tabular}[c]{@{}c@{}}Tecnología \\ implementada\end{tabular} \\ \hline
 \end{longtable}
 \endgroup
 \vspace{0.5cm}
@@ -147,7 +214,7 @@ adaptadas al medio y producto específico a monitorear. Sin embargo, aunque vari
 de estos trabajos comparten una problemática similar a la abordada en el presente
 proyecto, como los proyectos  \ref{sec:In1} y  \ref{sec:In2}, se identifican limitaciones importantes
 en el desarrollo integral de cada módulo propuesto. Por otro lado, aunque el
-proyecto  \ref{sec:Na1} contempla módulos similares, su enfoque está dirigido a una
+proyecto  \ref{sec:Na1} y el \ref{sec:IPN2} contempla módulos similares, su enfoque está dirigido a una
 problemática distinta. Esto resalta la necesidad de desarrollar un sistema completo,
 con todos los módulos interconectados, orientado específicamente al monitoreo de
 la fermentación artesanal del kéfir de leche, con el fin de mejorar la precisión,

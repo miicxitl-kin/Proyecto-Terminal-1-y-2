@@ -20,7 +20,7 @@ del proceso de monitoreo de la fermentación.
 \label{fig:modulos}
 \end{figure} 
 A continuación, se describe cada uno de los módulos del sistema:
-\subsubsection{Sistema de Sensores} 
+\subsubsection{Módulo 1:Sistema de Sensores} 
 Para el desarrollo de este módulo, se integrarán tres sensores, cuya implementación
 dentro del proceso de fermentación es permitida por la NOM-251-SSA1-2009 \cite{zotero-item-56},
 siempre y cuando no resulten invasivos para la fermentación.Los sensores se colocarán en la parte interna de la tapa de un frasco
@@ -68,7 +68,7 @@ del módulo de monitoreo. Dichos sensores se describen a continuación:
 fermentación y la temperatura inicial de la fermentación.
 \end{itemize}
 
-\subsubsection{Análisis de Datos}
+\subsubsection{Módulo 2:Análisis de Datos}
 El módulo de análisis de datos se implementará a través de un modelo reglas
 basado en un algoritmo de lógica difusa. Su función
 será evaluar el estado del proceso de fermentación mediante un modelo de reglas
@@ -91,7 +91,7 @@ visualización en la página web.
 \caption{Diagrama a bloques de la integración del módulo 2 con el sistema}
 \label{fig:mod2}
 \end{figure} 
-\subsubsection{Base de Datos}
+\subsubsection{Módulo 4:Base de Datos}
 Este módulo es crucial para almacenar y gestionar la información relacionada con
 las fermentaciones. Sus funciones principales incluyen:
 \begin{itemize}
@@ -107,7 +107,7 @@ las fermentaciones. Sus funciones principales incluyen:
     permitiendo una gestión adecuada de los permisos y accesos al sistema
     llevados a cabo en la Página Web.
 \end{itemize}
-\subsubsection{Página Web}
+\subsubsection{Módulo 4:Página Web}
 La página web es la interfaz de usuario que permitirá a los productores y
 administradores interactuar con el sistema. Los usuarios tendrán diferentes niveles
 de acceso según su rol, ya sea como productor en jefe (administrador) o como
