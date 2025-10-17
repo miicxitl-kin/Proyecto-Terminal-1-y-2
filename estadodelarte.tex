@@ -196,10 +196,10 @@ un \checkmark, los proyectos, investigaciones y estudios antes mencionados con e
 \ref{sec:In1} & \begin{tabular}[c]{@{}c@{}}\checkmark\\ 1)Sensor de\\ pH\\ 2)Sensor de \\ temperatura\\ 3)Arduino\end{tabular} & & & \begin{tabular}[c]{@{}c@{}}\checkmark\\ Node Red\end{tabular} & \begin{tabular}[c]{@{}c@{}}Tecnología\\ implementada\\ y\\ problemática\\ a resolver\end{tabular} \\ \hline
 \ref{sec:In2} & & \begin{tabular}[c]{@{}c@{}}\checkmark\\ Modelo de\\ Lógica \\ difusa\end{tabular} & & & \begin{tabular}[c]{@{}c@{}}Técnicas de \\ análisis \\ implementada\\ y problemática a \\ resolver\end{tabular} \\ \hline
 \ref{sec:In3} & \begin{tabular}[c]{@{}c@{}}\checkmark\\ 1)Sensor de \\ temperatura\\ 2)ATMega32\end{tabular} & \begin{tabular}[c]{@{}c@{}}\checkmark\\ Sistema \\ con lógica\\ difusa\end{tabular} & & & \begin{tabular}[c]{@{}c@{}}Tecnología y \\ técnicas de \\ análisis \\ implementada\end{tabular} \\ \hline
-\ref{sec:Na1} & \begin{tabular}[c]{@{}c@{}}\checkmark\\ 1)Sensor de\\ pH\\ 2)Raspberry Pi\\ Zero\end{tabular} & \begin{tabular}[c]{@{}c@{}}\checkmark\\ Red\\ Neuronal\\ NARX\end{tabular} & \begin{tabular}[c]{@{}c@{}}\checkmark\\ 1)Influxdb\\ cloud\\ 2)SQL\end{tabular} & \begin{tabular}[c]{@{}c@{}}\checkmark\\ Grafana\end{tabular} & \begin{tabular}[c]{@{}c@{}}Tecnología y\\ técnicas de \\ análisis\\ implementada\end{tabular} \\ \hline
+\ref{sec:Na1} & \begin{tabular}[c]{@{}c@{}}\checkmark\\ 1)Sensor de\\ pH\\ 2)Raspberry \\Pi Zero\end{tabular} & \begin{tabular}[c]{@{}c@{}}\checkmark\\ Red\\ Neuronal\\ NARX\end{tabular} & \begin{tabular}[c]{@{}c@{}}\checkmark\\ 1)Influxdb\\ cloud\\ 2)SQL\end{tabular} & \begin{tabular}[c]{@{}c@{}}\checkmark\\ Grafana\end{tabular} & \begin{tabular}[c]{@{}c@{}}Tecnología y\\ técnicas de \\ análisis\\ implementada\end{tabular} \\ \hline
 \ref{sec:Na2} & \begin{tabular}[c]{@{}c@{}}\checkmark\\ 1)Sensor de\\ pH\\ 2)Sensor de \\ temperatura\\ 3)Arduino\\ Mega\end{tabular} & & & & \begin{tabular}[c]{@{}c@{}}Tecnología \\ implementada\end{tabular} \\ \hline
 \ref{sec:Na3} & \begin{tabular}[c]{@{}c@{}}\checkmark\\ 1)Sensor de\\ $CO_{2}$\\ 3)Arduino\\ Nano\end{tabular} & & & \begin{tabular}[c]{@{}c@{}}\checkmark\\ LABVIEW\\ 2014\end{tabular} & \begin{tabular}[c]{@{}c@{}}Tecnología \\ implementada\end{tabular} \\ \hline
-\ref{sec:Na4} & \begin{tabular}[c]{@{}c@{}}\checkmark\\ 1)Sensor de\\ pH\\ 2)Sensor de \\ temperatura\\ 3)Raspberry \\Pi 3\end{tabular} & & & & \begin{tabular}[c]{@{}c@{}}Tecnología \\ implementada\end{tabular} \\ \hline
+\ref{sec:Na4} & \begin{tabular}[c]{@{}c@{}}\checkmark\\ 1)Sensor de\\ pH\\ 2)Sensor de \\ temperatura\\ 3)Raspberry\\ Pi 3\end{tabular} & & & & \begin{tabular}[c]{@{}c@{}}Tecnología \\ implementada\end{tabular} \\ \hline
 \ref{sec:IPN1} & \begin{tabular}[c]{@{}c@{}}\checkmark\\ 1)Sensor de\\ pH\\ 2)Sensor de \\ temperatura\\ 3)ESP32\end{tabular} & & \begin{tabular}[c]{@{}c@{}}\checkmark\\ Servidor de \\Azure\\ Database\\ para \\MySQL\end{tabular} & \begin{tabular}[c]{@{}c@{}}\checkmark\\ Framework\\ express\end{tabular} & \begin{tabular}[c]{@{}c@{}}Tecnología \\ implementada\end{tabular} \\ \hline
 \ref{sec:IPN2} & \begin{tabular}[c]{@{}c@{}}\checkmark\\ 1)Sensor de\\ $CO_{2}$ \\2) Raspberry \\PI\end{tabular}& \begin{tabular}[c]{@{}c@{}}\checkmark  \\ 1) Amazon \\ Sumerion \end{tabular}& \begin{tabular}[c]{@{}c@{}}\checkmark\\ AWS Cloud \\ Dynamo DB\end{tabular} & \begin{tabular}[c]{@{}c@{}}\checkmark  \\ 1) Amazon\\ Cloudfront \end{tabular} & \begin{tabular}[c]{@{}c@{}}Tecnología \\ implementada\end{tabular} \\ \hline
 \end{longtable}
@@ -207,15 +207,21 @@ un \checkmark, los proyectos, investigaciones y estudios antes mencionados con e
 \vspace{0.5cm}
 
 Como se observa en la tabla anterior, los trabajos revisados implementan diversos
-enfoques de monitoreo y análisis de datos aplicados a la producción de alimentos y
-bebidas fermentadas, lo que evidencia tanto la complejidad como la relevancia de
-estos sistemas. Cada propuesta fue diseñada con características particulares
-adaptadas al medio y producto específico a monitorear. Sin embargo, aunque varios
-de estos trabajos comparten una problemática similar a la abordada en el presente
-proyecto, como los proyectos  \ref{sec:In1} y  \ref{sec:In2}, se identifican limitaciones importantes
-en el desarrollo integral de cada módulo propuesto. Por otro lado, aunque el
-proyecto  \ref{sec:Na1} y el \ref{sec:IPN2} contempla módulos similares, su enfoque está dirigido a una
-problemática distinta. Esto resalta la necesidad de desarrollar un sistema completo,
-con todos los módulos interconectados, orientado específicamente al monitoreo de
-la fermentación artesanal del kéfir de leche, con el fin de mejorar la precisión,
-trazabilidad y control del proceso
+enfoques de monitoreo y análisis de datos aplicados a la producción de alimentos 
+y bebidas fermentadas, lo que evidencia tanto la complejidad como la relevancia 
+de estos sistemas. Cada propuesta fue diseñada con características particulares, 
+adaptadas al medio y producto específico a monitorear.
+\newline
+Sin embargo, aunque varios de estos trabajos comparten una problemática similar 
+a la abordada en el presente proyecto, como los proyectos \ref{sec:In1} y
+\ref{sec:In2}, se identifican limitaciones importantes en el desarrollo 
+integral de cada módulo propuesto. Por otro lado, aunque el proyecto \ref{sec:Na1} 
+contempla módulos similares, su enfoque está dirigido a una problemática distinta y 
+una solución más industrializada. Este último es un sistema muy robusto y mucho más 
+completo, pero su naturaleza conlleva una implementación más costosa, ya que requiere
+equipo e infraestructura muy especializados.
+\newline
+Siendo que este proyecto tiene un enfoque más artesanal, esto resalta la necesidad 
+de desarrollar un sistema completo, con todos los módulos interconectados, orientado 
+específicamente al monitoreo de la fermentación artesanal del kéfir de leche, con el 
+fin de mejorar la precisión, trazabilidad y control del proceso.
