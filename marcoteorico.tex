@@ -102,17 +102,22 @@ constante al recolectar los datos obtenidos para su posterior análisis
 Varios estudios como el de Wei, C., y Chen, L. en las fermentaciones, han
 determinado que estas se caracterizan por su naturaleza no lineal y variante en el
 tiempo, por lo que se debe implementar un modelo matemático especifico en base
-a los variables de cada fermentación \cite{MunozNungo2022}. En el caso de la fermentación del kéfir,
-este es no lineal debido a que las salidas del proceso como los cambios en pH y la
-producción de $CO_{2}$ , no responden de manera proporcional o predecible a las
+a los variables de cada fermentación \cite{MunozNungo2022}. En el caso del kéfir la 
+fermentación se puede representar por medio de la \cref{fig:marc3},
+en donde la salida del proceso genera cambios en el pH y la producción de $CO_{2}$ siendo 
+que ambos tienen un comportamiento exponencial y este puede variar dependiendo de 
+la temperatura y el tiempo de fermentación, lo que esta misma salida
+afecta los bulgaros siendo estos la variables de entrada de los procesos futuros, de manera
+que el proceso de fermentación no responden de manera proporcional o predecible a las
 variables de entrada, como la temperatura o el tiempo de fermentación. Además, su
 variabilidad en el tiempo es debida a varios factores que pueden cambiar durante el
 proceso, como el comportamiento de los microorganismos, las condiciones
 ambientales y las variaciones en los insumos utilizados (por ejemplo, la leche y los
 búlgaros). Siendo que la fermentación no sigue un patrón completamente
 predecible, lo que significa que el tiempo necesario para alcanzar el punto óptimo
-de recolección (pH entre 4.2 y 4.6) puede variar de un lote a otro, lo cual representa un reto para su monitoreo y control mediante técnicas tradicionales, lo que dificulta
-la aplicación de modelos estáticos.
+de recolección (pH entre 4.2 y 4.6) puede variar de un lote a otro, 
+lo cual representa un reto para su monitoreo y control mediante técnicas tradicionales, lo que dificulta
+la aplicación de modelos estáticos.\newline
 Dada la complejidad y variabilidad de este proceso, un modelado de una serie de
 reglas basada en lógica difusa permite un análisis de variables imprecisas y
 relaciones no lineales, ya que la lógica difusa es un modelo que permite representar
@@ -123,6 +128,14 @@ en lógica difuso, como el modelo propuesto por Hüseyin Nail Akgül y asociados
 el monitoreo del kéfir, lo que demuestra la importancia la aplicación de este, en el
 proceso de la elaboración del kéfir \cite{Akgul2014}. Y a su vez, es importante llevar un registro
 de estos análisis para hacer comparaciones entre lote y lote.
+
+\begin{figure}[htb]
+\centering
+\includegraphics[width=1\textwidth]{./UML/MarcoTeorico/fermentacion.drawio.png}
+\caption{Diagrama del proceso de fermentación del kéfir.}
+\label{fig:marc3}
+\end{figure}
+
 \subsection{Backend}
 Para el desarrollo de cualquier sistema es importante el Back end el cual es la parte
 lógica y estructural de un sistema o aplicación que opera del lado del servidor, es
@@ -132,6 +145,7 @@ funcionalidad interna y la optimización de recursos del sistema. Actualmente,
 existen diversos lenguajes de programación del lado del servidor para desarrollar el
 back end, cada uno con su propia estructura y enfoque. La arquitectura del back
 end dependerá en gran medida del lenguaje y del entorno de desarrollo elegido \cite{CeliParraga2023}.
+
 \subsubsection{Base de datos}
 Una base de datos es un sistema que permite almacenar, organizar y gestionar
 datos de manera estructurada, lo que facilita su acceso, actualización y
@@ -140,7 +154,34 @@ Gestión de Bases de Datos (DBMS), el cual permite realizar consultas,
 modificaciones y análisis, apoyando así la toma de decisiones basada en la
 información almacenada. Dependiendo del tipo de datos, del lenguaje o framework
 utilizado, y de los requerimientos del sistema, se puede optar por dos arquitecturas
-principales: bases de datos relacionales (SQL) y no relacionales (NoSQL) \cite{CeliParraga2023}.
+principales: bases de datos relacionales (SQL) y no relacionales (NoSQL) \cite{CeliParraga2023}.\newline
+
+Siendo que la elección de una u otra influye directamente en la estructura y
+organización del proyecto.En la cual esta definida la bases de datos ACID (Atomicity, Consistency, Isolation, Durability) 
+para las bases de datos relacionales, en donde la atomicidad garantiza que todas las operaciones de una transacción se completen correctamente o ninguna lo haga, 
+la consistencia asegura que una transacción lleve a la base de datos de un estado válido a otro estado válido, 
+el aislamiento garantiza que las transacciones concurrentes no interfieran entre sí, y 
+la durabilidad asegura que una vez que una transacción ha sido confirmada, 
+sus cambios se mantendrán incluso en caso de fallos del sistema.\newline
+
+Mientras que las BASE (Basically Available, Soft state, Eventual consistency) para las bases de datos no relacionales
+permiten garantizar que el sistema esté disponible para operaciones de lectura y escritura la mayor parte del tiempo 
+sin necesidad de que un usuaario espere a que otro finalice su operación,
+esto tambien les permite tener flexibilidad que el sistema pueda cambiar con el tiempo sin necesidad de una actualización inmediata,
+y la consistencia eventual asegura que, aunque los datos puedan no estar inmediatamente consistentes en todas las réplicas, 
+eventualmente todas las copias de los datos convergerán a un estado consistente \cite{Silberschatz2006}.
+\newline
+Pero independientemente del tipo de base de datos, es esencial diseñar una estructura adecuada que facilite el acceso 
+y la gestión eficiente de los datos, la cual esta estrictamente definida por el teorema CAP (Consistency, Availability, Partition tolerance)
+que establece que un sistema distribuido pueda ser consistente lo que implica que todos los nodos vean los mismos datos al mismo tiempo,
+disponible lo que significa que cada solicitud recibe una respuesta, ya sea exitosa o fallida,
+y tolerante a particiones lo que asegura a el sistema continuar funcionando a pesar de las fallas de comunicación entre nodos.
+Sin embargo solo se pueden garantizar dos de las tres propiedades al mismo tiempo. 
+Ya que esto es fundamental para el diseño y la implementación de sistemas distribuidos, en la cual 
+se debe tomar en cuenta si una base de datos prioriza la consistencia y disponibilidad (CA), 
+consistencia y tolerancia a particiones (CP), o disponibilidad y tolerancia a particiones (AP)\cite{Araneda2022}.
+
+
 \subsection{Front End}
 El frontend es la capa de desarrollo de software responsable de la presentación
 visual de una aplicación o sitio web, es decir, todo aquello con lo que el usuario final
