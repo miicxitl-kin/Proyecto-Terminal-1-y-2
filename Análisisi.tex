@@ -17,7 +17,7 @@ Para medir el pH del kéfir de leche durante la fermentación, se
 utilizará un sensor de pH analógico. Este sensor debe ser capaz de proporcionar
 una salida de voltaje proporcional al valor de pH medido.
 Para la selección del sensor de pH, se consideraron los siguientes
-criterios en base a los requeriminetos funcionales del
+criterios en base a los requeriminetos funcionales \ref{it:RF01} del
 proyecto:
 \begin{itemize}
     \item \textbf{No contaminante:} El sensor debe ser adecuado para su uso en
@@ -84,7 +84,7 @@ Para medir la temperatura del kéfir de leche durante la fermentación, se
 utilizará un sensor de temperatura digital. Este sensor debe ser capaz de
 proporcionar una lectura precisa de la temperatura en grados Celsius.
 Para la selección del sensor de temperatura, se consideraron los siguientes
-criterios en base a los requeriminetos funcionales del
+criterios en base a los requeriminetos funcionales \ref{it:RF01} del
 proyecto:
 \begin{itemize}
     \item \textbf{No contaminante:} El sensor debe ser adecuado para su uso en
@@ -127,7 +127,7 @@ circundante al kéfir de leche durante la fermentación, se utilizará un
 sensor de $CO_{2}$. Este sensor debe ser capaz de proporcionar una lectura precisa
 de la concentración de $CO_{2}$ en partes por millón (ppm).
 Para la selección del sensor de $CO_{2}$, se consideraron los siguientes
-criterios en base a los requeriminetos funcionales del
+criterios en base a los requeriminetos funcionales \ref{it:RF01} del
 proyecto:
 \begin{itemize}
     \item \textbf{Rango de medición:}El sensor debe cubrir el rango de concentración
@@ -180,14 +180,15 @@ medici\'on superior (0-40,000 ppm). Aunque no es el m\'as barato, su especializa
 la medici\'on de ${CO}_{2}$ evita los problemas de precisi\'on que tendr\'ian otros sensores 
 de menor calidad, como el MQ-135 (sensible a otros gases), o el rango limitado de los modelos MG-811 
 y MH-Z19 en el contexto espec\'ifico de la fermentaci\'on del k\'efir.
-
+\newline
+\newline
 Para facilitar la elección del microcontrolador, se van analizar los siguientes puntos, 
 esto con la finalidad de tener un mejor entendimiento de las capacidades y limitaciones de cada uno.
 \subsubsection{Formato de Datos}
 La elección del formato de datos es un aspecto crítico en el diseño del sistemas 
 , ya que influye directamente en la eficiencia, la interoperabilidad y 
 la escalabilidad del sistema. Con base en los formatos analizados en la 
-\cref{tab:datos}, se identifica a JSON (JavaScript Object Notation)
+\cref{tab:datos} y los requerimientos funcionales \ref{it:RF01}, se identifica a JSON (JavaScript Object Notation)
 como la opción más adecuada esto debido a que permite estructurar datos de 
 manera jerárquica, agrupando valores y metadatos en objetos anidados, lo que facilita la integración 
 entre los módulos del sistema, características que cumplen con los requerimientos funcionales de interoperabilidad, 
@@ -198,42 +199,65 @@ cambio en los datos implica modificaciones manuales en el esquema de lectura. Po
 metadatos complejos y ofrece validación estricta de esquemas, resulta demasiado pesado y verboso debido a su estructura de etiquetas, 
 lo que incrementa el consumo de recursos en los sistemas.
 
-\begin{table}[h]
-	\centering
-	\caption{Formatos de Datos}
-    \footnotesize
-	\begin{tabular}{|p{1cm}|p{1cm}|p{1.5cm}|p{2.5cm}|p{1.5cm}|p{2.5cm}|p{3.0cm}|}
+\begingroup
+\setlength{\tabcolsep}{3pt} % Espacio entre columnas
+\renewcommand{\arraystretch}{1.2} 
+\footnotesize % Mantenemos la fuente pequeña para que el ancho sea manejable
+\begin{longtable}{|p{1cm}|p{1.2cm}|p{1.7cm}|p{3.0cm}|p{2.0cm}|p{3.0cm}|p{3.0cm}|}
+\caption{Formatos de Datos (Continúa en la página siguiente)}
+\label{tab:datos}
+\\
 \hline
-\textbf{Nom- bre} & \textbf{Tipo de Formato} & \textbf{Estructura Base} & \textbf{Caracterisit- icas} & \textbf{Enfoque} & \textbf{Ventaja} & \textbf{Desventaja} \\
+\textbf{Nom- bre} & \textbf{Tipo de Formato} & \textbf{Estructura Base} & \textbf{Caracterisit- icas} & \textbf{Enfoque} & \textbf{Ventaja Principal} & \textbf{Desventaja Principal} \\
 \hline
-\textbf{JSON}\cite{2025}& Clave-Valor & JSON objetos anidados y arrays & Elimina la necesidad de un diseño de esquemas predeterminados al serializar datos semiestructurados y transmitirlos. & Enfoque a desarrollo con documentos JSON.  & Simplicidad y legibilidad lo que permite gran escalabilidad en diferentes lenguajes de programción & Mayor consumo de memoria dependiendo del formato JSON. \\
+\endfirsthead
+% --- Encabezado para la segunda página (o siguientes) ---
+\multicolumn{7}{l}{\small\bfseries \tablename\ \thetable\ -- continuación de la página anterior} \\
 \hline
-\textbf{CSV}\cite{zotero-item-76} & Comma Separated Values & Valores separados por un delimitador (coma, \texttt{|}, etc.). Sin anidamiento. & Permite la iterarión de grandes cadenas de valores & Enfoque a más especializado a hojas de datos. & Los valores son obvios,sin etiquetas. & Al trabajar con solo valores y delimitadores lo que ocasiona escasa escalabilidad. \\
+\textbf{Nom- bre} & \textbf{Tipo de Formato} & \textbf{Estructura Base} & \textbf{Caracterisit- icas} & \textbf{Enfoque} & \textbf{Ventaja Principal} & \textbf{Desventaja Principal} \\
 \hline
-\textbf{XML}\cite{zotero-item-73} & Lengua- je de marcado extensible & Documento estructurado con etiquetas jerárquicas. & Documentos XML estan compuestos por una estructura fisica la cual contiene entidades y una logica como referencias de caracteres, instucciones de procesamiento,etc. & Enfocado a facilitar la implementación para la interoperabilidad con SGML y HTML. & Permite metadatos complejos y validación estricta del esquema (\textit{Schema Validation}). & Debido al cierre de etiquetas se vuelve demasiado pesado para microcontroladores. \\
+\endhead
 \hline
-\end{tabular}
-    \label{tab:datos}
-\end{table}
+\multicolumn{7}{r}{\small\itshape Continúa en la página siguiente} \\
+\endfoot
+\hline
+\endlastfoot
+
+\textbf{JSON}\cite{2025}& Clave-Valor & JSON objetos anidados y arrays & Elimina la necesidad de un diseño de esquemas predeterminados al serializar datos semiestructurados y transmitirlos. & Enfoque a desarrollo con documentos JSON.  & Simplicidad y legibilidad lo que permite gran escalabilidad en diferentes lenguajes de programación & Mayor consumo de memoria dependiendo del formato JSON. \\
+\hline
+\textbf{CSV}\cite{zotero-item-76} & Comma Separated Values & Valores separados por un delimitador (coma, \texttt{|}, etc.). Sin anidamiento. & Permite la iteración de grandes cadenas de valores & Enfoque más especializado a hojas de datos. & Los valores son obvios, sin etiquetas. & Al trabajar con solo valores y delimitadores lo que ocasiona escasa escalabilidad. \\
+\hline
+\textbf{XML}\cite{zotero-item-73} & Lenguaje de marcado extensible & Documento estructurado con etiquetas jerárquicas. & Documentos XML están compuestos por una estructura física la cual contiene entidades y una lógica como referencias de caracteres, instrucciones de procesamiento, etc. & Enfocado a facilitar la implementación para la interoperabilidad con SGML y HTML. & Permite metadatos complejos y validación estricta del esquema (\textit{Schema Validation}). & Debido al cierre de etiquetas se vuelve demasiado pesado para microcontroladores. \\
+\end{longtable}
+\endgroup
 
 
 \subsubsection{Topología de red}
 En esta sección, se analiza y selecciona la topología de conexión a imple-
 mentar específicamente para la comunicación entre el microcontrolador y el
-servidor. Con base en los requerimientos funcionales establecidos y las car-
-acterísticas de las topologías de red presentadas en la \cref{tab:comparacion_topologias} comparativa, se
-optó por la topología en estrella. Esta elección se fundamenta en su capaci-
-dad para permitir la conexión de múltiples microcontroladores de manera
+servidor. Con base en los requerimientos funcionales \ref{it:RF02} establecidos y las 
+características de las topologías de red presentadas en la \cref{tab:comparacion_topologias} comparativa, se
+optó por la topología en estrella. Esta elección se fundamenta en su 
+capacidad para permitir la conexión de múltiples microcontroladores de manera
 independiente, de modo que el fallo de uno no comprometa la comunicación
-de los demás con el servidor. Además, esta topología ofrece una notable es-
-calabilidad, lo que facilita la incorporación de nuevos dispositivos sin afectar
-el rendimiento general del sistema. En contraste, otras topologías, como la
+de los demás con el servidor. Además, esta topología ofrece una notable 
+escalabilidad, lo que facilita la incorporación de nuevos dispositivos sin afectar
+el rendimiento general del sistema. 
+\newline 
+En contraste, otras topologías, como la
 de bus o anillo, presentan limitaciones significativas en términos de tolerancia
 a fallos y capacidad de expansión, ya que un fallo en un punto crítico puede
-interrumpir toda la red o dificultar la adición de nuevos nodos. Por lo tanto,
-la topología en estrella se considera la más adecuada para satisfacer los re-
-querimientos del sistema, garantizando una comunicación robusta, eficiente
-y adaptable a futuras necesidades
+interrumpir toda la red o dificultar la adición de nuevos nodos. 
+Por otro lado, la topología en malla, aunque ofrece alta redundancia,
+implica una complejidad y costo elevados debido a la necesidad de múltiples conexiones
+directas entre los dispositivos, lo que no es necesario para los requerimientos del proyecto.
+Y la topología en árbol jerárquico, aunque escalable, introduce una dependencia crítica
+en el nodo raíz, cuyo fallo puede afectar a toda la red, además de una mayor complejidad
+en su gestión.
+\newline 
+Por lo tanto,la topología en estrella se considera la más adecuada ya que se ajusta a los 
+requerimientos funcionales \ref{it:RF02} y no funcionales \ref{it:RNF01} del sistema, garantizando una comunicación robusta, eficiente
+y adaptable a futuras necesidades.
 \begingroup
 \setlength{\tabcolsep}{2pt} % Espacio entre columnas muy reducido
 \renewcommand{\arraystretch}{1.1} % Altura de las filas
@@ -266,8 +290,34 @@ y adaptable a futuras necesidades
 \end{tabular}
 \end{table}
 \endgroup
-
+\newpage
 \subsubsection{Protocolo de Comunicación}
+
+\captionof{table}{Protocolos de Acceso a la Red} % ¡Este es el cambio clave!
+\label{tab:Proto_Acceso}
+\begingroup
+\setlength{\tabcolsep}{3pt} % Reduce el espacio entre columnas
+\renewcommand{\arraystretch}{1.2} % Altura de las filas
+
+\begin{tabularx}{\textwidth}{|>{\RaggedRight}m{1.8cm}|>{\RaggedRight}X|>{\centering\arraybackslash}m{1.5cm}|>{\RaggedRight}m{1.8cm}|>{\centering\arraybackslash}m{1.5cm}|>{\RaggedRight}X|>{\RaggedRight}X|}
+\hline
+\textbf{Protocolo} & \textbf{Tipo de Red/Estándar} & \textbf{Protocolo MAC} & \textbf{Banda de Operación} & \textbf{Velocidad} & \textbf{Ventajas} & \textbf{Desventajas} \\
+\hline
+\textbf{Wi-Fi} (IEEE 802.11) \cite{2023} & LAN (Local Area Network) & CSMA/CA & 2.4/5 GHz & 11,54 y 600 Mbps  & Ofrece altas tasas de transferencia de datos y utiliza infraestructura de red existente. & Alto consumo de energía y limitado número de nodos conectados a un solo router. \\
+\hline
+\textbf{Bluetooth Classic} (IEEE 802.15.1) \cite{2025c} & PAN (Personal Area Network) & TDD-TDMA & 2.4 GHz & 1–3 Mbps & Ofrece alta tasa de datos en un enlace punto a punto para transmisión de voz o audio. & Alto consumo de energía y alcance limitado en la transferencia de datos. \\
+\hline
+\textbf{Bluetooth Low Energy (BLE)} (IEEE 802.15.1) \cite{2025c} & PAN/Malla & CSMA/CA & 2.4 GHz & 1–2 Mbps & Permite una operación de muy bajo consumo de energía, ideal para dispositivos a batería. & Su velocidad de transferencia de datos más baja en comparación con otras tecnologías. \\
+\hline
+\textbf{Zigbee} (IEEE 802.15.4) \cite{AllianInc.2015} & Malla (\textit{Mesh}) & CSMA/CA & 2.4 GHz & 250 Kbps & Proporciona una red de malla escalable,robusta y fiable. & Requiere un \textit{gateway} o \textit{hub} dedicado para conectarse a la red IP (Internet). \\
+\hline
+\textbf{Z-Wave} (ITU-T G.9959) & Malla (\textit{Mesh}) & CSMA/CA & Sub-GHz & 100 Kpbs & Opera en frecuencias más bajas, evitando la congestión de la banda de 2.4 GHz y mejorando la penetración en paredes. & Es una tecnología de código cerrado y está limitado a menos dispositivos en la red de malla. \\
+\hline
+\textbf{LoRaWAN} (LoRa Alliance) & LPWAN (Low Power Wide Area Network) & ALOHA & Sub-GHz & 0.0003–0.05 Kbps & Ofrece la mayor distancia de comunicación con un consumo de energía extremadamente bajo. & Su baja tasa de datos y un ciclo de trabajo limitado restringen su escalailidad a más dispositivos ya que el ancho de bada se comparte. \\
+\hline
+\end{tabularx}
+\endgroup
+
 Para garantizar una comunicación eficiente y confiable entre el Módulo 1  y el Módulo 3 , se requiere un protocolo que soporte la topología estrella definida en los requisitos funcionales. Con base en la comparación de protocolos presentada en la Tabla \cref{tab:protocolo}, MQTT (Message Queuing Telemetry Transport) se identifica como la opción óptima debido a su modelo de publicación/suscripción (Pub/Sub) sobre TCP, que se alinea perfectamente con la arquitectura propuesta.
 
 En esta topología, cada microcontrolador publica datos de sensores (pH, CO2, temperatura) en tópicos específicos asociados a un usuario, y el broker central distribuye estos datos a suscriptores como los módulos de análisis y visualización. Esta estructura permite escalar el número de dispositivos y el volumen de datos sin sobrecargar la red, gracias a la ligereza de MQTT y sus niveles de QoS configurables, que aseguran entrega confiable incluso en conexiones inestables.
