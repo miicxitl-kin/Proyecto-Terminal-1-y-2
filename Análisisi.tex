@@ -256,7 +256,7 @@ en el nodo raíz, cuyo fallo puede afectar a toda la red, además de una mayor c
 en su gestión.
 \newline 
 Por lo tanto,la topología en estrella se considera la más adecuada ya que se ajusta a los 
-requerimientos funcionales \ref{it:RF02} y no funcionales \ref{it:RNF01} del sistema, garantizando una comunicación robusta, eficiente
+requerimientos funcionales \ref{it:RF02} y no funcionales RNF01 del sistema, garantizando una comunicación robusta, eficiente
 y adaptable a futuras necesidades.
 \begingroup
 \setlength{\tabcolsep}{2pt} % Espacio entre columnas muy reducido
@@ -293,6 +293,27 @@ y adaptable a futuras necesidades.
 \newpage
 \subsubsection{Protocolo de Comunicación}
 
+En la \cref{tab:Proto_Acceso} se presenta una comparación de los principales
+protocolos de acceso a la red inalámbrica considerados para la comunicación entre el Módulo 1 y 
+el servidor. Y en base a los requerimientos funcionales \ref{it:RF01} y 
+no funcionales RNF01 del proyecto, se selecciono Wi-Fi (IEEE 802.11) 
+como el protocolo más adecuado para este proyecto,ya que ofrece altas tasas de 
+transferencia de datos y aunque su consumo de energía es mayor en comparación 
+con otros protocolos como Bluetooth Low Energy (BLE) o Zigbee, ofrece la ventaja
+de utilizar la infraestructura de red existente en la mayoría de 
+los entornos domésticos y comerciales.
+\newline 
+A diferencia de otros protocolos como LoRaWAN,
+que aunque ofrece una gran distancia de comunicación y bajo consumo de energía,
+su baja tasa de datos y un ciclo de trabajo limitado restringen su escalabilidad
+a más dispositivos ya que el ancho de bada se comparte.Al igual que Z-Wave y Zigbee,
+que requieren un \textit{gateway} o \textit{hub} dedicado para conectarse a la red IP (Internet).
+En contraste, Bluetooth Classic y BLE presentan limitaciones en alcance y número de nodos conectados,
+por lo que Wi-Fi se posiciona como la opción más equilibrada para cumplir con los requisitos del proyecto.
+Aunque no se descarta la posibilidad de usar Zigbee, ya que proporciona una red de malla escalable, robusta y de muy bajo consumo de energía,
+para múltiples dispositivos en una red local.
+
+
 \captionof{table}{Protocolos de Acceso a la Red} % ¡Este es el cambio clave!
 \label{tab:Proto_Acceso}
 \begingroup
@@ -311,35 +332,71 @@ y adaptable a futuras necesidades.
 \hline
 \textbf{Zigbee} (IEEE 802.15.4) \cite{AllianInc.2015} & Malla (\textit{Mesh}) & CSMA/CA & 2.4 GHz & 250 Kbps & Proporciona una red de malla escalable,robusta y fiable. & Requiere un \textit{gateway} o \textit{hub} dedicado para conectarse a la red IP (Internet). \\
 \hline
-\textbf{Z-Wave} (ITU-T G.9959) & Malla (\textit{Mesh}) & CSMA/CA & Sub-GHz & 100 Kpbs & Opera en frecuencias más bajas, evitando la congestión de la banda de 2.4 GHz y mejorando la penetración en paredes. & Es una tecnología de código cerrado y está limitado a menos dispositivos en la red de malla. \\
+\textbf{Z-Wave} (ITU-T G.9959) \cite{Admin-z-wavealliance2022} & Malla (\textit{Mesh}) & CSMA/CA & Sub-GHz & 100 Kpbs & Opera en frecuencias más bajas, evitando la congestión de la banda de 2.4 GHz y mejorando la penetración en paredes. & Es una tecnología de código cerrado y está limitado a menos dispositivos en la red de malla. \\
 \hline
-\textbf{LoRaWAN} (LoRa Alliance) & LPWAN (Low Power Wide Area Network) & ALOHA & Sub-GHz & 0.0003–0.05 Kbps & Ofrece la mayor distancia de comunicación con un consumo de energía extremadamente bajo. & Su baja tasa de datos y un ciclo de trabajo limitado restringen su escalailidad a más dispositivos ya que el ancho de bada se comparte. \\
+\textbf{LoRaWAN} (LoRa Alliance) \cite{zotero-item-212} & LPWAN (Low Power Wide Area Network) & ALOHA & Sub-GHz & 0.0003–0.05 Kbps & Ofrece la mayor distancia de comunicación con un consumo de energía extremadamente bajo. & Su baja tasa de datos y un ciclo de trabajo limitado restringen su escalailidad a más dispositivos ya que el ancho de bada se comparte. \\
 \hline
 \end{tabularx}
 \endgroup
+\newpage
 
-Para garantizar una comunicación eficiente y confiable entre el Módulo 1  y el Módulo 3 , se requiere un protocolo que soporte la topología estrella definida en los requisitos funcionales. Con base en la comparación de protocolos presentada en la Tabla \cref{tab:protocolo}, MQTT (Message Queuing Telemetry Transport) se identifica como la opción óptima debido a su modelo de publicación/suscripción (Pub/Sub) sobre TCP, que se alinea perfectamente con la arquitectura propuesta.
+Para garantizar una comunicación eficiente y confiable entre el Módulo 1  y el Servidor, 
+se requiere un protocolo de aplicación que soporte la topología estrella definida anteriormente. 
+Con base en la comparación de protocolos presentada en la \cref{tab:protocolo}, 
+MQTT-WIFI (Message Queuing Telemetry Transport) se identifica como la opción óptima debido 
+a su modelo de publicación/suscripción (Pub/Sub) sobre TCP, que se alinea perfectamente 
+con la arquitectura propuesta.
 
-En esta topología, cada microcontrolador publica datos de sensores (pH, CO2, temperatura) en tópicos específicos asociados a un usuario, y el broker central distribuye estos datos a suscriptores como los módulos de análisis y visualización. Esta estructura permite escalar el número de dispositivos y el volumen de datos sin sobrecargar la red, gracias a la ligereza de MQTT y sus niveles de QoS configurables, que aseguran entrega confiable incluso en conexiones inestables.
+En esta topología, cada microcontrolador publica datos de sensores (pH, CO2, temperatura) 
+en tópicos específicos asociados a un usuario, y el broker central distribuye estos datos 
+a suscriptores como los módulos de análisis y visualización. Esta estructura permite escalar 
+el número de dispositivos y el volumen de datos sin sobrecargar la red, gracias a la ligereza 
+de MQTT y sus niveles de QoS configurables, que aseguran entrega confiable incluso en conexiones inestables.
 
-En contraste, HTTP, aunque compatible con APIs, genera un alto overhead debido a su modelo request-response, resultando ineficiente para transmisiones frecuentes desde dispositivos de bajo consumo. WebSocket, pese a su baja latencia, mantiene conexiones persistentes que incrementan el consumo energético, haciéndolo inadecuado para los microcontroladores. Zigbee, optimizado para redes mesh y bajo consumo, requiere hardware específico y un gateway, lo que añade complejidad y limita su integración en entornos .
+En contraste, HTTP, aunque compatible con APIs, genera un alto overhead debido a su modelo 
+request-response, resultando ineficiente para transmisiones frecuentes desde dispositivos de bajo 
+consumo. WebSocket, pese a su baja latencia, mantiene conexiones persistentes que incrementan el 
+consumo energético, haciéndolo inadecuado para los microcontroladores. MQTT-Zigbee, optimizado para redes 
+mesh y bajo consumo, requiere hardware específico y un gateway, lo que añade complejidad y limita su 
+integración en entornos .
 \begin{table}[h!]
 \centering
-\caption{Protocolos de Comunicación}
+\caption{Protocolos de Transporte}
 \footnotesize
 \begin{tabularx}{\textwidth}{|p{1.5cm}|p{2.5cm}|p{1.5cm}|p{3.3cm}|p{3.3cm}|p{3.1cm}|}
 \hline
 \textbf{Prot- ocolo} & \textbf{Arquitectura} & \textbf{Trans- porte} & \textbf{Características} & \textbf{Ventajas} & \textbf{Desventajas} \\ \hline
-MQTT\cite{zotero-item-80} & Pub/Sub & TCP & Mensajería ligera, basada en broker, en donde se envia un topic al cual uno o varios suscriptores pueden recibir dicho mensaje. & Ligero y con una gran escalabilidad en redes grandes de dispositivos atraves de QoS. & Dependencia de un broker. \\ \hline
+MQTT-WiFi\cite{zotero-item-80} & Pub/Sub & TCP & Mensajería ligera, basada en broker, en donde se envia un topic al cual uno o varios suscriptores pueden recibir dicho mensaje. & Ligero y con una gran escalabilidad en redes grandes de dispositivos atraves de QoS. & Dependencia de un broker. \\ \hline
 HTTP\cite{2025a} & Request-Response & TCP & Transferencia de hipertexto, solicitudes/re- spuestas mediante GET-POST. & Ideal para monitoreo esporadico, al ser universal es fácil la integración con APIs, ya que es estandarizado. & Tiene un alto overhead y no es apto para tiempo real. \\ \hline
-Web- Socket\cite{2025b} & Bidirec. Full-Duplex & TCP & Conexión bidireccional y en tiempo real mediante una unica solicitud-respuesta HTTP. & Permite una conexión continua lo que es ideal para tiempo real, bidireccional, baja latencia. & Alto consumo, conexiones persistentes, no apto para bajo consumo. \\ \hline
-Zigbee\cite{AllianInc.2015} & Mesh Networking & IEEE 802.15.4 & Enfocada en comunicaciónes locales atraves de una Red de malla lo que permite un muy bajo consumo, & Baja interferencia, alta seguridad de los datos (AES-128) y una gran escalabilidad entre los dispositivos Zigbee & Hardware muy específico y dependencia de un gateway. \\ \hline
+Web-Socket\cite{2025b} & Bidirec. Full-Duplex & TCP & Conexión bidireccional y en tiempo real mediante una unica solicitud-respuesta HTTP. & Permite una conexión continua lo que es ideal para tiempo real, bidireccional, baja latencia. & Alto consumo, conexiones persistentes, no apto para bajo consumo. \\ \hline
+MQTT-Zigbee\cite{AllianInc.2015} & Mesh Networking & IEEE 802.15.4 & Enfocada en comunicaciónes locales atraves de una Red de malla lo que permite un muy bajo consumo, & Baja interferencia, alta seguridad de los datos (AES-128) y una gran escalabilidad entre los dispositivos Zigbee & Hardware muy específico y dependencia de un gateway. \\ \hline
 \end{tabularx}
 \label{tab:protocolo}
 \end{table}
 
 \subsubsection{Microcontrolador}
-En base a los sensores seleccionados y los requerimientos del proyecto, seconsideraron los siguientes microcontroladores:
+
+En base a los sensores , el protocolo de acceso ,el protocolo de transporte seleccionados y los requerimientos funcionales \ref{it:RF03}  del proyecto,
+se consideraron los siguientes microcontroladores mostrados en la \cref{tab:microcontroladores} 
+para su análisis comparativo, de los cuales el más adecuado para este proyecto 
+es el XIAO-ESP32C6 \cite{zotero-item-58}.
+Esto se debe  a que incorpora un procesador RISC-V de 32 bits con una frecuencia
+de hasta 160 MHz, lo que proporciona un rendimiento eficiente para manejar 
+múltiples tareas,combinado con soporte para Wi-Fi 6, 
+lo que asegura una comunicación robusta con WiFi-MQTT y de bajo 
+consumo energético durante los ciclos de muestreo adaptativo de los sensores.
+\newline 
+A diferencia de otros microcontroladores que a pesar de sus potentes 
+arquitecturas (como Xtensa LX6 Dual-Core o ARM Cortex M0+
+Dual-Core), incluyen características 
+excesivas que incrementan innecesariamente el costo y el consumo energético.
+No obstante, no se descarta la posibilidad de usar el ESP32-DevKitC-32E \cite{Embajadores}, 
+ya que tambien soporta multiples protocolos de acceso (Wi-Fi 6, BLE 5,
+Zigbee 3.0, Thread). Sin embargo,
+cuenta con un mayor consumo energético y un costo 
+más elevado en comparación con el XIAO-ESP32C6.
+
+
 \begin{landscape}
 \begingroup
 \setlength{\tabcolsep}{5pt} % Reduce el espacio entre columnas
@@ -349,35 +406,79 @@ En base a los sensores seleccionados y los requerimientos del proyecto, seconsid
 \label{tab:microcontroladores}
 \\
 \hline
-\textbf{Modelo} & \textbf{Procesador / Frecuencia} & \textbf{Memoria} & \textbf{Conectividad} & \textbf{Puertos} & \textbf{Voltaje de Operación} & \textbf{Precio (USD)} & \textbf{Imagen} \\
+\textbf{Modelo} & \textbf{Procesador / Frecuencia} & \textbf{Memoria} & \textbf{Conectividad} & \textbf{Puertos} & \textbf{Voltaje de Operación} & \textbf{Precio (MXN)} & \textbf{Imagen} \\
 \hline
 \endfirsthead
 \hline
-\textbf{Modelo} & \textbf{Procesador / Frecuencia} & \textbf{Memoria} & \textbf{Conectividad} & \textbf{Puertos} & \textbf{Voltaje de Operación} & \textbf{Precio (USD)} & \textbf{Imagen} \\
+\textbf{Modelo} & \textbf{Procesador / Frecuencia} & \textbf{Memoria} & \textbf{Conectividad} & \textbf{Puertos} & \textbf{Voltaje de Operación} & \textbf{Precio (MXN)} & \textbf{Imagen} \\
 \hline
 \endhead
 \hline
 \endfoot
 \endlastfoot
 
-XIAO ESP32C6 \cite{zotero-item-58} & RISC-V 32-bit Single-Core / 160 MHz & ROM 320KB, SRAM 512KB, Flash 4MB & Wi-Fi 6, BLE 5, Zigbee 3.0, Thread & 1xI2C, 1xUART, 1xSPI, 1xI2S, 11xGPIO & 3.3V (5V VCC) & $\sim$7 & \includegraphics[width=20mm]{./Imagenes/Módulo1/Microcontrolador/1-113991254-seeedxiao-esp32c6-45font_1.jpg}\\
+XIAO ESP32C6 \cite{zotero-item-58} & RISC-V 32-bit Single-Core / 160 MHz & ROM 320KB, SRAM 512KB, Flash 4MB & Wi-Fi 6, BLE 5, Zigbee 3.0, Thread & 1xI2C, 1xUART, 1xSPI, 1xI2S, 11xGPIO & 3.3V (5V VCC) & \$100-200 & \includegraphics[width=20mm]{./Imagenes/Módulo1/Microcontrolador/1-113991254-seeedxiao-esp32c6-45font_1.jpg}\\
 \hline
-ESP32-C3 SuperMini \cite{K} & RISC-V 32-bit Single-Core / 160 MHz & ROM 400KB, SRAM 400KB, Flash 4MB & Wi-Fi 4 (802.11n), BLE 5 & 2xUART, 2xI2C, 1xSPI, 13xGPIO & 3.3V (5V VCC) & $\sim$4 &\includegraphics[width=20mm]{./Imagenes/Módulo1/Microcontrolador/esp32-c6.png} \\
+ESP32-C3 SuperMini \cite{K} & RISC-V 32-bit Single-Core / 160 MHz & ROM 400KB, SRAM 400KB, Flash 4MB & Wi-Fi 4 (802.11n), BLE 5 & 2xUART, 2xI2C, 1xSPI, 13xGPIO & 3.3V (5V VCC) & \$100-200 &\includegraphics[width=20mm]{./Imagenes/Módulo1/Microcontrolador/c3_mini.png} \\
 \hline
-ESP32-H2M-1 (Módulo) \cite{zotero-item-61} & RISC-V 32-bit Single-Core / 96 MHz & ROM 320KB, SRAM 256KB, Flash 4MB & BLE 5, Zigbee 3.0, Thread & 1xSPI, 2xUART, 1xI2C, 1xI2S, 18xGPIO & 3.3V & $\sim$3 & \includegraphics[width=20mm]{./Imagenes/Módulo1/Microcontrolador/esp32-h2-devkitm-1-45-20230303.png}\\
+ESP32-C6-DEVKITC-1-N8 \cite{zotero-item-62}& RISC-V 32-bit Single-Core / 160 MHz & ROM 320KB, SRAM 512KB, Flash 8MB & Wi-Fi 6, BLE 5, Zigbee 3.0, Thread & 4xSPI, 3xUART, 2xI2C, 2xI2S, 23xGPIO & 3.3V (5V Micro-USB) & \$160-250 & \includegraphics[width=20mm]{./Imagenes/Módulo1/Microcontrolador/esp32-c6.png}\\
 \hline
-ESP32-C6-DEVKITC-1-N8 \cite{zotero-item-62}& RISC-V 32-bit Single-Core / 160 MHz & ROM 320KB, SRAM 512KB, Flash 8MB & Wi-Fi 6, BLE 5, Zigbee 3.0, Thread & 4xSPI, 3xUART, 2xI2C, 2xI2S, 23xGPIO & 3.3V (5V Micro-USB) & $\sim$8 & \includegraphics[width=20mm]{./Imagenes/Módulo1/Microcontrolador/esp32-c6.png}\\
+ESP32-DevKitC-32E \cite{Embajadores} & Xtensa LX6 Dual-Core / 240 MHz & ROM 448KB, SRAM 520KB, Flash 4MB & Wi-Fi 4 (802.11n), BT 4.2 & 3xSPI, 3xUART, 2xI2C, 2xI2S, 34xGPIO & 3.3V (5V Micro-USB) & \$160-250 & \includegraphics[width=20mm]{./Imagenes/Módulo1/Microcontrolador/esp32.jpg}\\
 \hline
-ESP32-DevKitC-32E \cite{Embajadores} & Xtensa LX6 Dual-Core / 240 MHz & ROM 448KB, SRAM 520KB, Flash 4MB & Wi-Fi 4 (802.11n), BT 4.2 & 3xSPI, 3xUART, 2xI2C, 2xI2S, 34xGPIO & 3.3V (5V Micro-USB) & $\sim$6 & \includegraphics[width=20mm]{./Imagenes/Módulo1/Microcontrolador/esp32.jpg}\\
+ESP32-C2 (Módulo) \cite{zotero-item-66}& RISC-V 32-bit Single-Core / 120 MHz & ROM 320KB, SRAM 272KB, Flash 4MB & Wi-Fi 4 (802.11n), BLE 5 & 2xSPI, 2xUART, 1xI2C, 1xI2S, 14xGPIO & 3.3V & \$120-250 & \includegraphics[width=20mm]{./Imagenes/Módulo1/Microcontrolador/c2.jpg}\\
 \hline
-ESP32-C2 (Módulo) \cite{zotero-item-52}& RISC-V 32-bit Single-Core / 120 MHz & ROM 320KB, SRAM 272KB, Flash 4MB & Wi-Fi 4 (802.11n), BLE 5 & 2xSPI, 2xUART, 1xI2C, 1xI2S, 14xGPIO & 3.3V & $\sim$2 & \includegraphics[width=20mm]{./Imagenes/Módulo1/Microcontrolador/c2.jpg}\\
-\hline
-Raspberry Pi Pico 2 W \cite{zotero-item-68}& ARM Cortex M0+ Dual-Core / 133 MHz & SRAM 264KB, Flash 4MB & Wi-Fi 4 (802.11n), BT 5.2 & 2xSPI, 2xI2C, 2xUART, 16xPWM, 26xGPIO & 3.3V (5V Micro-USB) & $\sim$6 & \includegraphics[width=20mm]{./Imagenes/Módulo1/Microcontrolador/1-113991254-seeedxiao-esp32c6-45font_1.jpg}\\
-\hline
-Raspberry Pi Pico 2 WH \cite{zotero-item-68} & ARM Cortex M0+ Dual-Core / 133 MHz & SRAM 264KB, Flash 4MB & Wi-Fi 4 (802.11n), BT 5.2 & 2xSPI, 2xI2C, 2xUART, 16xPWM, 26xGPIO & 3.3V (5V Micro-USB) & $\sim$8 & \includegraphics[width=20mm]{./Imagenes/Módulo1/Microcontrolador/1-113991254-seeedxiao-esp32c6-45font_1.jpg}\\
+Raspberry Pi Pico 2 W \cite{zotero-item-68}& ARM Cortex M0+ Dual-Core / 133 MHz & SRAM 264KB, Flash 4MB & Wi-Fi 4 (802.11n), BT 5.2 & 2xSPI, 2xI2C, 2xUART, 16xPWM, 26xGPIO & 3.3V (5V Micro-USB) & \$200-280 & \includegraphics[width=20mm]{./Imagenes/Módulo1/Microcontrolador/pi2.png}\\
 \hline
 \end{longtable}
 \endgroup
 \end{landscape}
 
+\subsubsection{Fuente de alimentación}
+En base a los requerimientos funcionales \ref{it:RF03} del proyecto,
+es necesario mantener el microcontrolador y los sensores en funcionamiento continuo durante
+el proceso de fermentación del kéfir de leche, que puede durar varios días.
+Por lo tanto en base al siguiente análisis en donde se calcula un aproximado
+del consumo energético total del Módulo 1, se selecciona una fuente de alimentación
+adecuada para garantizar un suministro estable y confiable de energía.
+\newline
+En base a la \cref{tab:consumos}, se muestran los consumos energéticos aproximados de cada componente del Módulo 1, 
+tanto en modo activo como en modo de bajo consumo (sleep). 
+Estos valores son estimados y pueden variar según las condiciones
+ de operación específicas y la configuración del sistema.
+
+\begin{table}[h]
+\centering
+\caption{Consumos de corriente de los componentes del Módulo 1.}
+\label{tab:consumos}
+% Usamos \footnotesize para reducir el tamaño de la fuente y ahorrar espacio horizontal
+\footnotesize
+\begin{tabular}{|m{5cm}|m{4cm}|m{4cm}|}
+\hline
+\textbf{Componente} & \textbf{Modo Activo (mA)} & \textbf{Modo Reposo(mA)} \\
+\hline
+PH-E201C (sensor pH) & 5 (continuo en operación) & 5 (continuo) \\
+\hline
+DS18B20 (sensor temperatura) & 1.5 (durante conversión) & 0.001 ($<$1 $\mu$A) \\
+\hline
+SCD30 (sensor ${CO}_{2}$) & 19 (durante medición) & 0.03 (standby) \\
+\hline
+XIAO ESP32C6 (microcontrolador) & 50--100 (CPU activo); 150--300 (WiFi TX) & 0.015 (deep sleep) \\
+\hline
+\end{tabular}
+\end{table}
+
+La fermetación del kéfir de leche típicamente dura entre 12 y 48 horas,
+durante este tiempo, los sensores y el microcontrolador estarán en modo activo
+durante los ciclos de muestreo , y en modo de bajo consumo
+el resto del tiempo.Para este análisis se toma como referencia fermentaciónes 
+ya hehcas como las que se muestran en la \cref{fig:est1} del proyecto \ref{sec:In1}.
+Tomando el caso más extremo 
+de una fermentación de 48 horas (172800 segundos), en la cual en las primeras 
+33 horas esta el ph en un rango de 6.8 a 5.6
+,de la hora 34 a 41 esta el pH en un rango de 5.5 a 5.0
+y de la hora 41 a 48 el pH esta en un rango de
+5.0 a 4.2. En base a los anteriores rangos de pH, el módulo 1 debe ajustar la frecuencia
+de muestreo para capturar adecuadamente los cambios en el pH durante la fermentación segun los \ref{it:RF01}.
+
+Basadas en datasheets:
 
