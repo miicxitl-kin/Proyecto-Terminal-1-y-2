@@ -1,9 +1,23 @@
 \subsection{Análisis del Módulo 4}
 
+Basado en la \cref{tab:framework}, se selecciona React para el Módulo 4, 
+dado que su enfoque en la construcción de interfaces de usuario interactivas mediante componentes y 
+JSX permite una integración eficiente con los datos JSON enviados por el módulo 1 a través de MQTT. Su alto 
+rendimiento, gracias al DOM Virtual, asegura actualizaciones rápidas de la UI para visualizar datos dinámicos de 
+fermentación en tiempo real, mientras que su amplio ecosistema de librerías facilita la incorporación de herramientas 
+para enrutamiento y gestión de estado, adaptándose a los requerimientos funcionales \ref{it:RF07} y no funcionales RNF04. 
+Aunque requiere librerías adicionales, lo que incrementa el tamaño, su comunidad activa y extensa documentación compensan 
+esta limitación, garantizando compatibilidad con el backend Python y MongoDB mediante APIs ligeras. En contraste, 
+Angular es más rígido por su estructura MVC y dependencia de TypeScript, mientras que no se descarta el uso Vue.js, 
+ya que es muy ligero, 
+tiene un ecosistema más reducido que limita las soluciones prediseñadas. Por consiguiente, React es la opción 
+óptima para desarrollar una interfaz escalable y reactiva en este sistema IoT.
+
+\caption{Comparación de Frameworks.}
+\label{tab:framework}
 \begingroup
 \setlength{\tabcolsep}{3pt} % Reduce el espacio entre columnas
 \renewcommand{\arraystretch}{1.5} % Altura de las filas
-
 \small % Reduce el tamaño de la fuente para ayudar al ajuste
 \centering
 \begin{tabularx}{\textwidth}{|l|l|X|X|X|}
@@ -15,6 +29,26 @@
 \textbf{Framework} & \textbf{Angular} \cite{zotero-item-136} & Es un marco de diseño Modelo-Vista-Controlador (MVC) y desarrollo de código abierto para aplicaciones a gran escala de una Sola Página (SPA). & Permite soluciónes completas (\textit{full-featured})al incorporar de forma nativa TypeScript(tipado estático) y una arquitectura modular basado en componentes. & Al ser un framework es algo robusto y rígida su implementación e integración,aparte depende del uso obligatorio de TypeScript. \\
 \hline
 \textbf{Framework} & \textbf{Vue.js} \cite{zotero-item-138}& Implementa un modelo de programación declarativo basado en componentes mediante su modelo modular y reutilizable con HTML estándar, CSS y JavaScript. & Permite un diseño progresivo, ya que se puede integrar solo la librería central, siendo muy ligero y flexible pero con herramientas limitadas. & La menor escala de su ecosistema implica que hay menos soluciones prediseñadas (como plugins o props complejos) disponibles en comparación con React o Angular. Esto puede requerir el desarrollo manual de funcionalidades avanzadas, aumentando la complejidad del código. \\
+\hline
+\end{tabularx}
+\endgroup
+
+
+\begingroup
+\centering
+\setlength{\tabcolsep}{4pt} % Reduce el espacio entre columnas
+\renewcommand{\arraystretch}{1.5} % Altura de las filas
+\begin{tabularx}{\textwidth}{|>{\RaggedRight}m{2.5cm}|>{\RaggedRight}m{2cm}|>{\RaggedRight}X|>{\RaggedRight}m{2cm}|>{\RaggedRight}X|}
+\hline
+\textbf{Librería} & \textbf{Tipo de Gráficos} & \textbf{Flexibilidad y Personalización} & \textbf{Rendimiento} & \textbf{Comentarios / Uso Principal} \\
+\hline
+\textbf{Recharts} \cite{zotero-item-220}& Componentes React / SVG  & Moderada; ideal para gráficos estándar con personalización básica. & Alto & Solución declarativa optimizada para React, adecuada para visualizaciones rápidas de datos en tiempo real, como métricas de fermentación. \\
+\hline
+\textbf{React-Chartjs-2} \cite{zotero-item-222}& Componentes React / Canvas  & Media; personalización avanzada limitada por la API de Chart.js. & Medio-alto & Wrapper de Chart.js, eficiente para gráficos estadísticos simples y de alta frecuencia, como series temporales de sensores. \\
+\hline
+\textbf{Nivo}\cite{zotero-item-224} & Componentes React / SVG, Canvas, HTML  & Alta; ofrece modularidad y herramientas interactivas para gráficos complejos. & Alto & API moderna para visualizaciones profesionales, ideal para dashboards dinámicos con datos de IoT. \\
+\hline
+\textbf{Victory}\cite{zotero-item-226} & Componentes React / SVG & Alta; API consistente y flexible para gráficos reutilizables y personalizados. & Medio & Enfocada en dashboards interactivos, adecuada para monitoreo de múltiples parámetros de fermentación. \\
 \hline
 \end{tabularx}
 \endgroup
