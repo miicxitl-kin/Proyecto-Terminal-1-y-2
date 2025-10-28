@@ -1,0 +1,156 @@
+\subsection{Servidor}
+
+
+En esta sección se presenta la selección del broker MQTT y del servidor para el Módulo 4
+del proyecto, que integra Python con Flask, MongoDB, React y los microcontroladores para gestionar
+datos de fermentación en tiempo real. La elección se fundamenta en los requerimientos de escalabilidad
+horizontal, flexibilidad para datos dinámicos JSON, baja latencia en la comunicación MQTT y 
+optimización de costos para un despliegue inicial en un sistema IoT compacto. 
+A ontinuación se evalúan opciones 
+de brokers MQTT y servicios en la nube, considerando su compatibilidad con la arquitectura del 
+sistema, facilidad de integración con Flask y React, y capacidad para soportar análisis y
+visualización de datos en tiempo real. Por consiguiente, se seleccionan las soluciones que
+mejor equilibran rendimiento, simplicidad y viabilidad económica.
+
+\subsubsection{Servidor en la nube o local}
+De la tabla  \cref{tab:serlocal} se selecciona un servidor en la nube como
+la mejor opción ya que sadisface a los
+requerimientos funcionales \ref{it:RF12} y no funcionales RNF04, dado su principal caracteristica de la escalabilidad 
+al poder adaptar recursos según la demanda y permitir una 
+gran flexibilidad ya que permite el acceso desde cualquier lugar,
+así como capacidades de respaldo y recuperación ante desastres. 
+En contraste, un servidor local, aunque sin costos recurrentes, 
+limita la escalabilidad, requiere mantenimiento manual y es vulnerable 
+a fallos, lo que afecta la continuidad del monitoreo. Por consiguiente,
+un servidor en la nube ofrece mayor robustez y flexibilidad para este
+sistema.
+
+\caption{Comparación de Servidor en la nube o local.}
+\label{tab:serlocal}
+\begingroup
+\centering
+\setlength{\tabcolsep}{4pt} % Reduce el espacio entre columnas
+\renewcommand{\arraystretch}{1.5} % Altura de las filas
+\small % Fuente pequeña para aprovechar el ancho
+\begin{tabularx}{\textwidth}{|l|X|X|}
+\hline
+\textbf{Categoría} & \textbf{Servidor Local} \cite{zotero-item-250} & \textbf{Servidor en la Nube} \cite{2017} \\
+\hline
+Costo & Sin costos recurrentes, solo inversión inicial en hardware. & Costos mensuales bajo demanda (\$10-40/mes para proyectos pequeños). \\
+\hline
+Escalabilidad & Limitada, requiere hardware adicional y configuración manual. & Alta, con autoescalado y balanceo de carga automáticos. \\
+\hline
+Mantenimiento & Responsabilidad del equipo, incluye actualizaciones y backups. & Gestionado por el proveedor, minimizando carga operativa. \\
+\hline
+Disponibilidad & Vulnerable a fallos de hardware o energía. & Alta disponibilidad (99.9\%+ SLA) con redundancia. \\
+\hline
+Integración & Configuración manual para MQTT, Flask, MongoDB, React. & Integración nativa con servicios como MongoDB Atlas y APIs. \\
+\hline
+Latencia & Baja en redes locales, ideal para pruebas iniciales. & Depende de internet, optimizable con regiones cercanas. \\
+\hline
+\end{tabularx}
+\endgroup
+
+
+\subsubsection{MQTT Servidor}
+Basado en la tabla comparativa \cref{tab:serMQTT}, se selecciona \textbf{EMQX Cloud}
+para el Módulo 1, dado que su escalabilidad horizontal, soportada por clustering distribuido,
+permite conexiones simultáneas, alineándose con el requerimiento RNF01 
+de añadir dispositivos sin afectar los existentes. Su soporte para MQTT 5.0 y análisis en 
+tiempo real optimiza el procesamiento de datos de fermentación enviados por los microcontroladores, mientras
+que su integración nativa con Python mediante \texttt{paho-mqtt} y JSON asegura un manejo 
+eficiente en Flask y MongoDB. Además, su alta disponibilidad , 
+seguridad avanzada con TLS/ACLS y despliegue en regiones de AWS, GCP o Azure garantizan
+fiabilidad y baja latencia global para visualizaciones en React. Aunque implica costos,
+su modelo ``pay as you go'' es 
+asequible para proyectos pequeños, y su documentación extensa facilita la transición
+desde entornos locales. En contraste, HiveMQ Cloud presenta costos más altos
+(\textasciitilde\$1,000/mes), NanoMQ y VerneMQ requieren mayor configuración técnica,
+y AWS IoT Core introduce dependencia de su ecosistema. 
+Aunque Eclipse Mosquitto es ligero y gratuito, su escalabilidad limitada 
+y dependencia de hardware lo hacen menos viable para la nube. Por consiguiente,
+EMQX Cloud equilibra rendimiento, simplicidad y viabilidad económica para este sistema
+IoT en la nube.
+
+
+
+\begingroup
+\setlength{\tabcolsep}{4pt} % Espacio entre columnas
+\renewcommand{\arraystretch}{1.5} % Altura de las filas
+\small % Fuente pequeña para aprovechar el ancho
+
+% Se usa longtable en lugar de tabularx. Se define p{ancho} para columnas fijas 
+% o >{\RaggedRight}X para columnas flexibles si usas tabularx.
+% Aquí usaremos p{ancho} para una mayor estabilidad y \textwidth en longtable.
+\begin{longtable}{|p{2.2cm}|p{3.5cm}|p{3cm}|p{3cm}|p{3cm}|}
+\caption{Comparación de servicios MQTT.}
+\label{tab:serMQTT}
+\\
+\hline
+\textbf{Broker MQTT} & \textbf{Descripción} & \textbf{Ventaja} & \textbf{Desventaja} & \textbf{Costos} \\
+\hline
+\endfirsthead
+% --- Encabezado que se repite en la segunda página ---
+\multicolumn{5}{l}{\small\bfseries \tablename\ \thetable} \\
+\hline
+\textbf{Broker MQTT} & \textbf{Descripción} & \textbf{Ventaja} & \textbf{Desventaja} & \textbf{Costos} \\
+\hline
+\endhead
+\hline
+\multicolumn{5}{r}{\small\itshape } \\
+\endfoot
+\hline
+\endlastfoot
+
+\textbf{Eclipse Mosquitto}  \cite{zotero-item-236}  & Broker ligero de código abierto, soporta QoS 0-2, TLS y ACLs, ideal para despliegues locales. & Ligero y fácil de configurar, ideal para proyectos pequeños con baja latencia. & Escalabilidad limitada ya que depende mucho de los recursos del sistema. & Gratuito (licencia EPL/EDL). \\
+\hline
+\textbf{EMQX} \cite{zotero-item-228} & Broker escalable con soporte MQTT 5.0, clustering distribuido y análisis en tiempo real. & Alta escalabilidad horizontal, soporta millones de conexiones con clustering. & Configuración compleja para entornos pequeños. & Open Source: Gratuito; Enterprise: Desde \textasciitilde\$0.10/conexión/mes (\textasciitilde\$100/mes plan básico). \\
+\hline
+\textbf{VerneMQ} \cite{2025d}  & Broker basado en Erlang, enfocado en escalabilidad masiva y autenticación avanzada. & Escalabilidad masiva con clustering basado en Erlang, ideal para IoT. & Requiere experiencia técnica para optimización y mantenimiento. & Gratuito; soporte enterprise \textasciitilde\$5,000/año. \\
+\hline
+\textbf{HiveMQ} \cite{zotero-item-238} & Broker empresarial con soporte MQTT 5.0, seguridad RBAC y compatibilidad con Kafka. & Seguridad avanzada y soporte MQTT 5.0, optimizado para entornos enterprise. & Costo elevado para despliegues comerciales. & Community: Gratuito; Enterprise: Desde \textasciitilde\$1,000/mes. \\
+\hline
+\textbf{NanoMQ} \cite{zotero-item-232} & Broker ultraligero para edge computing, optimizado para IoT con MQTT 5.0. & Ligero y eficiente para edge computing, bajo consumo de recursos. & Menor ecosistema y soporte comunitario limitado. & Gratuito. \\
+\hline
+\textbf{AWS IoT Core} \cite{zotero-item-240} & Servicio en la nube de AWS para IoT, soporta MQTT 5.0, integración con AWS Lambda y reglas para datos. & Alta escalabilidad y seguridad, integración nativa con ecosistema AWS. & Dependencia de AWS y costos variables según uso. &Desde \$0.08/100,000 mensajes \$5-20/mes para proyectos pequeños. \\
+\hline
+\end{longtable}
+\endgroup
+
+\subsubsection{Servidor en la nube}
+Basado en los requerimientos funiconales \ref{it:RF12} y no funcionales RNF04, que involucran el despliegue de una página web con React y Flask
+para análisis de datos en Python, se selecciona AWS como el servidor en la nube más adecuado de la tabla
+\cref{tab:sernube}, dado que su 
+ecosistema amplio permite una integración fluida de EC2 para alojar Flask y procesamiento de datos, 
+S3 para hosting estático de React jutno con Lambda. Además, 
+ofrece escalabilidad horizontal automática mediante Auto Scaling y compatibilidad directa con MongoDB Atlas,
+asegurando baja latencia para flujos MQTT y visualizaciones en tiempo real, mientras que su free tier 
+minimiza costos iniciales. En contraste, Google cloud computing, 
+aunque competitivo en precios, tiene un ecosistema menos intuitivo para integraciones híbridas, y Azure, pese a su soporte para Microsoft, presenta costos más elevados y complejidad en configuraciones para Python. Por consiguiente, AWS equilibra eficiencia, escalabilidad y simplicidad para este sistema IoT.
+
+\caption{Comparación de Servidores en la nube.}
+\label{tab:sernube}
+\begingroup
+\centering
+\setlength{\tabcolsep}{4pt} % Reduce el espacio entre columnas
+\renewcommand{\arraystretch}{1.5} % Altura de las filas
+\small % Fuente pequeña para aprovechar el ancho
+\begin{tabularx}{\textwidth}{|>{\RaggedRight}m{2.15cm}|>{\RaggedRight}m{4.4cm}|>{\RaggedRight}m{4.2cm}|>{\RaggedRight}m{4.2cm}|}
+\hline
+\textbf{Categoría} \cite{SAMUELGUAYASESPIN2023} & \textbf{AWS} & \textbf{Google cloud} & \textbf{Azure} \\
+\hline
+Modelo & IaaS, PaaS, SaaS & IaaS, PaaS, SaaS & BaaS (Backend as a
+Service) \\
+\hline
+Herramientas & EC2, S3, Lambda, RDS, MongoDB Atlas & App Engine, Cloud Storage, Cloud Run, Firestore & App Service, Static Web Apps, Blob Storage, Cosmos DB \\
+\hline
+Seguridad & IAM, KMS, WAF, VPC & IAM, VPC Service Controls, Shield & Azure AD, Security Center, Sentinel \\
+\hline
+Ventajas & Alta escalabilidad, ecosistema amplio, free tier robusto & Escalabilidad flexible, precios competitivos, integración AI & Integración con Microsoft, soporte híbrido robusto \\
+\hline
+Desventajas & Complejidad en configuración, costos variables altos & Menor ecosistema, curva de aprendizaje técnica & Costos elevados, menos intuitivo para startups \\
+\hline
+Precio (mensual) & Bajo demanda, desde \$15-30 (EC2 t3.micro \$7, S3 \$1, Atlas \$9) & Bajo demanda , desde \$10-25 (App Engine free tier, Storage \$0.5/GB, Firestore \$1) & Bajo demanda, desde \$20-40 (App Service \$13, Static free, Cosmos \$24) \\
+\hline
+\end{tabularx}
+\endgroup
