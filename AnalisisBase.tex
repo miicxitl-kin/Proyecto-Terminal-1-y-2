@@ -71,7 +71,9 @@ de nuevos dispositivos sin comprometer los existentes. Asimismo, su diseño flex
 solo servidor, pero a su vez posibilita una transición fluida a entornos distribuidos en el futuro. 
 En contraste, Cassandra prioriza disponibilidad sobre consistencia, por lo que puede introducir latencias 
 en la sincronización de datos usuario-dispositivo. De igual manera, Redis, aunque rápido, está limitado 
-por su naturaleza en memoria, lo que encarece la persistencia a largo plazo. Por su parte, InfluxDB, 
+por su naturaleza en memoria, lo que encarece la persistencia a largo plazo, DynamoDb permite una
+integración al tener un módelo basado en docuemntos pero se ve limitado ya que solo se puede integrar
+por medio del eosistema de AWS. Por su parte, InfluxDB, 
 optimizado para series temporales, resulta menos adecuado para relaciones usuario-dispositivo no temporales. 
 En consecuencia, MongoDB se consolida como la mejor opción, puesto que equilibra consistencia, flexibilidad y 
 escalabilidad.
@@ -96,6 +98,8 @@ escalabilidad.
 \textbf{Redis}\cite{zotero-item-111} & Clave-Valor (Key-Value) & CP & Almacenamiento en memoria (*in-memory*), uso primario como caché y broker de mensajes. & BSD & Parcial (Transacciones atómicas básicas en comandos únicos). & Fuerte (Alta velocidad y disponibilidad por naturaleza *in-memory*). & Nube (ElastiCache, Memorystore) y Local\\
 \hline
 \textbf{InfluxDB}\cite{zotero-item-113} & Series de Tiempo (TSDB) & AP & Optimizado para ingesta masiva de datos indexados por secuencias de tiempo. & MIT y Comercial & Bajo (Prioriza la velocidad de ingesta sobre la atomicidad). & Fuerte (Alta disponibilidad, optimizado para particionamiento temporal). & Nube (InfluxDB Cloud) y Local\\
+\hline
+\textbf{DynamoDB} \cite{zotero-item-252} & Clave-Valor y Documento & AP & Escalable sin servidor, optimizado para lecturas/escrituras rápidas de datos IoT. & Propietaria (AWS) & Media: Soporta transacciones ACID limitadas para operaciones específicas. & Fuerte (Alta disponibilidad y particionamiento automático). & Nube (AWS) \\
 \hline
     \end{tabular}
 \end{table}

@@ -2,30 +2,29 @@
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage[spanish]{babel}
-\usepackage{graphicx}
+\usepackage{lmodern}
 \usepackage{geometry}
+\geometry{a4paper, margin=1in}
+\usepackage{amsmath}
+\usepackage{graphicx}
 \usepackage{tikz}
-\usepackage[utf8]{inputenc}
-\usepackage[spanish]{babel}
 \usepackage{adjustbox}
 \usepackage{cite}
-\usepackage{array} % ¡Asegúrate de incluir este paquete en el preámbulo!
-\usepackage{graphicx} % Ya lo tienes, pero es fundamental para \includegraphics
-\usepackage{lscape}
-\usepackage{pdflscape}
-\usepackage{cleveref}
-\usepackage{array} % Para usar >{} y <{} en las columnas
-\usepackage{booktabs} % Para mejores líneas en la tabla (toprule, midrule, bottomrule)
+\usepackage{array}
+\usepackage{booktabs}
 \usepackage{longtable}
 \usepackage{tabularx}
-\usepackage{booktabs}
 \usepackage{multirow}
 \usepackage{ragged2e}
 \usepackage{xcolor}
-\usepackage{graphicx}
 \usepackage{amssymb}
 \usepackage{enumitem}
 \usepackage{capt-of}
+\usepackage{pdflscape}
+\usepackage{cleveref}
+\usepackage{fancyhdr}
+% Configuraciones adicionales
+\renewcommand{\familydefault}{\rmdefault}
 
 
 \crefname{table}{Tabla No.}{Tablas No.}
@@ -47,7 +46,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Definir el estilo de página personalizado
 
-\usepackage{fancyhdr}
+
 \pagestyle{fancy}
 \fancypagestyle{mypagestyle}{
     \fancyfoot{}                       % Limpia cualquier configuración previa
@@ -119,7 +118,7 @@ Prototipo de un sistema telem\'atico \\
 \include{AnalisisBase}
 \include{Analisismodulo4}
 \include{Framework}
-
+\include{Servidor}
 \bibliographystyle{IEEEtran}
 \bibliography{PT1}
 \end{document}

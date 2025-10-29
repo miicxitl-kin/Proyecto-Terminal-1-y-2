@@ -479,8 +479,187 @@ de una fermentación de 48 horas (172800 segundos), en la cual en las primeras
 y de la hora 41 a 48 el pH esta en un rango de
 5.0 a 4.2. En base a los anteriores rangos de pH, el módulo 1 debe ajustar la frecuencia
 de muestreo para capturar adecuadamente los cambios en el pH durante la fermentación segun los \ref{it:RF01}.
+\newline
+Para esto calculamos primero la carga en mA·s para cada fase del monitoreo (48 h, 3 fases), según consumos y requerimientos.
+\begin{itemize}
+    \item Corrientes (mA): $I_{\text{medición12}} = 54$ (fases 1-2: MCU 30 + pH 5 + CO2 19), $I_{\text{medición3}} = 55.5$ (fase 3: +DS18B20 1.5), $I_{\text{TX}} = 250$, $I_{\text{reposo}} = 0.01$.
+    \item Tiempos por ciclo (s): $t_{\text{medición}} = 5$, $t_{\text{TX}} = 5$, $t_{\text{activo}} = 10$.
+    \item Períodos (s): Fase 1 = 600, Fase 2 = 300, Fase 3 = 60.
+    \item Duraciones (s): Fase 1 (33 h) = 118800, Fase 2 (8 h) = 28800, Fase 3 (8 h) = 28800.
+\end{itemize}
+Para esto definimos las fórmulas a usar en este calculo:
+1. Carga por ciclo (mA·s):
+\begin{equation}
+\text{Carga por ciclo} = (I_{\text{medición}} \times t_{\text{medición}}) + (I_{\text{TX}} \times t_{\text{TX}}) + (I_{\text{reposo}} \times t_{\text{reposo}}) \label{eq:carga_ciclo}
+\end{equation}
+Con $t_{\text{reposo}} = \text{período} - t_{\text{activo}}$. Suma consumos en medición, transmisión y reposo.
 
-Basadas en datasheets:
+2. Número de ciclos:
+\begin{equation}
+\text{Número de ciclos} = \frac{\text{Duración fase}}{\text{Período ciclo}} \label{eq:ciclos}
+\end{equation}
+Divide duración de la fase por intervalo de ciclo.
+
+3. Carga por fase (mA·s):
+\begin{equation}
+\text{Carga fase} = \text{Número de ciclos} \times \text{Carga por ciclo} \label{eq:carga_fase}
+\end{equation}
+Escala la carga unitaria al total de ciclos.
+\newline
+Calculamos la caga por ciclo de cada fase como se muestra a continuación:
+
+Usamos \eqref{eq:carga_ciclo}.
+
+\begin{itemize}
+    \item \textbf{Fase 1}: $t_{\text{reposo1}} = 600 - 10 = 590$.
+    \begin{align*}
+    \text{Carga por ciclo1} &= (54 \times 5) + (250 \times 5) + (0.01 \times 590) \\
+    &= 270 + 1250 + 5.9 = 1525.9 \, \text{mA·s}.
+    \end{align*}
+    Medición (pH + CO2), WiFi, reposo prolongado.
+
+    \item \textbf{Fase 2}: $t_{\text{reposo2}} = 300 - 10 = 290$.
+    \begin{align*}
+    \text{Carga por ciclo2} &= (54 \times 5) + (250 \times 5) + (0.01 \times 290) \\
+    &= 270 + 1250 + 2.9 = 1522.9 \, \text{mA·s}.
+    \end{align*}
+    Igual que fase 1, pero reposo más corto.
+
+    \item \textbf{Fase 3}: $t_{\text{reposo3}} = 60 - 10 = 50$.
+    \begin{align*}
+    \text{Carga por ciclo3} &= (55.5 \times 5) + (250 \times 5) + (0.01 \times 50) \\
+    &= 277.5 + 1250 + 0.5 = 1528 \, \text{mA·s}.
+    \end{align*}
+    Incluye DS18B20, reposo mínimo.
+\end{itemize}
+
+Calculamos el número de ciclos de cada fase como se muestra a continuación:
+
+\begin{itemize}
+    \item Fase 1: $\frac{118800}{600} = 198$.
+    \item Fase 2: $\frac{28800}{300} = 96$.
+    \item Fase 3: $\frac{28800}{60} = 480$.
+\end{itemize}
+
+Y por ultimo obtenemos la carga de cada fase:
+
+\begin{itemize}
+    \item Fase 1: $198 \times 1525.9 = 301228.2$ mA·s.
+    \item Fase 2: $96 \times 1522.9 = 146198.4$ mA·s.
+    \item Fase 3: $480 \times 1528 = 733440$ mA·s.
+\end{itemize}
+
+obtenemos que la Fase 1: 301228.2 mA·s, Fase 2: 146198.4 mA·s, Fase 3: 733440 mA·s. Fase 3 en donde domina por su alta frecuencia.
+
+Una vexz obtenidos  la carga de cada fase ,
+determinamos la capacidad de la batería en mAh para 48 h de monitoreo, sumando las cargas de las tres fases, convirtiendo a mAh y aplicando un factor de seguridad.
+
+\begin{itemize}
+    \item Cargas por fase (mA·s): Fase 1 = 301228.2, Fase 2 = 146198.4, Fase 3 = 733440.
+    \item Duración total: 48 h = $48 \times 3600 = 172800$ s.
+    \item Factor de seguridad: 1.5 (para pérdidas por eficiencia, envejecimiento, variaciones).
+\end{itemize}
+
+Usamos las siguientes fórmulas :
+1. Carga total (mA·s):
+\begin{equation}
+\text{Carga total} = \text{Carga fase1} + \text{Carga fase2} + \text{Carga fase3} \label{eq:carga_total}
+\end{equation}
+Suma las cargas de cada fase.
+
+2. Capacidad sin seguridad (mAh):
+\begin{equation}
+\text{Capacidad sin seguridad} = \frac{\text{Carga total}}{3600} \label{eq:capacidad_base}
+\end{equation}
+Convierte mA·s a mAh (3600 s/hora).
+
+3. Capacidad requerida (mAh):
+\begin{equation}
+\text{Capacidad requerida} = \text{Capacidad sin seguridad} \times \text{Factor de seguridad} \label{eq:capacidad_final}
+\end{equation}
+Ajusta por pérdidas.
+
+Obtenemos la carga total sumanando las cargas obtenidas de cada fase
+, como se muestra a continuación:
+\begin{align*}
+\text{Carga total} &= 301228.2 + 146198.4 + 733440 \\
+&= 1180866.6 \, \text{mA·s}.
+\end{align*}
+Al sumar las cargas de fase 1 (33 h, ciclos cada 10 min), fase 2 (8 h, ciclos cada 5 min) y fase 3 (8 h, ciclos cada 1 min).
+
+Procedemos a obtener la carga sin seguridad
+\begin{align*}
+\text{Capacidad sin seguridad} &= \frac{1180866.6}{3600} \approx 328.02 \, \text{mAh}.
+\end{align*}
+En donde dividimos por 3600 para convertir a mAh.
+\newline
+Y obtenemos la capacidad requerida
 
 
+\begin{align*}
+\text{Capacidad requerida} &= 328.02 \times 1.5 \approx 492.03 \, \text{mAh}.
+\end{align*}
+Multiplica por 1.5 para cubrir ineficiencias (~85\%) y variaciones.
 
+Verificamos el calculo obteniendo la corriente promedio:
+\begin{align*}
+I_{\text{promedio}} &= \frac{1180866.6}{172800} \approx 6.83 \, \text{mA}.
+\end{align*}
+Obtenemos que la capacidad alternativa es de $6.83 \times 48 \times 1.5 \approx 492.03$ mAh, confirmando \eqref{eq:capacidad_final}.
+\newline
+Este calculo es una aproximación dado que puede
+variar los tiempos de fermentación, en este
+caso se tomo como ejermplo 
+una fermentación de  48 horas pero pueden durar 
+mucho menos por lo que gracias a este calculo obtenemos que la capacidad requerida 
+$\approx 492$ mAh, lo que nos permite implementar una batería siempre y 
+cuando sea mayor a 500 mAh.
+\newline
+A continuación se muestra en la \cref{tab:baterias} las bateiras a considerar,
+de las cuales se selecciono la batería módelo 802040 ya que esta tiene cuenta con 650mAh lo que 
+asegura la alimentación continua durante el proceso de monitoreo, aunque no se descarta el uso de las
+demás baterias o de otros modelos siempre y cuando cuenten con una capacidad mayor a 500mAh.
+\begin{table}[h!]
+\centering
+\caption{Modelos de Baterías}
+\label{tab:baterias}
+\begin{tabular}{@{} |m{2cm}|m{2cm}|m{2cm}|m{2cm}|m{2cm}|m{4cm}|@{}}
+\hline
+\textbf{Modelo de Batería} & \textbf{Voltaje Nominal ($V$)} & \textbf{Capacidad ($\text{mAh}$)} & \textbf{Tipo} & \textbf{Precio Est. (USD)} & \textbf{Imagen} \\
+\hline
+802040 \cite{zotero-item-255} & $3.7\ \text{V}$ & $650$ & Li-Po & \$75 & \includegraphics[width=27mm, angle=90]{./Imagenes/Módulo1/Baterias/bateria.png}  \\
+\hline
+6022480 \cite{zotero-item-257}& $3.7\ \text{V}$ & $600$ & Li-Po & \$100 & \includegraphics[width=27mm, angle=90]{./Imagenes/Módulo1/Baterias/602248.png}  \\
+\hline
+303450 \cite{zotero-item-259} & $3.7\ \text{V}$ & $600$ & Li-Po & \$120 & \includegraphics[width=27mm, angle=90]{./Imagenes/Módulo1/Baterias/303450.png} \\
+\hline
+\end{tabular}
+\end{table}
+
+\subsection{Análisis del Módulo 2}
+
+En esta sección se presenta un análisis,comparacción y selección
+del lenguaje de programación considerado para llevar a cabo el 
+desarrollo del analisis de datos.Tomando en cuenta los requeriminetos 
+funcionales \ref{it:RF04} y el formato de datos (JSON) previamente seleccionado con 
+el cual va a trabajar el módulo 1 , 
+lo que es de suma importancia que el lenguaje de programación
+seleccionado tenga una integración nativa para el manejo de este formato.
+\newline
+\newline
+De la \cref{tab:lenguajesprogramacion}, donde se comparan diferentes lenguajes de programación, 
+de los cuales se seleccionó Python, ya que este lenguaje orientado a objetos cuenta con la 
+caracterisitca principal de permitir
+la herencia de propiedades y
+métodos en subclases, facilitando la reutilización de código sin duplicación lo que simplfica mucho el código
+y el almacenamiento para implementarlo. 
+\newline
+Además, su polimorfismo
+soporta procesos de análisis simultáneos sin afectar el rendimiento entre ellos, gracias a un amplio ecosistema 
+con librerías para manejo nativo de JSON y librerias nativas de lógica difusa. 
+Siendo que Python también ofrece prototipado rápido, integración sencilla 
+con servicios, visualización avanzada y soporte para aprendizaje automático. Por ello, presenta la mejor 
+relación entre facilidad de uso, herramientas y comunidad para el Módulo 2. En contraste, C\# se limita al 
+ecosistema .NET, complicando su implementación, mientras que R, aunque  no se descarta su uso debido a 
+se excelente rendimiento en secuencias de datos, se enfoca en análisis estadístico y academico
+limitando su flexibilidad hacia el desarrollo web.
