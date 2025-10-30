@@ -23,12 +23,13 @@
 \usepackage{pdflscape}
 \usepackage{cleveref}
 \usepackage{fancyhdr}
+
 % Configuraciones adicionales
 \renewcommand{\familydefault}{\rmdefault}
 
 
 \crefname{table}{Tabla No.}{Tablas No.}
-\setlist[enumerate, 1]{ref=RF0\arabic*} 
+\setlist[enumerate,1]{ref=RF0\arabic*} 
 \setcounter{tocdepth}{4}
 \usetikzlibrary{calc}
 
@@ -93,7 +94,7 @@ Prototipo de un sistema telem\'atico \\
 \renewcommand{\labelenumiii}{\arabic{enumi}.\arabic{enumii}.\arabic{enumiii}}
 \renewcommand{\labelenumiv}{\arabic{enumi}.\arabic{enumii}.\arabic{enumiii}.\arabic{enumiv}}
 
-
+%\usepackage{hyperref}
 
 \begin{document}
 \renewcommand{\tablename}{Tabla}
@@ -119,6 +120,9 @@ Prototipo de un sistema telem\'atico \\
 \include{Analisismodulo4}
 \include{Framework}
 \include{Servidor}
+\include{disenomodulo1}
+\include{desmodulo2}
+
 \bibliographystyle{IEEEtran}
 \bibliography{PT1}
 \end{document}

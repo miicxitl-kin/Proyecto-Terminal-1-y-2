@@ -1,0 +1,46 @@
+\section{Capítulo 6: Diseño}
+
+En este capítulo se presenta el diseño detallado de los módulos
+que constituyen el sistema IoT para el monitoreo y gestión de
+procesos de fermentación en tiempo real. Se abordan la
+arquitectura general, los modelos de datos y la topología de
+comunicación entre dispositivos y servicios en la nube. Se
+detallan además las elecciones tecnológicas —Python con Flask
+para el backend, MongoDB para el almacenamiento de documentos
+JSON, React y React-Chartjs-2 para la visualización en tiempo
+real, microcontroladores XIAO ESP32 para adquisición de datos y
+EMQX Cloud como broker MQTT— así como la propuesta de despliegue
+en AWS para asegurar escalabilidad y disponibilidad.
+
+El diseño cubre los Módulos 1 a 4 y especifica: la estructura de
+la base de datos, los formatos de mensajes MQTT, las rutas REST
+del backend, las interfaces de usuario y las consideraciones de
+seguridad y rendimiento. El objetivo es cumplir los requisitos
+funcionales (p. ej. RF01) y los no funcionales (p. ej. RNF01,
+RNF03) relativos a escalabilidad, flexibilidad ante cambios en
+los esquemas de datos y baja latencia en la comunicación. A lo
+largo del capítulo se incluyen diagramas lógicos, esquemas de
+colecciones y ejemplos de payloads JSON que facilitarán la
+implementación y validación.
+
+\subsection{Diseño Módulo 1}
+En este módulo se diseñará el Módulo 1, encargado de la
+adquisición de datos en campo. Se describirán la arquitectura de
+hardware (sensores, acondicionamiento de señal y el
+microcontrolador XIAO ESP32), el firmware necesario para la
+lectura y preprocesamiento de señales, y el formato del payload
+MQTT (JSON) enviado al broker. También se definirán las
+estrategias de robustez y conectividad (QoS, reintentos y
+buffering local) y los criterios de aceptación para las pruebas
+de validación (frecuencia de muestreo, precisión y consumo
+energético).
+
+    \begin{figure}[htb]
+    \centering
+    \includegraphics[width=1\textwidth]{./UML/Modulo1/Diseno/diagrama.drawio.png}
+    \caption{Diagrama de flujo del módulo 1}
+    \label{fig:Flu1}
+    \end{figure} 
+
+
+
