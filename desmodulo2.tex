@@ -1,57 +1,313 @@
 \subsection{Diseño Módulo 2}
 
-\begin{table}[htbp]
-    \centering
-    \caption{Criterios pH}
-    \begin{tabular}{|c|c|c|}
-        \hline
-        \textbf{Criterio} & \textbf{Etiqueta} & \textbf{Dominio} \\ \hline
-        % Fila 1: Aquí se define \multirow{3} y se inicia la primera fila de datos
-        \multirow{3}{*}{\textbf{pH}} & Adecuado  & $6.8 > \text{pH} > 4.5$ \\ \cline{2-3} 
-        
-        % Fila 2: La celda de Criterio queda vacía
-        & Optimo& $4.6 > \text{pH} > 4.2$ \\ \cline{2-3} 
-        
-        % Fila 3: La celda de Criterio queda vacía
-        & Sobrefermentado & $\text{pH} < 4.3$ \\ \hline
-    \end{tabular}
-\end{table}
+En esta sección se establecen los fundamentos de las reglas que permiten 
+clasificar automáticamente el estado del kéfir a partir de sus parámetros 
+fisicoquímicos principales: pH, temperatura y concentración de $CO_{2}$. 
+Con este propósito, se definen con precisión los rangos operativos de cada variable, 
+junto con sus respectivas etiquetas lingüísticas y funciones de pertenencia trapezoidales, 
+las cuales han sido diseñadas considerando los márgenes de error típicos de los sensores 
+especificados en la sección \ref{sec:mod1}.
+Por consiguiente, este enfoque transforma las mediciones crudas en información cualitativa 
+robusta y significativa, creando las bases para una clasificación confiable del kéfir en 
+categorías prácticas que orientan directamente la toma de decisiones del productor. 
+A continuación, se describe detalladamente dicho proceso.
+
+\subsubsection{Calsificación del kéfir}
+Como primera parte para definir las clasificaciones del kéfir, 
+se establecen los rangos del pH. Con base en la tabla \cref{tab:dominio_ph},
+se especifican los rangos y las etiquetas lingüísticas que adopta el pH durante 
+el proceso de fermentación del kéfir. Estos dominios, junto con sus respectivas 
+funciones de pertenencia trapezoidales, la cual se define mediante la siguiente expresión matemática:
+
+\begin{equation}
+\mu(x) = 
+\begin{cases}
+0, & x \leq a \quad \vee \quad x \geq d \\[8pt]
+\dfrac{x - a}{b - a}, & a \leq x \leq b \\[12pt]
+1, & b \leq x \leq \\[12pt]
+\dfrac{d - x}{d - c}, & c \leq x \leq d
+\end{cases}
+\label{eq:trapezoidal}
+\end{equation}
+
+donde \(a \leq b \leq c \leq d\) son los parámetros que delimitan el soporte y la meseta de la función.
+Por lo que dicha función trapezoidal se ilustra en la \cref{fig:Log1}, 
+donde se aprecia claramente la transición suave entre las categorías Óptimo, 
+Adecuado, Subóptimo y Sobrefermentado.
 
 \begin{table}[htbp]
     \centering
-    \caption{Criterios Temperatura}
-    \begin{tabular}{|c|c|c|}
+    \caption{Dominio de Valores de pH por Etiqueta}
+    \label{tab:dominio_ph}
+    % Redefinimos el tipo de columna X para que el contenido quede centrado (\centering)
+    \begin{tabularx}{\textwidth}{|>{\centering\arraybackslash}X|>{\centering\arraybackslash}X|>{\centering\arraybackslash}X|>{\centering\arraybackslash}X|>{\centering\arraybackslash}X|>{\centering\arraybackslash}X|}
         \hline
-        \textbf{Criterio} & \textbf{Etiqueta} & \textbf{Dominio} \\ 
+        % Las columnas Criterio y Etiqueta ahora también son X para dar flexibilidad.
+        \multirow{3}{*}{\textbf{Criterio}} & \multirow{3}{*}{\textbf{Etiqueta}} & \multicolumn{4}{c|}{\textbf{Dominio de pH (x)}} \\ 
+        \cline{3-6} 
+    
+        % Los multicols deben usar 'c' o un tipo de columna centrado.
+        & & \multicolumn{1}{c|}{\textbf{a $\leq$ x $\leq$ b}} & \multicolumn{2}{c|}{\textbf{b $\leq$ x $\leq$ c}} & \multicolumn{1}{c|}{\textbf{c $\leq$ x $\leq$ d}} \\ 
+        \cline{3-6} 
+        
+        & & \textbf{a} & \textbf{b} & \textbf{c} & \textbf{d} \\ 
         \hline
-        % Fila 1: Aquí se usa \multirow{4} para cubrir las cuatro filas.
-        \multirow{4}{*}{\textbf{Temperatura}} & Baja & $\text{Temperatura} < 17^\circ\text{C}$ \\ 
-        \cline{2-3} 
         
-        % Fila 2: Celda de criterio vacía
-        & Normal & $18^\circ\text{C} \leq \text{Temperatura} \leq 25^\circ\text{C}$ \\ 
-        \cline{2-3} 
+        \multirow{4}{*}{\textbf{pH}}
+        & Adecuado & 4.9 & 5.0 & 6.5 & 6.8 \\
+        \cline{2-6} 
         
-        % Fila 3: Celda de criterio vacía
-        & Alta & $24^\circ\text{C} < \text{Temperatura} < 30^\circ\text{C}$ \\ 
-        \cline{2-3} 
+        & Semi-Ácido & 4.6 & 4.7 & 4.9 & 5.0 \\ 
+        \cline{2-6} 
         
-        % Fila 4: Celda de criterio vacía
-        & Demasiada & $\text{Temperatura} \geq 29^\circ\text{C}$ \\ 
+        & Ideal & 4.1 & 4.2 & 4.5 & 4.6 \\ 
+        \cline{2-6} 
+        
+        % El multicomlumn ya usa 'c' y queda centrado.
+        & Muy ácido & \multicolumn{3}{c|}{$\text{pH} \leq 4.1$} & 4.2 \\ 
         \hline
-    \end{tabular}
+    \end{tabularx}
+\end{table}
+
+\begin{figure}[htb]
+    \centering
+    \includegraphics[width=1\textwidth]{./UML/Modulo2/diseno/logica1.drawio.png}
+    \caption{Función de membresá pH}
+    \label{fig:Log1}
+    \end{figure} 
+
+De la misma manera se establecen los rangos de la temperatura y sus respectivas etiquetas 
+lingüísticas en la tabla \cref{tab:dominio_temp} durante el proceso de fermentación del kéfir.
+Dichos dominios siguen la misma estructura de la fórmula \eqref{eq:trapezoidal}, 
+por lo que se definen las funciones de pertenencia trapezoidales en la \cref{fig:Log2}, 
+donde se aprecia claramente la transición suave entre las categorías Muy baja, Baja, Normal, 
+Alta y Demasiado alta.
+
+\begin{table}[h!]
+    \centering
+    \caption{Dominio de Valores de Temperatura por Etiqueta}
+    \label{tab:dominio_temp}
+    % Se mantiene la estructura centrada y flexible de tabularx
+    \begin{tabularx}{\textwidth}{|>{\centering\arraybackslash}X|>{\centering\arraybackslash}X|>{\centering\arraybackslash}X|>{\centering\arraybackslash}X|>{\centering\arraybackslash}X|>{\centering\arraybackslash}X|}
+        \hline
+        % Cabecera superior: Se mantiene en 3 filas de alto
+        \multirow{3}{*}{\textbf{Criterio}} & \multirow{3}{*}{\textbf{Etiqueta}} & \multicolumn{4}{c|}{\textbf{Dominio de Temperatura (x)}} \\ 
+        \cline{3-6} 
+    
+        % Los multicols deben usar 'c' o un tipo de columna centrado.
+        % NOTA: Se corrige la notación de dominio a su forma común
+        & & \multicolumn{1}{c|}{\textbf{a < x < b}} & \multicolumn{2}{c|}{\textbf{b < x < c}} & \multicolumn{1}{c|}{\textbf{c < x < d}} \\ 
+        \cline{3-6} 
+        
+        & & \textbf{a} & \textbf{b} & \textbf{c} & \textbf{d} \\ 
+        \hline
+        
+        % Se ajusta \multirow a 5 filas para contener todos los nuevos datos
+        \multirow{5}{*}{\textbf{Temp.}}
+        & Muy frío & $0^\circ\text{C}$ & $2^\circ\text{C}$ & $10^\circ\text{C}$ & $12^\circ\text{C}$ \\ 
+        \cline{2-6} 
+        
+        & Frío & $10^\circ\text{C}$ & $12^\circ\text{C}$ & $16^\circ\text{C}$ & $18^\circ\text{C}$ \\ 
+        \cline{2-6} 
+        
+        & Ambiente & $16^\circ\text{C}$ & $18^\circ\text{C}$ & $25^\circ\text{C}$ & $27^\circ\text{C}$ \\ 
+        \cline{2-6} 
+        
+        & Caliente & $25^\circ\text{C}$ & $27^\circ\text{C}$ & $30^\circ\text{C}$ & $32^\circ\text{C}$ \\ 
+        \cline{2-6} 
+        
+        % La última fila fusiona las columnas y se corrige la notación
+        & Muy Caliente & $30^\circ\text{C}$ & \multicolumn{3}{c|}{$\text{Temp.} \geq 32^\circ\text{C}$} \\ 
+        \hline
+    \end{tabularx}
 \end{table}
 
  \begin{figure}[htb]
     \centering
-    \includegraphics[width=0.8\textwidth]{./UML/Modulo2/diseno/logica1.drawio.png}
-    \caption{Función de membresá pH}
-    \label{fig:Log1}
+    \includegraphics[width=.9\textwidth]{./UML/Modulo2/diseno/logica2.drawio.png}
+    \caption{Función de membresá Temperatura}
+    \label{fig:Log2}
     \end{figure} 
 
-     \begin{figure}[htb]
+\newpage 
+A partir de lo anterior, se construye la matriz de reglas difusas presentada en la 
+\cref{tab:reglas_ph_temp_renombrada}, la cual integra las variables de entrada pH y 
+temperatura para determinar la condición del kéfir en cada escenario posible.
+Las siete categorías resultantes :Perfecto, Adecuado, Aceptable, Semi-Óptimo, Inhibición, Sobrefermentado,
+Deficiente y Riesgo.Las cuales se detallan exhaustivamente en la \cref{tab:condicion_kefir}, 
+proporcionando al productor una guía clara para la toma de decisiones inmediata.
+
+\begin{table}[h!]
     \centering
-    \includegraphics[width=0.8\textwidth]{./UML/Modulo2/diseno/logica1.drawio.png}
-    \caption{Función de membresá pH}
-    \label{fig:Log1}
+    \caption{Matriz de Reglas Difusas para la clasificación del kéfir.}
+    \label{tab:reglas_ph_temp_renombrada}
+    % Se usa tabularx para que la tabla ocupe todo el ancho del texto.
+    % Los tipos de columna X permiten que las columnas ajusten su ancho automáticamente.
+    \begin{tabularx}{\textwidth}{|X|X|X|X|X|}
+        \hline
+        \multirow{2}{*}{\textbf{Temp.}} & \multicolumn{4}{c|}{\textbf{pH}} \\
+        \cline{2-5}
+        & \textbf{Adecuado} & \textbf{Semi-Ácido} & \textbf{Ideal} & \textbf{Muy Ácido} \\
+        \hline
+        \textbf{Muy Frío} & Inhibición (IN) & Inhibición (IN) & Inhibición (IN) & Riesgo (RI) \\
+        \hline
+        \textbf{Frío} & Aceptable (ACE) & Aceptable (ACE) & Semi-Óptimo (SO) & Sobrefermentado (SOB) \\
+        \hline
+        \textbf{Ambiente} & Adecuado (AD) & Adecuado (AD) & \textbf{Perfecto (PER)} & Sobrefermentado (SOB) \\
+        \hline
+        \textbf{Caliente} & Aceptable (ACE) & Aceptable (ACE) & Semi-Óptimo (SO) & Sobrefermentado (SOB) \\
+        \hline
+        \textbf{Muy Caliente} & Deficiente (DEF) & Deficiente (DEF) & Deficiente (DEF) & Peligro (PE) \\
+        \hline
+    \end{tabularx}
+\end{table}
+
+\newpage 
+
+\begin{table}[htbp]
+    \centering
+    \caption{Descripción de las clasificaciónes del Kéfir }
+    \label{tab:condicion_kefir}
+    \begin{tabular}{|c|c|p{8.8cm}|}
+    \hline
+    \textbf{Etiqueta} & \textbf{Nombre Completo} & \textbf{Descripción} \\
+    \hline
+    PER & Perfecto & Combinación ideal de pH y temperatura , por lo que el kéfir alcanza acidez equilibrada. \\
+    \hline
+    AD & Adecuado & La fermentación progresa en muy buenas condiciones, pero requiere más tiempo para alcanzar la madurez completa. \\
+    \hline
+    ACE & Aceptable & Condiciones aceptables de pH y Temperatura, aunque no desarrolla todo su potencial organoléptico ni probiótico. \\
+    \hline
+    IN & Inhibición & Temperaturas muy bajas (<12 °C) provocan inhibición del proceso, por lo que la fermentación es extremadamente lenta o se detiene; sólo sirve para conservación temporal de los gránulos, no para producción. \\
+    \hline
+    SOB & Sobrefermentado & Proceso excedido por tiempo prolongado en el caul el kéfir resulta excesivamente ácido, lo que lo vuelve muy poco recomendado para el consumo humano. \\
+    \hline
+    DEF & Deficiente & Temperaturas extremas (>30 °C) generan una fermentación rápida e inadecuada, por lo que se pierde viabilidad probiótica y aumenta el riesgo de contaminación; el producto no es apto para consumo humano. \\
+    \hline
+    RI & Riesgo & Situación crítica que combina sobrefermentación e inhibición simultánea.\\
+    \hline
+    PE & Religro & Situación crítica que combina sobrefermentación y altas temperaturas simultáneamente, lo que puede ocasionar un deterioro en los granos de kéfir.\\
+    \hline
+    SO & Semi-Óptimo & El pH alcanzó el rango ideal, pero la temperatura se mantuvo fuera de las condiciones óptimas, por lo que el kéfir resultante presenta características aceptables para el consumo, aunque no desarrolla plenamente su potencial organoléptico ni probiótico. \\
+    \hline
+    \end{tabular}
+\end{table}
+
+
+A continuación se describen las reglas obtenidas en la \cref{tab:condicion_kefir}
+\begin{enumerate}
+
+    \item \textbf{IF} (\textbf{Temp.} es Muy Frío) \textbf{AND} ((\textbf{pH} es Adecuado) \textbf{OR} (\textbf{pH} es Semi-Ácido) \textbf{OR} (\textbf{pH} es Ideal)) THEN Condición es \textbf{Inhibición (IN)}.
+
+    \item \textbf{IF} (\textbf{Temp.} es Muy Frío) \textbf{AND} (\textbf{pH} es Muy Ácido) THEN Condición es \textbf{Riesgo (RI)}.
+
+    \item \textbf{IF} (\textbf{pH} es Muy Ácido) \textbf{AND} ((\textbf{Temp.} es Frío) \textbf{OR} (\textbf{Temp.} es Ambiente) \textbf{OR} (\textbf{Temp.} es Caliente)) THEN Condición es \textbf{Sobrefermentado (SOB)}.
+
+    \item \textbf{IF} (\textbf{Temp.} es Muy Caliente) \textbf{AND} ((\textbf{pH} es Adecuado) \textbf{OR} (\textbf{pH} es Semi-Ácido) \textbf{OR} (\textbf{pH} es Ideal)) THEN Condición es \textbf{Deficiente (DEF)}.
+
+    \item \textbf{IF} ((\textbf{Temp.} es Frío) \textbf{OR} (\textbf{Temp.} es Caliente)) \textbf{AND} ((\textbf{pH} es Adecuado) \textbf{OR} (\textbf{pH} es Semi-Ácido)) THEN Condición es \textbf{Aceptable (ACE)}.
+
+    \item \textbf{IF} (\textbf{pH} es Ideal) \textbf{AND} ((\textbf{Temp.} es Frío) \textbf{OR} (\textbf{Temp.} es Caliente)) THEN Condición es \textbf{Semi-Óptimo (SO)}.
+
+    \item \textbf{IF} (\textbf{Temp.} es Ambiente) \textbf{AND} ((\textbf{pH} es Adecuado) \textbf{OR} (\textbf{pH} es Semi-Ácido)) THEN Condición es \textbf{Adecuado (AD)}.
+
+    \item \textbf{IF} (\textbf{Temp.} es Ambiente) \textbf{AND} (\textbf{pH} es Ideal) THEN Condición es \textbf{Perfecto (PER)}.
+
+\end{enumerate}
+
+
+
+
+\subsubsection{Salud del kéfir}
+Con base en el marco teórico desarrollado, la liberación de $CO_{2}$ durante la fermentación del
+kéfir mantiene una relación inversamente proporcional con el pH, y este, a su vez, 
+depende directamente de la temperatura, la cual ejerce un control decisivo sobre la cinética de 
+ambos procesos. A mayor temperatura, el pH desciende más rápidamente, lo que provoca un aumento 
+prácticamente simultáneo de los niveles de $CO_{2}$, dado que ambos compuestos son productos del metabolismo 
+conjunto de bacterias lácticas y levaduras presentes en los gránulos. De forma contraria, cuando la 
+temperatura disminuye, la caída del pH se vuelve más lenta, lo que reduce significativamente 
+la velocidad de liberación de $CO_{2}$.
+\newline
+No obstante, la rapidez de esta liberación constituye un indicador crítico del estado saludable del 
+cultivo. Cuando se emplea una alta concentración de gránulos en relación con un volumen reducido de leche, 
+la producción de $CO_{2}$ se acelera de manera abrupta, generando condiciones de hipercarbonatación que 
+comprometen el equilibrio organoléptico y la viabilidad probiótica del producto final, e incluso pueden 
+derivar en sobrefermentación. Por el contrario, una proporción escasa de 
+gránulos genera niveles muy bajos de $CO_{2}$, lo que, aunque no daña la salud de los microorganismos, 
+prolonga considerablemente los tiempos de fermentación y retrasa la obtención de las características 
+deseadas.
+\newline
+En consecuencia, la \cref{tab:dominio_co2} presenta los dominios difusos propuestos para la 
+liberación de $CO_{2}$ durante la fermentación, estableciendo cuatro etiquetas lingüísticas Bajo, Medio, Alto y 
+Excesivo expresadas en ppm, unidad entregada directamente por el sensor.
+
+\begin{table}[htbp]
+    \centering
+    \caption{Dominio de Valores de $CO_{2}$ por Etiqueta}
+    \label{tab:dominio_co2}
+
+ \begin{tabularx}{\textwidth}{|>{\centering\arraybackslash}X|>{\centering\arraybackslash}X|>{\centering\arraybackslash}X|>{\centering\arraybackslash}X|>{\centering\arraybackslash}X|>{\centering\arraybackslash}X|}
+        \hline
+        % Cabecera superior: Se mantiene en 3 filas de alto
+        \multirow{3}{*}{\textbf{Criterio}} & \multirow{3}{*}{\textbf{Etiqueta}} & \multicolumn{4}{c|}{\textbf{Dominio de CO$_2$ (ppm)}} \\ 
+        \cline{3-6} 
+        & & \multicolumn{1}{c|}{\textbf{a < x < b}} & \multicolumn{2}{c|}{\textbf{b < x < c}} & \multicolumn{1}{c|}{\textbf{c < x < d}} \\ 
+        \cline{3-6} 
+
+    & & \textbf{a} & \textbf{b} & \textbf{c} & \textbf{d} \\
+    \hline
+    \multirow{5}{*}{\textbf{CO$_2$}}
+    & Muy Bajo      & 0     & 0     & 400   & 500  \\ \cline{2-6}
+    & Bajo     & 400  & 500  & 1200  & 1300 \\ \cline{2-6}
+    & Media     & 1200  & 1300  & 2000  & 2100  \\ \cline{2-6}
+    & Alto      & 2000  & 2100  & 3200  & 3300  \\ \cline{2-6}
+    & Excesivo  & 3200  &  \multicolumn{3}{c|}{$\text{$CO_{2}$} > 3300$}  \\ \hline
+    \end{tabularx}
+\end{table}
+
+
+ \begin{figure}[htbp]
+    \centering
+    \includegraphics[width=.9\textwidth]{./UML/Modulo2/diseno/logica3.drawio.png}
+    \caption{Función de membresá $CO_{2}$}
+    \label{fig:Log3}
     \end{figure} 
+
+A partir de la clasificación obtenida en la \cref{tab:condicion_kefir} 
+y el dominio obtenido en la \cref{tab:dominio_co2},
+podemos obenr una  nueva matriz de reglas difusas presentada en la 
+\cref{tab:matriz_calidad_co2_sinonimos}, para determinar la salud delkéfir en 
+cada escenario posible.En dnde se presentan , mismos que se describen en 
+proporcionando al productor una guía sobre la salud de su kéfir.
+
+
+\begin{table}[h!]
+    \centering
+    \caption{Matriz de Reglas Difusas para la salud del kéfir}
+    \label{tab:matriz_calidad_co2_sinonimos_revisada}
+    
+    % Usamos tabularx con \textwidth y definimos las columnas como X
+    \begin{tabularx}{\textwidth}{|X|X|X|X|X|X|}
+        \hline
+        \multirow{2}{*}{\textbf{Condición}} & \multicolumn{5}{c|}{\textbf{Clasificación de $\text{CO}_2$}} \\
+        \cline{2-6}
+        & \textbf{Muy Bajo} & \textbf{Bajo} & \textbf{Medio} & \textbf{Alto} & \textbf{Excesivo} \\
+        \hline
+        \textbf{Perfecto (PER)} & Crítico & Satisfactorio  & Equilibrado & Excelente & Crítico \\
+        \hline
+        \textbf{Adecuado (AD)} & Equilibrado & Equilibrado & Satisfactorio & Pobre & Crítico\\
+        \hline
+        \textbf{Aceptable (ACE)} & Equilibrado & Equilibrado & Satisfactorio & Pobre & Crítico \\
+        \hline
+        \textbf{Semi-Óptimo (SO)} & Crítico& Satisfactorio  & Equilibrado & Equilibrado & Pobre  \\
+        \hline
+        \textbf{Inhibición (IN)} & Equilibrado & Equilibrado & Crítico& Crítico& Crítico\\
+        \hline
+        \textbf{Sobrefer- mentado (SOB)} & Crítico& Crítico& Pobre & Equilibrado & Equilibrado\\
+        \hline
+        \textbf{Deficiente (DEF)} & Crítico& Crítico& Equilibrado & Equilibrado & Equilibrado \\
+        \hline
+        \textbf{Riesgo (RI)} & Equilibrado & Equilibrado & Satisfactorio & Crítico& Crítico\\
+        \hline
+    \end{tabularx}
+\end{table}

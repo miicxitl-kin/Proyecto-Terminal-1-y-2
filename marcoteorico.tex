@@ -178,6 +178,7 @@ Por lo que para desarrollar un sistema telemático es esencial considerar tanto 
 comunicación como los de procesamiento de datos, asegurando una integración efectiva
 de ambos componentes para lograr una funcionalidad óptima y una experiencia de usuario satisfactoria.
 
+\subsubsection{Arquitectura}
 En base a lo anterior, Pascual Viñé menciona que un sistema telemático 
 debe definir primero su arquitectura, la cual puede ser centralizada 
 lo que le permite gestionar y controlar todos los recursos desde un único punto,
@@ -195,9 +196,10 @@ la topología de red adecuada, que puede ser en estrella, donde todos los nodos 
 punto central; en bus, donde todos los nodos comparten un canal de comunicación común;
 en anillo, donde cada nodo se conecta al siguiente formando un circuito cerrado;
 o en malla, donde cada nodo se conecta directamente a varios otros nodos para
-aumentar la redundancia y la fiabilidad de la red.\cite{Vine2000}.\newline
+aumentar la redundancia y la fiabilidad de la red.\cite{Vine2000}.
 
-Para despues definir los protocolos de comunicación que regirán el intercambio
+\subsubsection{Protocolo de comunicación}
+En base a lo anterior el siguiente paso es definir los protocolos de comunicación que regirán el intercambio
 de datos entre los diferentes componentes del sistema telemático. 
 Teniendo en cuenta el modelo OSI (Open Systems Interconnection) que divide las funciones de red en siete capas
 como se puede observar en la \cref{fig:marc4} de \cite{Vine2000},
@@ -223,7 +225,7 @@ y la cuarta capa de aplicación que proporciona servicios de red directamente a 
 \caption{El modelo TCP/IP frente al modelo OSI}
 \label{fig:marc4}
 \end{figure}
-\newline Ambos modelos definen un conjunto de protocolos específicos para cada capa,
+\newline Siendo que ambos modelos definen un conjunto de protocolos específicos para cada capa,
 como TCP, IP, UDP, HTTP, FTP, entre otros, que facilitan la comunicación
 entre dispositivos y aplicaciones a través de la red. Estos protocolos operan en las diferentes capas del modelo OSI o TCP/IP,
 asegurando la correcta transmisión, enrutamiento y entrega de datos entre los nodos del sistema telemático.
@@ -236,7 +238,10 @@ Estos protocolos trabajan en conjunto para garantizar una comunicación eficient
 permitiendo la interoperabilidad entre diferentes dispositivos y aplicaciones. 
 En resumen, la elección de los protocolos de comunicación adecuados es esencial para el diseño
 y la implementación de un sistema telemático eficiente y confiable, asegurando una transmisión de datos efectiva entre los diferentes componentes del sistema.
-\newline Y por ultimo es importante conciderar la transmisión de datos, la cual puede ser
+
+\subsubsection{Transmisión de datos}
+
+Asimismo,es importante conciderar la transmisión de datos, la cual puede ser
 síncrona, que permite la transferencia continua de datos en tiempo real,
 asíncrona que permite la transferencia de datos en intervalos no regulares,
 o en tiempo real que garantiza la entrega inmediata de datos con baja latencia,
@@ -258,7 +263,7 @@ aplicaciones y sistemas operativos que permiten la gestión, control y operació
 facilitando la interacción entre los usuarios y el hardware.
 Siendo que los componentes presentes en este sistema se describen a continuación:
 
-\subsection{Microcontrolador}
+\subsubsection{Microcontrolador}
 Un microcontrolador es un circuito integrado de gran escala (VLSI), considerado un
 sistema cerrado y autónomo, siendo diseñados principalmente para sistemas
 embebidos con funcionalidades específicas y predefinidas donde su programación
@@ -267,7 +272,7 @@ gracias a que está compuesto por una unidad central de procesamiento (CPU),
 memorias (RAM y ROM), líneas de entrada/salida, temporizadores, conversores
 analógicos/digital (ADC), generador de reloj y otros módulos periféricos \cite{Filmus2004}.
 
-\subsection{Backend}
+\subsubsection{Backend}
 Para el desarrollo de cualquier sistema es importante el Back end el cual es la parte
 lógica y estructural de un sistema o aplicación que opera del lado del servidor, es
 decir, la sección del software que no es visible ni accesible para el usuario final. Es
@@ -287,33 +292,38 @@ información almacenada. Dependiendo del tipo de datos, del lenguaje o framework
 utilizado, y de los requerimientos del sistema, se puede optar por dos arquitecturas
 principales: bases de datos relacionales (SQL) y no relacionales (NoSQL) \cite{CampaGarcia2024}.\newline
 
-Siendo que la elección de una u otra influye directamente en la estructura y
+\subsubsection{ACID}
+En base a lo anteior la elección de una u otra influye directamente en la estructura y
 organización del proyecto.En la cual esta definida la bases de datos ACID (Atomicity, Consistency, Isolation, Durability) 
 para las bases de datos relacionales, en donde la atomicidad garantiza que todas las operaciones de una transacción se completen correctamente o ninguna lo haga, 
 la consistencia asegura que una transacción lleve a la base de datos de un estado válido a otro estado válido, 
 el aislamiento garantiza que las transacciones concurrentes no interfieran entre sí, y 
 la durabilidad asegura que una vez que una transacción ha sido confirmada, 
-sus cambios se mantendrán incluso en caso de fallos del sistema.\newline
+sus cambios se mantendrán incluso en caso de fallos del sistema.
 
-Mientras que las BASE (Basically Available, Soft state, Eventual consistency) para las bases de datos no relacionales
+\subsubsection{BASE}
+
+Por el contrario, BASE (Basically Available, Soft state, Eventual consistency) para las bases de datos no relacionales
 permiten garantizar que el sistema esté disponible para operaciones de lectura y escritura la mayor parte del tiempo 
 sin necesidad de que un usuaario espere a que otro finalice su operación,
 esto tambien les permite tener flexibilidad que el sistema pueda cambiar con el tiempo sin necesidad de una actualización inmediata,
 y la consistencia eventual asegura que, aunque los datos puedan no estar inmediatamente consistentes en todas las réplicas, 
 eventualmente todas las copias de los datos convergerán a un estado consistente \cite{Silberschatz2006}.
-\newline
-Pero independientemente del tipo de base de datos, es esencial diseñar una estructura adecuada que facilite el acceso 
+
+\subsubsection{CAP}
+
+Sin embargo, independientemente del tipo de base de datos, es esencial diseñar una estructura adecuada que facilite el acceso 
 y la gestión eficiente de los datos, la cual esta estrictamente definida por el teorema CAP (Consistency, Availability, Partition tolerance)
 que establece que un sistema distribuido pueda ser consistente lo que implica que todos los nodos vean los mismos datos al mismo tiempo,
 disponible lo que significa que cada solicitud recibe una respuesta, ya sea exitosa o fallida,
 y tolerante a particiones lo que asegura a el sistema continuar funcionando a pesar de las fallas de comunicación entre nodos.
-Sin embargo solo se pueden garantizar dos de las tres propiedades al mismo tiempo. 
-Ya que esto es fundamental para el diseño y la implementación de sistemas distribuidos, en la cual 
+Por lo que solo se pueden garantizar dos de las tres propiedades al mismo tiempo. 
+Por lo tanto, es fundamental para el diseño y la implementación de sistemas distribuidos, en la cual 
 se debe tomar en cuenta si una base de datos prioriza la consistencia y disponibilidad (CA), 
 consistencia y tolerancia a particiones (CP), o disponibilidad y tolerancia a particiones (AP)\cite{Araneda2022}.
 
 
-\subsection{Front End}
+\subsubsection{Front End}
 El frontend es la capa de desarrollo de software responsable de la presentación
 visual de una aplicación o sitio web, es decir, todo aquello con lo que el usuario final
 puede ver e interactuar. Se encarga de estructurar y mostrar los datos procesados
@@ -323,7 +333,8 @@ Dependiendo del framework utilizado, varía la manera en que se organiza y
 desarrolla esta capa, ya que cada uno propone una arquitectura y jerarquía distinta
 para construir interfaces, influenciando directamente la lógica y estructura del
 código visual \cite{CampaGarcia2024} \cite{Casteleyn2009}.
-\subsection{Framework}
+
+\subsubsection{Framework}
 Un framework es un marco de trabajo que simplifica la estructura base para el
 desarrollo de software mediante herramientas y recursos reutilizables desarrollados
 por otros programadores, como módulos, librerías y fragmentos de código. Estos
@@ -339,3 +350,34 @@ Y los Frameworks backend (como Django o Express)que se encargan de la lógica de
 servidor, el manejo de bases de datos y aspectos relacionados con la
 seguridad  \cite{CampaGarcia2024}.
 
+\subsubsection{Servidor}
+
+El término \textit{servidor} presenta dos significados principales en el ámbito informático. 
+En primer lugar, se refiere al equipo físico que comparte recursos a través de una red; 
+en segundo lugar, al programa que ejecuta servicios en dicho equipo \cite{2025e}. 
+\newline
+
+Por una parte, 
+un servidor basado en \textit{hardware} también denominado \textit{host} es 
+una máquina integrada en una red informática donde, además del sistema operativo, operan uno o 
+varios servidores de software. Por otra parte, un servidor basado en \textit{software} consiste 
+en un programa que ofrece servicios específicos a clientes, ya sea localmente o en red, mediante el 
+modelo cliente-servidor y protocolos de transmisión especializados.
+\newline
+Además, los servidores pueden gestionarse de forma física (\textit{on-premise}) 
+o mediante servicios de terceros en la nube. 
+Siendo el despliegue local (\textit{on-premise}), 
+el software que se instala en una infraestructura propia. 
+\newline
+A diferencia de las soluciones en la nube, 
+este enfoque garantiza acceso físico, control total sobre configuración, seguridad y datos,
+sin depender directamente de conexión a internet. En consecuencia, una interrupción 
+en los enlaces no afecta la operatividad de la organización.
+\newline
+Por el contrario, los servidores en la nube (\textit{cloud}) permiten gestionar 
+y acceder a datos y aplicaciones mediante internet de forma ágil. Esto elimina la necesidad de infraestructura física local 
+y se caracteriza por mejorar la movilidad, reducir costos de inversión y mantenimiento, 
+acortar tiempos de implementación y ofrecer escalabilidad inmediata.
+\newline
+En síntesis, mientras el modelo \textit{on-premise} prioriza control y autonomía, 
+el enfoque en la nube destaca por flexibilidad, eficiencia económica y rapidez de adaptación.

@@ -39,12 +39,19 @@ control PID.}
 Este estudio propuso un modelo de lógica difusa para optimizar la producción
 industrial de kéfir, evaluando variables como temperatura de incubación, tiempo de
 fermentación y proporción de inóculo. Empleando reglas Mamdani y funciones de
-pertenencia triangulares, se construyó un sistema capaz de predecir si la
+pertenencia triangulares y trapezoidales como se muestran en la \cref{fig:est12}\cite{Akgul2014}, se construyó un sistema capaz de predecir si la
 fermentación alcanzaría el valor de pH ideal (4.6). La lógica difusa redujo la
 dependencia del operador y el tiempo de prueba-error, mejorando la eficiencia y
 reduciendo costos. Este modelo demostró que es posible automatizar y controlar
 procesos fermentativos complejos sin requerir modelos matemáticos precisos, lo
 cual es especialmente útil en sistemas alimentarios con variabilidad biológica \cite{Akgul2014}.
+
+\begin{figure}[htb]
+\centering
+\includegraphics[width=0.7\textwidth]{./Imagenes/Estado_del__arte/Lógica.png}
+\caption{Módelo de lógica difusa para el Cálculo de valores promedio ponderados}
+\label{fig:est12}
+\end{figure} 
 
 \subsubsection{Diseño de fermentador de yogur con sistema de control lógico difusa
 usando el microcontrolador ATMEGA32}
@@ -59,13 +66,13 @@ estable, reduciendo errores de medición y mejorando la calidad del producto fin
 El yogurt resultante mostró valores óptimos de pH (3.66) y una mayor concentración
 de bacterias, evidenciando la efectividad del enfoque difuso en sistemas no lineales
 y biológicos como la fermentación \cite{AlRiza2015}.
-\begin{figure}[htb]
+\begin{figure}[b!]
 \centering
-\includegraphics[width=0.9\textwidth]{./Imagenes/Estado_del__arte/2.png}
+\includegraphics[width=0.7\textwidth]{./Imagenes/Estado_del__arte/2.png}
 \caption{Esquema del sistema}
 \label{fig:est2}
 \end{figure} 
-
+\newpage
 \subsection{Nacional}
 \subsubsection{Sistema de aprendizaje automático para la predicción del avance de
 fermentación en cervecería artesanal}
@@ -145,7 +152,7 @@ para optimizar la producción y reducir costos. El estudio concluyó que la auto
 fermentación puede mejorar la calidad del vino y aumentar la competitividad de las bodegas mexicanas en los mercados 
 nacional e internacional
 \cite{Moreno2020}.
-\begin{figure}[b!]
+\begin{figure}[htb]
 \centering
 \includegraphics[width=1\textwidth]{./Imagenes/Estado_del__arte/7.png}
 \caption{Pantalla principal del sistema.}

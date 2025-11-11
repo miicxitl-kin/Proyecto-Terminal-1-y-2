@@ -1,37 +1,47 @@
-\section{Capítulo 4: Requerimientos Funcionales y no Funcionales}
+\section{Capítulo: Requerimientos Funcionales y no Funcionales}
+
+En este capítulo se especifican los requerimientos funcionales y no funcionales
+según el modelo IEEE Std 830-1998, en los cuales 
+se detallan las funcionalidades del sistema, así como los criterios de diseño
+e implementación. Asimismo, se detallan los casos de uso segun 
+correspanda al requerimiento funcional para garantiza el correcto diseño, implementación y validación del sistema 
+propuesto.
+
+
 \subsection{Módulo 1}
 
 \begin{enumerate}
     % \ref{it:RF01} 
-    \item \label{it:RF01} \textbf{RF01-Sensores} 
+    \item \label{it:RF01} \textbf{RF01-Modos de operación} 
         \begin{enumerate}
-            \item \textbf{Verificaciones de validez de las entradas}
+            \item \textbf{Validez de las entradas}
                 \begin{enumerate}
-                    \item El sensor de pH debe estar echo de un material de grado alimenticio ,que no contamine ni interfiera con el proceso de la fermentación, capaz operar en líquidos dentro de un rango de temperatura de 18 °C a 30 °C" y un rango de medición de pH de 4.0 a 7.0 con un tiempo de respuesta de máximo 1 minuto .
-                    \item El sensor de temperatura debe estar echo de un material de grado alimenticio capaz de trabajar en líquidos , sin contaminar ni interferir con la fermentación del kéfir, atraves de un rango de medición de 18°C a 30°C.
-                    \item El sensor de $CO_{2}$  debe ser capaz de medir en un rango de 0-10,000ppm en el aire dentro del frasco de fermentación, operando en el mismo rango de temperatura (18°C a 30°C).
+                    \item Se debe implementa un sensor de pH debe estar fabricado de un material de grado alimenticio que no contamine ni interfiera con el proceso de la fermentación, capaz operar en líquidos dentro de un rango de temperatura de 18 °C a 30 °C" y un rango de medición de pH de 4.0 a 7.0 con un tiempo de respuesta de máximo 1 minuto .
+                    \item Se debe implementa un sensor de temperatura debe estar fabricado de un material de grado alimenticio capaz de trabajar en líquidos , sin contaminar ni interferir con la fermentación del kéfir, atraves de un rango de medición de 18°C a 30°C.
+                    \item Se debe implementa un sensor de $CO_{2}$  debe ser capaz de medir en un rango de 0-10,000ppm en el aire dentro del frasco de fermentación, operando en el mismo rango de temperatura (18°C a 30°C).
                     \item Se debe implementa frascos con capacidad minima de 1 litro para asegurar que los sensores de pH y temperatura esten completamente sumergidos en la leche durante la fermentación .
-                    \item El formato de datos deberá integrar las lecturas de los sensores en un solo paquete, incluyendo un identificador único para cada conjunto de datos y una marca de tiempo.
-                    \item El sistema necesita contar con un frasco de fermentación provisto de una salida para la expulsión del gas $CO_{2}$, la cual estará conectada mediante una manguera a un segundo frasco con agua (no mayor a 1 litro), destinado a disolver el $CO_{2}$ generado durante el proceso.
+                    \item Se debe implementa un formato de datos deberá integrar las lecturas de los sensores en un solo paquete, incluyendo un identificador único para cada conjunto de datos y una marca de tiempo.
+                    \item Se debe implementa un una salida para la liberación del gas $CO_{2}$ en las tapas de los frascos, la cual estará conectada mediante una manguera a un segundo frasco con agua (no mayor a 1 litro), destinado a disolver el $CO_{2}$ generado durante el proceso.
+                    \item Se debe implementa dos modos de operación(modo prueba y modo monitoreo), activados mediante dos botones físicos en el microcontrolador que, al presionarse, inicien el modo correspondiente y permitan salir del mismo al presionar nuevamente el botón.
                 \end{enumerate}   
             
             \item \textbf{Secuencia exacta de operaciones}
                 \begin{enumerate}
-                    \item El sistema incluye con dos modos de operación: modo prueba y modo monitoreo, activados mediante dos botones físicos en el microcontrolador que, al presionarse, inicien el modo correspondiente y permitan salir del mismo al presionar nuevamente el botón.
-                    \item En modo prueba, el sistema deberá verificar el estado de los sensores al enviar los datos de los sensores cada 1 minuto exclusivamente a la página web para visualización temporal, sin almacenarlos en la base de datos.
+                    \item El sistema al entrar en modo prueba, deberá verificar el estado de los sensores al enviar los datos de los sensores cada 1 minuto exclusivamente a la página web para visualización temporal, sin almacenarlos en la base de datos.
                     \item En modo monitoreo, el sistema deberá verificar que el pH inicial de la leche esté entre 6.6 a 6.8 y su temperaturaesté entre 18°C a 30°C, en caso contrario, no iniciar el monitoreo y enviar una alerta a la base de datos.
                     \item En modo monitoreo, el sistema deberá verificar la conexión con la base de datos antes de iniciar la recolección de datos, y en caso de fallo, no iniciar el monitoreo y enviar una alerta.
                     \item En modo monitoreo, el sistema deberá iniciar la recolección y envío de datos a la base de datos.
                     \item En modo monitoreo, el sistema deberá enviar los datos recopilados por los sensores de pH y $CO_{2}$  cada 10 minutos si el pH está en el rango de 6.8 a 5.6.
                     \item En modo monitoreo, el sistema deberá enviar los datos recopilados por los sensores cada de pH y $CO_{2}$  cada 5 minutos si el pH está en el rango de 5.5 a 5.0.
-                    \item En modo monitoreo, el sistema deberá recopilar y enviar los datos de los tres sensores (pH, $CO_{2}$  y temperatura) cada 1 minuto si el pH está en el rango de 5.0 a 4.2 en adelante.
+                    \item En modo monitoreo, el sistema deberá recopilar y enviar los datos de los tres sensores (pH, $CO_{2}$  y temperatura) cada 1 minuto si el pH está en el rango de 5.0 a 3.9 en adelante.
                     \item En modo monitoreo, el sistema deberá recopilar y enviar los datos del sensor de temperatura cada 2.5 minutos de manera independiente, y ajustar la frecuencia a cada 1 minuto de todos los sensores si la temperatura supera los 28°C.
                 \end{enumerate}   
         
             \item \textbf{Respuestas a situaciones anormales}
                 \begin{enumerate}
-                    \item El sistema genera una alerta y registrarla en la base de datos si la comunicación con cualquier sensor (pH, temperatura, CO) se interrumpe ya sea en modo prueba o monitoreo.
+                    \item El sistema genera una alerta y la registra en la base de datos si la comunicación con cualquier sensor (pH, temperatura, CO) se interrumpe ya sea en modo prueba o monitoreo.
                     \item El sistema retrasmite los datos recolectados por los 3 sensores en caso de un fallo en la conexión con la base de datos.
+                    \item Si el pH supero el parametro de 3.9 , se genera una alerta y el sistema deja de sensar.
                 \end{enumerate}   
        
             \item \textbf{Efecto de los parámetros}
@@ -41,17 +51,16 @@
         
             \item \textbf{Relación entre las salidas y las entradas}
                 \begin{enumerate}
-                    \item Los sensores proporcionan valores crudos y el formato de datos debera integrar dichos valores de forma anidada.
+                    \item Los sensores proporcionan valores crudos y el formato de datos integra dichos valores de forma anidada.
                 \end{enumerate}
         \end{enumerate}
 
     \item \label{it:RF02} \textbf{RF02-Cónexion del Microcontrolador a la Base de Datos}
         \begin{enumerate}
-            \item \textbf{Verificaciones de validez de las entradas}
+            \item \textbf{Validez de las entradas}
                 \begin{enumerate}
-                    \item El protocolo de conexión soporta la conexión de multiples microcontroladores de manera simultanea.
-                    \item El protocolo de conexión permite la identificación única de cada microcontrolador mediante un ID único.
-                    \item Se garantiza que la conexión de cada microcontrolador es independiente y no interfiere con la conexión de otros microcontroladores.
+                    \item Se debe implementa un protocolo de conexión que garantize la conexión de multiples microcontroladores de manera simultanea e independiente.
+                    \item Se debe implementa un protocolo de conexión que permita la identificación única de cada microcontrolador mediante un ID.
                 \end{enumerate}   
             
             \item \textbf{Secuencia exacta de operaciones}
@@ -79,12 +88,12 @@
 
     \item \label{it:RF03} \textbf{RF03-Microcontrolador}
         \begin{enumerate}
-            \item \textbf{Verificaciones de validez de las entradas}
+            \item \textbf{Validez de las entradas}
                 \begin{enumerate}
-                    \item El microcontrolador dispone las entradas analógicas necesarias para conectar los sensores de pH, temperatura y $CO_{2}$.
-                    \item El microcontrolador cuenta con memoria suficiente para almacenar datos temporalmente en caso de fallos de conexión con la base de datos.
-                    \item El microcontroladror incluye la conexión requerida para hacer uso del protocolo de conexión.
-                    \item El microcontrolador gestiona la lógica de control para los dos modos de operación (prueba y monitoreo) y ajustar la frecuencia de recolección de datos según los parámetros medidos.
+                    \item Se debe implementa un microcontrolador que disponga las entradas analógicas necesarias para conectar los sensores de pH, temperatura y $CO_{2}$.
+                    \item Se debe implementa un microcontrolador que cuente con memoria suficiente para almacenar datos temporalmente en caso de fallos de conexión con la base de datos.
+                    \item Se debe implementa un microcontroladror que incluya la conexión requerida para hacer uso del protocolo de conexión.
+                    \item Se debe implementa un microcontrolador que gestione la lógica de control para los dos modos de operación (prueba y monitoreo) y ajustar la frecuencia de recolección de datos según los parámetros medidos.
                 \end{enumerate}   
             
             \item \textbf{Secuencia exacta de operaciones}
@@ -94,7 +103,7 @@
         
             \item \textbf{Respuestas a situaciones anormales}
                 \begin{enumerate}
-                    \item El sistema emite una alerta y registrarla en la base de datos si la comunicación con cualquier sensor (pH, temperatura, CO) se interrumpe ya sea en modo prueba o monitoreo.
+                    \item El sistema emite una alerta y se registra en la base de datos ,si la comunicación con cualquier sensor (pH, temperatura, CO) se interrumpe ya sea en modo prueba o monitoreo.
                     \item El sistema retransmite los datos recolectados por los 3 sensores en caso de un fallo en la conexión con la base de datos.
                     \item El sistema documenta en un log todos los intentos de conexión fallidos al servidor de base de datos.
                 \end{enumerate}   
@@ -110,25 +119,25 @@
                     \item El microcontrolador procesa lecturas crudas(haciendo la conversión de datos analogicos a digitales) de los sensores y genera paquetes de datos estructurados junto con un identificador del microcontrolador para su envío a la base de datos.
                 \end{enumerate}
         \end{enumerate}
-    \item \label{it:RNF01} \textbf{RFN01}
+    \item \label{it:RNF01} \textbf{RNF01}
             \item \begin{enumerate}
                     \item El sistema debe ser capaz de manejar múltiples conexiones simultáneas de microcontroladores sin degradar el rendimiento.
                     \item El sistema debe ser escalable para soportar un aumento en el número de microcontroladores en base al crecimiento de usuarios.
                     \item El sistema debe perimitir analizar diferentes cepas de bulgaros y diferentes tipos de leches.
             \end{enumerate}
 \end{enumerate}
-A continuación se muestran los diagramas a bloques en las \cref{fig:RF01} y \cref{fig:RF02} de los casos de uso del \ref{it:RF01}.
+A continuación se muestran los casos de uso en las \cref{fig:RF01} y \cref{fig:RF02} de los casos de uso del \ref{it:RF01}.
 \begin{figure}[htb]
 \centering
 \includegraphics[width=0.4\textwidth]{./UML/Modulo1/RF1.drawio.png}
-\caption{Modo prueba del módulo 1 \ref{it:RF01}.}
+\caption{Modo prueba del módulo 1 RF01.}
 \label{fig:RF01}
 \end{figure} 
 
 \begin{figure}[htb]
 \centering
 \includegraphics[width=0.65\textwidth]{./UML/Modulo1/RF01_2.drawio.png}
-\caption{Modo monitoreo del módulo 1 \ref{it:RF01}.}
+\caption{Modo monitoreo del módulo 1 RF01.}
 \label{fig:RF02}
 \end{figure} 
 
@@ -136,7 +145,7 @@ A continuación se muestran los diagramas a bloques en las \cref{fig:RF01} y \cr
 \begin{enumerate}
 \item \label{it:RF04} \textbf{RF04-Análisis de datos}
         \begin{enumerate}
-            \item \textbf{Verificaciones de validez de las entradas}
+            \item \textbf{Validez de las entradas}
                 \begin{enumerate}
                     \item Se valida que los datos recibidos de la base de datos estén completos y no contengan valores nulos.
                     \item El módulo 2 recibe los datos en el formato especificado por el módulo 1 con su respectivo ID.
@@ -168,7 +177,7 @@ A continuación se muestran los diagramas a bloques en las \cref{fig:RF01} y \cr
                     \item El módulo 2 actualiza la base de datos con los resultados del análisis para su posterior consulta.
                \end{enumerate}
         \end{enumerate}
-\item \textbf{RFN02}\label{it:RNF02}
+\item \textbf{RNF02}\label{it:RNF02}
             \item \begin{enumerate}
                     \item El mpdulo 2 debe ser capaz de manejar múltiples solicitudes de análisis de datos de diferentes usuarios sin degradar el rendimiento.
                     \item El módulo 2 debe ser escalable para soportar un aumento en el volumen de datos a analizar.
@@ -180,7 +189,7 @@ A continuación se muestran los diagramas a bloques en las \cref{fig:RF01} y \cr
 \begin{enumerate}
 \item \label{it:RF05} \textbf{RF05-Base de datos}
     \begin{enumerate}
-            \item \textbf{Verificaciones de validez de las entradas}
+            \item \textbf{Validez de las entradas}
                 \begin{enumerate}
                     \item La Base de datos valida que los datos recibidos del módulo 1 estén completos y no contengan valores nulos.
                     \item La Base de datos deberá comprobar que todos los paquetes de datos provenientes de los sensores incluyan la marca de tiempo asociada y su ID único del microcontrolador
@@ -217,7 +226,7 @@ A continuación se muestran los diagramas a bloques en las \cref{fig:RF01} y \cr
                     \item La Base de datos permite la entrada de solicitudes desde el módulo 4 y envía los datos correspondientes para su visualización en la página web.
                 \end{enumerate}
     \end{enumerate}
-\item \label{it:RNF03} \textbf{RFN03}
+\item \label{it:RNF03} \textbf{RNF03}
             \item \begin{enumerate}
                     \item El mpdulo 3 debe ser capaz de manejar múltiples solicitudes de almacenamiento y recuperación de datos de diferentes usuarios sin degradar el rendimiento.
                     \item El módulo 3 debe ser escalable horizontalmente para soportar un aumento de usuarios y de datos almacenados.
@@ -230,7 +239,7 @@ A continuación se muestran los diagramas a bloques en las \cref{fig:RF01} y \cr
 \begin{enumerate}
     \item \label{it:RF07} \textbf{RF07-Página Web}
         \begin{enumerate}
-                \item \textbf{Verificaciones de validez de las entradas}
+                \item \textbf{Validez de las entradas}
                     \begin{enumerate}
                         \item El entorno de front de la página web debe permitir compatibilidad con el formato de datos del módulo 1,2 y 3 para su futura visualización.
                         \item El entorno de front end de la página web 
@@ -263,7 +272,7 @@ A continuación se muestran los diagramas a bloques en las \cref{fig:RF01} y \cr
 
     \item \label{it:RF08}  \textbf{RF08-Página Web:Iniciar Sesión}
         \begin{enumerate}
-                \item \textbf{Verificaciones de validez de las entradas}
+                \item \textbf{Validez de las entradas}
                     \begin{enumerate}
                         \item La página web solicita por medio de un solo formulario de registro 
                         las credenciales(nombre y contraseña) de acceso del usuario o admin para su validacíon en la base de datos.
@@ -295,7 +304,7 @@ A continuación se muestran los diagramas a bloques en las \cref{fig:RF01} y \cr
         
          \item \label{it:RF09} \textbf{RF09-Página Web:Iniciar/terminar una fermentación}
         \begin{enumerate}
-                \item \textbf{Verificaciones de validez de las entradas}
+                \item \textbf{Validez de las entradas}
                     \begin{enumerate}
                         \item La página web por medio de un formulario solicita los datos 
                         (cantidad de búlgaros, tipo de leche y cantidad) para iniciar una fermentación. 
@@ -331,7 +340,7 @@ A continuación se muestran los diagramas a bloques en las \cref{fig:RF01} y \cr
 
             \item \label{it:RF10} \textbf{RF10-Página web:Historial}
         \begin{enumerate}
-                \item \textbf{Verificaciones de validez de las entradas}
+                \item \textbf{Validez de las entradas}
                     \begin{enumerate}
                         \item La página web por medio de un formulario solicita la o las fermentaciónes específicas del usuario para mostrar o comparar en su historial.
                         \item La página web debe mostrar el historial por medio de gráficos y tablas de las fermentaciones pasadas del usuario.
@@ -361,7 +370,7 @@ A continuación se muestran los diagramas a bloques en las \cref{fig:RF01} y \cr
 
           \item \label{it:RF11} \textbf{RF11-Página web:administrador}
         \begin{enumerate}
-                \item \textbf{Verificaciones de validez de las entradas}
+                \item \textbf{Validez de las entradas}
                     \begin{enumerate}
                         \item El administrador por medio de un formulario que le solicite nombre,
                         edad, correo,contraseña, municipio y categoria(productor inicial o raíz). 
@@ -396,7 +405,7 @@ A continuación se muestran los diagramas a bloques en las \cref{fig:RF01} y \cr
                         \item La página web debe mostrar una lista actualizada de todos los usuarios del sistema, incluyendo su estado (activo o suspendido).
                     \end{enumerate}
         \end{enumerate}
-        \item \label{it:RNF04} \textbf{RFN04}
+        \item \label{it:RNF04} \textbf{RNF04}
             \item \begin{enumerate}
                     \item El mpdulo 4 debe ser capaz soportar multiples usuarios conectados de manera simultanea sin degradar el rendimiento.
                     \item El módulo 4 debe ofrecer una interfaz amigable e intuitiva de cara al usuarios.
@@ -437,7 +446,7 @@ A continuación se muestran los diagramas a bloques en las \cref{fig:RF01} y \cr
 \begin{enumerate}
 \item \label{it:RF12} \textbf{RF12-Servidor}
     \begin{enumerate}
-            \item \textbf{Verificaciones de validez de las entradas}
+            \item \textbf{Validez de las entradas}
                 \begin{enumerate}
                     \item El entorno de desarrollo del servidor debe permitir compatibilidad con el formato de datos del módulo 1,2,3 y 4 para su futura integración.
                     \item El entorno de desarrollo del servidor debe gestionar las solicitudes de los diferentes módulos de manera eficiente.
@@ -470,7 +479,7 @@ A continuación se muestran los diagramas a bloques en las \cref{fig:RF01} y \cr
                     \item El servidor debe permitir la entrada de solicitudes desde el módulo 4 y enviar los datos correspondientes desde el módulo 3.
                 \end{enumerate}
     \end{enumerate}
-      \item \label{it:RNF04} \textbf{RFN05}
+      \item \label{it:RNF04} \textbf{RNF05}
             \item \begin{enumerate}
                     \item El servidor debe garantizar la integración y comunicación entre todos lo módulos del sistema.
                     \item El servidor debe ser escalable para soportar un aumento en el volumen de datos y solicitudes entre los módulos.

@@ -1,4 +1,5 @@
 \subsection{Análisis del Módulo 3}
+\label{sec:mod3}
 En esta sección, se lleva a cabo un análisis y comparación entre bases de datos SQL y NoSQL, 
 con base en sus características, propiedades y adoperación a los requerimientos del sistema. 
 Asimismo, se realiza un cálculo inicial del peso de los atributos de las tablas o colecciones, 
@@ -128,7 +129,7 @@ variaciones en los datos de fermentación por usuario. Descritors en las siguien
         pH & Dato del sensor de pH & Float & 4 \\ \hline
         $CO_{2}$ & Dato del sensor de $CO_{2}$ & Float & 4 \\ \hline
         Temperatura & Dato del sensor de Temperatura & Flaot & 4 \\ \hline
-        bandera de cancelación & Dato que indica si la fermentación fue cancelado o no & Tinyint & 1 \\ \hline
+        bandera de alarma & Dato que indica la alarma correspondientes & varchar(20) & longitud de la cadena +1 \\ \hline
 	\end{tabular}
 \end{table}
 
