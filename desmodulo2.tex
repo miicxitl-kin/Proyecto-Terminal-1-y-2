@@ -132,9 +132,8 @@ Alta y Demasiado alta.
 \newpage 
 A partir de lo anterior, se construye la matriz de reglas difusas presentada en la 
 \cref{tab:reglas_ph_temp_renombrada}, la cual integra las variables de entrada pH y 
-temperatura para determinar la condición del kéfir en cada escenario posible.
-Las siete categorías resultantes :Perfecto, Adecuado, Aceptable, Semi-Óptimo, Inhibición, Sobrefermentado,
-Deficiente y Riesgo.Las cuales se detallan exhaustivamente en la \cref{tab:condicion_kefir}, 
+temperatura para determinar la condición del kéfir en cada escenario posible para 
+las 11 categorías resultantes.Las cuales se detallan exhaustivamente en la \cref{tab:condicion_kefir}, 
 proporcionando al productor una guía clara para la toma de decisiones inmediata.
 
 \begin{table}[h!]
@@ -149,84 +148,92 @@ proporcionando al productor una guía clara para la toma de decisiones inmediata
         \cline{2-5}
         & \textbf{Adecuado} & \textbf{Semi-Ácido} & \textbf{Ideal} & \textbf{Muy Ácido} \\
         \hline
-        \textbf{Muy Frío} & Inhibición (IN) & Inhibición (IN) & Inhibición (IN) & Riesgo (RI) \\
+        \textbf{Muy Frío} & Inhibición (IN) & Inhibición (IN) & Inhibición (IN) & Riesgo Bajo (RIB) \\
         \hline
-        \textbf{Frío} & Aceptable (ACE) & Aceptable (ACE) & Semi-Óptimo (SO) & Sobrefermentado (SOB) \\
+        \textbf{Frío} & Inicialmente Aceptable (IACE) & Progresivamente Aceptable (PACE) & Semi-Óptimo (SO) & Sobrefermentado (SOB) \\
         \hline
-        \textbf{Ambiente} & Adecuado (AD) & Adecuado (AD) & \textbf{Perfecto (PER)} & Sobrefermentado (SOB) \\
+        \textbf{Ambiente} & Inicialmente Estable (IES) & Progresivamente Estable (PES) & \textbf{Perfecto (PER)} & Sobrefermentado (SOB) \\
         \hline
-        \textbf{Caliente} & Aceptable (ACE) & Aceptable (ACE) & Semi-Óptimo (SO) & Sobrefermentado (SOB) \\
+        \textbf{Caliente} &  Inicialmente Aceptable (IACE) & Progresivamente Aceptable (PACE)  & Semi-Óptimo (SO) & Sobrefermentado (SOB) \\
         \hline
         \textbf{Muy Caliente} & Deficiente (DEF) & Deficiente (DEF) & Deficiente (DEF) & Peligro (PE) \\
         \hline
     \end{tabularx}
 \end{table}
 
-\newpage 
-
 \begin{table}[htbp]
     \centering
-    \caption{Descripción de las clasificaciónes del Kéfir }
+    \caption{Descripción de las clasificaciones del Kéfir}
     \label{tab:condicion_kefir}
-    \begin{tabular}{|c|c|p{8.8cm}|}
+    
+    % Usamos tabularx con \textwidth y definimos las columnas:
+    % Col1(Color): Centrada y ancho fijo | Col2(Etiqueta): Centrada | Col3(Nombre): Centrada | Col4(Descripción): Flexible (X)
+    \begin{tabularx}{\textwidth}{|>{\centering\arraybackslash}p{1.2cm}|c|c|X|}
     \hline
-    \textbf{Etiqueta} & \textbf{Nombre Completo} & \textbf{Descripción} \\
+    \textbf{Color} & \textbf{Etiqueta} & \textbf{Nombre Completo} & \textbf{Descripción} \\
     \hline
-    PER & Perfecto & Combinación ideal de pH y temperatura , por lo que el kéfir alcanza acidez equilibrada. \\
+    Verde & PER & Perfecto & Combinación ideal de pH y temperatura, por lo que el kéfir alcanza acidez equilibrada. \\
     \hline
-    AD & Adecuado & La fermentación progresa en muy buenas condiciones, pero requiere más tiempo para alcanzar la madurez completa. \\
+    Azul Claro & IES & Inicialmente Estable & Condicion inicial estable del pH y la Temperatura para el desarrollo a futuro de la fermentación. \\
     \hline
-    ACE & Aceptable & Condiciones aceptables de pH y Temperatura, aunque no desarrolla todo su potencial organoléptico ni probiótico. \\
+    Azul Oscuro & PES & Progresivamente Estable & Condicion estable del pH y la Temperatura durante la fermentación progresando en muy buenas condiciones, pero requiere más tiempo para alcanzar la madurez completa. \\
+    \hline  
+    Amarillo Claro & IACE & Inicialmente Aceptable & Condicion inicial aceptable de pH y temperatura para el inicio de la fermentación, aunque dicha condición no asegura el desarrollo adecuado de la fermentación a futuro. \\
     \hline
-    IN & Inhibición & Temperaturas muy bajas (<12 °C) provocan inhibición del proceso, por lo que la fermentación es extremadamente lenta o se detiene; sólo sirve para conservación temporal de los gránulos, no para producción. \\
+    Amarillo Oscuro & PACE & Progresivamente Aceptable & Condicion aceptable de pH y temperatura durante la fermentación, aunque no desarrolla todo su potencial organoléptico ni probiótico para alcanzar la madurez completa. \\
     \hline
-    SOB & Sobrefermentado & Proceso excedido por tiempo prolongado en el caul el kéfir resulta excesivamente ácido, lo que lo vuelve muy poco recomendado para el consumo humano. \\
+    Blanco & IN & Inhibición & Condición dada en temperaturas muy bajas lo que provoca inhibición del proceso, por lo que la fermentación es extremadamente lenta o se detiene; sólo sirve para conservación temporal de los gránulos, no para producción. \\
     \hline
-    DEF & Deficiente & Temperaturas extremas (>30 °C) generan una fermentación rápida e inadecuada, por lo que se pierde viabilidad probiótica y aumenta el riesgo de contaminación; el producto no es apto para consumo humano. \\
+    Marrón & SOB & Sobrefermentado & Proceso excedido por tiempo prolongado en el cual el kéfir resulta excesivamente ácido, lo que lo vuelve muy poco recomendado para el consumo humano. \\
     \hline
-    RI & Riesgo & Situación crítica que combina sobrefermentación e inhibición simultánea.\\
+    Naranja & DEF & Deficiente & Condición dada en temperaturas extremas lo que genera una fermentación rápida e inadecuada, por lo que se pierde viabilidad probiótica y aumenta el riesgo de contaminación. \\
     \hline
-    PE & Religro & Situación crítica que combina sobrefermentación y altas temperaturas simultáneamente, lo que puede ocasionar un deterioro en los granos de kéfir.\\
+    Naranja Claro & RIB & Riesgo Bajo & Condición dada por la combinación de la sobrefermentación e inhibición simultánea, siendo de bajo riesgo para los granos de kéfir al fermentar muy lento.\\
     \hline
-    SO & Semi-Óptimo & El pH alcanzó el rango ideal, pero la temperatura se mantuvo fuera de las condiciones óptimas, por lo que el kéfir resultante presenta características aceptables para el consumo, aunque no desarrolla plenamente su potencial organoléptico ni probiótico. \\
+    Rojo & PE & Peligro & Situación crítica que combina sobrefermentación y altas temperaturas simultáneamente, lo que puede ocasionar un deterioro en los granos de kéfir.\\
     \hline
-    \end{tabular}
+    Gris & SO & Semi-Óptimo & El pH alcanzó el rango ideal, pero la temperatura se mantuvo fuera de las condiciones óptimas, por lo que el kéfir resultante presenta características aceptables para el consumo, aunque no desarrolla plenamente su potencial organoléptico ni probiótico. \\
+    \hline
+    \end{tabularx}
 \end{table}
 
 
-A continuación se describen las reglas obtenidas en la \cref{tab:condicion_kefir}
-\begin{enumerate}
 
+
+A continuación se describen las reglas difusas obtenidas directamente de la \cref{tab:condicion_kefir}:
+
+\begin{enumerate}
     \item \textbf{IF} (\textbf{Temp.} es Muy Frío) \textbf{AND} ((\textbf{pH} es Adecuado) \textbf{OR} (\textbf{pH} es Semi-Ácido) \textbf{OR} (\textbf{pH} es Ideal)) THEN Condición es \textbf{Inhibición (IN)}.
 
-    \item \textbf{IF} (\textbf{Temp.} es Muy Frío) \textbf{AND} (\textbf{pH} es Muy Ácido) THEN Condición es \textbf{Riesgo (RI)}.
+    \item \textbf{IF} (\textbf{Temp.} es Muy Frío) \textbf{AND} (\textbf{pH} es Muy Ácido) THEN Condición es \textbf{Riesgo Bajo (RIB)}.
+
+    \item \textbf{IF} ((\textbf{Temp.} es Frío) \textbf{OR} (\textbf{Temp.} es Caliente)) \textbf{AND} ((\textbf{pH} es Adecuado) \textbf{OR} (\textbf{pH} es Semi-Ácido)) THEN Condición es \textbf{Inicialmente Aceptable (IACE)} \textbf{OR} \textbf{Progresivamente Aceptable (PACE)}.
+
+    \item \textbf{IF} (\textbf{pH} es Ideal) \textbf{AND} ((\textbf{Temp.} es Frío) \textbf{OR} (\textbf{Temp.} es Caliente)) THEN Condición es \textbf{Semi-Óptimo (SO)}.
+
+    \item \textbf{IF} (\textbf{Temp.} es Ambiente) \textbf{AND} ((\textbf{pH} es Adecuado) \textbf{OR} (\textbf{pH} es Semi-Ácido)) THEN Condición es \textbf{Inicialmente Estable (IES)} \textbf{OR} \textbf{Progresivamente Estable (PES)}.
+
+    \item \textbf{IF} (\textbf{Temp.} es Ambiente) \textbf{AND} (\textbf{pH} es Ideal) THEN Condición es \textbf{Perfecto (PER)}.
 
     \item \textbf{IF} (\textbf{pH} es Muy Ácido) \textbf{AND} ((\textbf{Temp.} es Frío) \textbf{OR} (\textbf{Temp.} es Ambiente) \textbf{OR} (\textbf{Temp.} es Caliente)) THEN Condición es \textbf{Sobrefermentado (SOB)}.
 
     \item \textbf{IF} (\textbf{Temp.} es Muy Caliente) \textbf{AND} ((\textbf{pH} es Adecuado) \textbf{OR} (\textbf{pH} es Semi-Ácido) \textbf{OR} (\textbf{pH} es Ideal)) THEN Condición es \textbf{Deficiente (DEF)}.
 
-    \item \textbf{IF} ((\textbf{Temp.} es Frío) \textbf{OR} (\textbf{Temp.} es Caliente)) \textbf{AND} ((\textbf{pH} es Adecuado) \textbf{OR} (\textbf{pH} es Semi-Ácido)) THEN Condición es \textbf{Aceptable (ACE)}.
-
-    \item \textbf{IF} (\textbf{pH} es Ideal) \textbf{AND} ((\textbf{Temp.} es Frío) \textbf{OR} (\textbf{Temp.} es Caliente)) THEN Condición es \textbf{Semi-Óptimo (SO)}.
-
-    \item \textbf{IF} (\textbf{Temp.} es Ambiente) \textbf{AND} ((\textbf{pH} es Adecuado) \textbf{OR} (\textbf{pH} es Semi-Ácido)) THEN Condición es \textbf{Adecuado (AD)}.
-
-    \item \textbf{IF} (\textbf{Temp.} es Ambiente) \textbf{AND} (\textbf{pH} es Ideal) THEN Condición es \textbf{Perfecto (PER)}.
-
+    \item \textbf{IF} (\textbf{Temp.} es Muy Caliente) \textbf{AND} (\textbf{pH} es Muy Ácido) THEN Condición es \textbf{Peligro (PE)}.
 \end{enumerate}
 
 
 
 
-\subsubsection{Salud del kéfir}
+\subsubsection{Estado de la fermentación}
 Con base en el marco teórico desarrollado, la liberación de $CO_{2}$ durante la fermentación del
 kéfir mantiene una relación inversamente proporcional con el pH, y este, a su vez, 
 depende directamente de la temperatura, la cual ejerce un control decisivo sobre la cinética de 
 ambos procesos. A mayor temperatura, el pH desciende más rápidamente, lo que provoca un aumento 
-prácticamente simultáneo de los niveles de $CO_{2}$, dado que ambos compuestos son productos del metabolismo 
-conjunto de bacterias lácticas y levaduras presentes en los gránulos. De forma contraria, cuando la 
+prácticamente simultáneo de los niveles de $CO_{2}$. De forma contraria, cuando la 
 temperatura disminuye, la caída del pH se vuelve más lenta, lo que reduce significativamente 
-la velocidad de liberación de $CO_{2}$.
+la velocidad de liberación de $CO_{2}$, dado que ambos compuestos son productos del metabolismo 
+conjunto de bacterias lácticas y levaduras presentes en los gránulos.
 \newline
 No obstante, la rapidez de esta liberación constituye un indicador crítico del estado saludable del 
 cultivo. Cuando se emplea una alta concentración de gránulos en relación con un volumen reducido de leche, 
@@ -283,31 +290,101 @@ proporcionando al productor una guía sobre la salud de su kéfir.
 
 \begin{table}[h!]
     \centering
-    \caption{Matriz de Reglas Difusas para la salud del kéfir}
+    \caption{Matriz de Reglas Difusas para el estado del kéfir}
     \label{tab:matriz_calidad_co2_sinonimos_revisada}
     
-    % Usamos tabularx con \textwidth y definimos las columnas como X
     \begin{tabularx}{\textwidth}{|X|X|X|X|X|X|}
         \hline
         \multirow{2}{*}{\textbf{Condición}} & \multicolumn{5}{c|}{\textbf{Clasificación de $\text{CO}_2$}} \\
         \cline{2-6}
         & \textbf{Muy Bajo} & \textbf{Bajo} & \textbf{Medio} & \textbf{Alto} & \textbf{Excesivo} \\
         \hline
-        \textbf{Perfecto (PER)} & Crítico & Satisfactorio  & Equilibrado & Excelente & Crítico \\
+        \textbf{Perfecto (IES)} & Crítico & Satisfactorio (SA)  & Equilibrado (EQ) & Excelente (EX) & Crítico (CRI) \\
         \hline
-        \textbf{Adecuado (AD)} & Equilibrado & Equilibrado & Satisfactorio & Pobre & Crítico\\
+        \textbf{Inicialmente Estable (IES)} & Equilibrado (EQ) & Equilibrado (EQ) & Malo (MA) & Malo (MA) & Crítico (CRI)\\
         \hline
-        \textbf{Aceptable (ACE)} & Equilibrado & Equilibrado & Satisfactorio & Pobre & Crítico \\
+        \textbf{Progresiva- mente Estable (PES)} & Malo (MA) & Equilibrado (EQ) & Satisfactorio (SA) & Malo (MA) & Crítico (CRI)\\
         \hline
-        \textbf{Semi-Óptimo (SO)} & Crítico& Satisfactorio  & Equilibrado & Equilibrado & Pobre  \\
+        \textbf{Inicialmente Aceptable (IACE )} & Equilibrado (EQ) & Equilibrado (EQ) & Malo (MA) & Malo (MA) & Crítico (CRI) \\
         \hline
-        \textbf{Inhibición (IN)} & Equilibrado & Equilibrado & Crítico& Crítico& Crítico\\
+        \textbf{Progresiva- mente Aceptable (IACE)} & Malo (MA) & Equilibrado (EQ) & Satisfactorio (SA) & Malo (MA) & Crítico (CRI) \\
         \hline
-        \textbf{Sobrefer- mentado (SOB)} & Crítico& Crítico& Pobre & Equilibrado & Equilibrado\\
+        \textbf{Peligro (PE)} & Crítico (CRI) & Malo (MA)  & Malo (MA) & Equilibrado (EQ) & Crítico (CRI)  \\
         \hline
-        \textbf{Deficiente (DEF)} & Crítico& Crítico& Equilibrado & Equilibrado & Equilibrado \\
+        \textbf{Semi-Óptimo (SO)} & Crítico (CRI)& Satisfactorio (SA)  & Equilibrado (EQ) & Equilibrado (EQ) &Crítico (CRI)  \\
         \hline
-        \textbf{Riesgo (RI)} & Equilibrado & Equilibrado & Satisfactorio & Crítico& Crítico\\
+        \textbf{Inhibición (IN)} & Equilibrado (EQ) & Equilibrado (EQ) & Crítico (CRI)& Crítico (CRI)& Crítico (CRI)\\
+        \hline
+        \textbf{Sobrefer- mentado (SOB)} & Crítico (CRI)& Crítico (CRI)& Malo (MA) & Equilibrado (EQ) & Crítico (CRI)\\
+        \hline
+        \textbf{Deficiente (DEF)} & Crítico (CRI)& Crítico (CRI)& Equilibrado (EQ) & Equilibrado (EQ) & Crítico (CRI) \\
+        \hline
+        \textbf{Riesgo Bajo (RIB)} & Equilibrado (EQ) & Equilibrado (EQ) & Satisfactorio (SA) & Crítico (CRI) & Crítico (CRI)\\
         \hline
     \end{tabularx}
 \end{table}
+
+\begin{table}[htbp]
+    \centering
+    \caption{Descripción de las Clasificaciones del Nivel de $\text{CO}_{2}$ en la Fermentación}
+    \label{tab:clasificacion_co2_mejorada}
+    
+    % Usamos tabularx con \textwidth y definimos el ancho de las columnas.
+    % La primera columna (Color) y las dos siguientes son fijas, la última (Descripción) es flexible (X).
+    \begin{tabularx}{\textwidth}{|>{\centering\arraybackslash}p{1.2cm}|c|c|X|}
+    \hline
+    \textbf{Color} & \textbf{Abrev.} & \textbf{Etiqueta} & \textbf{Descripción (Enfoque en la Actividad)} \\
+    \hline
+    \textbf{Verde} & \textbf{EX} & \textbf{Excelente} & Indica una liberación de $\text{CO}_{2}$ que corresponde a la actividad microbiana en relación con las condiciones de pH y temperatura. \\
+    \hline
+    \textbf{Azul} & \textbf{EQ} & \textbf{Equilibrado} & Señala una liberación de $\text{CO}_{2}$ que es la respuesta esperada de la actividad microbiana bajo las condiciones dadas de pH y temperatura, reflejando un proceso estándar. \\
+    \hline
+    \textbf{Ama- rillo} & \textbf{SA} & \textbf{Satisfactorio} & El nivel de $\text{CO}_{2}$ liberado es aceptable e indica una actividad microbiana funcional, aunque ligeramente por debajo de la respuesta óptima esperada para el estado de fermentación. \\
+    \hline
+    \textbf{Nara- nja} & \textbf{MA} & \textbf{Malo} & La liberación de $\text{CO}_{2}$ es preocupante porque no se alinea con la actividad microbiana esperada para las condiciones. Puede ser indicio de un desequilibrio en el cultivo, ya sea por un exceso de granos de kéfir en la fermentación o un contaminante externo. \\
+    \hline
+    \textbf{Rojo} & \textbf{CRI} & \textbf{Crítico} & Indica una liberación de $\text{CO}_{2}$ que es altamente anómala o nula en relación con el pH y la temperatura. Esto es un factor de máxima preocupación por la salud y viabilidad del cultivo. \\
+    \hline
+    \end{tabularx}
+\end{table}
+
+A continuación se presentan las 13 reglas difusas mínimas que reproducen exactamente la \cref{tab:matriz_calidad_co2_sinonimos_revisada}, optimizadas mediante análisis exhaustivo de patrones y uso eficiente de operadores lógicos:
+
+\begin{enumerate}
+
+    \item \textbf{IF} (CO$_2$ es Excesivo) THEN Estado es \textbf{Crítico (CRI)}.
+
+    \item \textbf{IF} (CO$_2$ es Muy Bajo) \textbf{AND} (Condición no es Inhibición \textbf{AND} no es Inicialmente Estable \textbf{AND} no es Inicialmente Aceptable \textbf{AND} no es Riesgo Bajo
+    \textbf{AND} no es Progresivamente Estable \textbf{AND} no es Progresivamente Aceptable
+    ) THEN Estado es \textbf{Crítico (CRI)}.
+    
+    \item \textbf{IF} (CO$_2$ es Muy Bajo \textbf{OR} Bajo) \textbf{AND} (Condición es Inicialmente Estable \textbf{OR} Inicialmente Aceptable \textbf{OR} Inhibición \textbf{OR} Riesgo Bajo) THEN Estado es \textbf{Equilibrado (EQ)}.
+    
+    \item \textbf{IF} (CO$_2$ es Muy Bajo \textbf{OR} Alto) \textbf{AND} (Condición es Progresivamente Estable \textbf{OR} Progresivamente Aceptable) THEN Estado es \textbf{Malo (MA)}.
+    
+    \item \textbf{IF} (CO$_2$ es Bajo) \textbf{AND} (Condición es Semi-Óptimo) \textbf{OR} (Condición es Perfecto) THEN Estado es \textbf{Satisfactorio (SA)}.
+    
+    \item \textbf{IF} (CO$_2$ es Bajo) \textbf{AND} (Condición es Progresivamente Estable \textbf{OR} Progresivamente Aceptable) THEN Estado es \textbf{Equilibrado (EQ)}.
+
+    \item \textbf{IF} (CO$_2$ es Bajo) \textbf{AND} (Condición es Sobrefermentado \textbf{OR} Deficiente)   THEN Estado es \textbf{Crítico (CRI)}.
+
+    \item \textbf{IF} (CO$_2$ es Bajo \textbf{OR} CO$_2$ Medio) \textbf{AND} Condición es Peligro THEN Estado es \textbf{Malo (MA)}.
+
+    
+    \item \textbf{IF} (CO$_2$ es Medio) \textbf{AND} (Condición es Progresivamente Estable \textbf{OR} Progresivamente Aceptable \textbf{OR} Riesgo Bajo) THEN Estado es \textbf{Satisfactorio (SA)}.
+    \item \textbf{IF} (CO$_2$ es Medio \textbf{OR} Alto) \textbf{AND} (Condición es Inicialmente Estable \textbf{OR} Inicialmente Aceptable) THEN Estado es \textbf{Malo (MA)}.
+    \item \textbf{IF} (CO$_2$ es Medio \textbf{OR} CO$_2$ Alto) \textbf{AND} Condición es Inibición THEN Estado es \textbf{Crítico (CRI)}.
+
+    \item \textbf{IF} (CO$_2$ es Medio) \textbf{AND} (Condición es Semióptimo \textbf{OR} Deficiente \textbf{OR} Perfecto) THEN Estado es \textbf{Equilibrado (EQ)}.
+
+    \item \textbf{IF} (CO$_2$ es Medio) \textbf{AND} Condición es Sobrefermentado THEN Estado es \textbf{Malo (MA)}.
+
+    \item \textbf{IF} (CO$_2$ es Alto) \textbf{AND} (Condición es Perfecto) THEN Estado es \textbf{Excelente (EX)}.
+    
+    \item \textbf{IF} (CO$_2$ es Alto) \textbf{AND} (Condición es Peligro \textbf{OR} Sobrefermentado \textbf{OR} Deficiente \textbf{OR} Semi-Óptimo) THEN Estado es \textbf{Equilibrado (EQ)}. 
+    
+
+    \item \textbf{IF} (CO$_2$ es Alto) \textbf{AND} (Condición es Progresivamente Estable \textbf{OR} Progresivamente Aceptable) THEN Estado es \textbf{Malo (MA)}.
+ 
+    \item \textbf{IF} (CO$_2$ es Alto) \textbf{AND} Condición es Riego Bajo THEN Estado es \textbf{Crítico (CRI)}.
+\end{enumerate}

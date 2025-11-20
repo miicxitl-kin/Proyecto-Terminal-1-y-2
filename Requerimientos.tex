@@ -59,7 +59,7 @@ propuesto.
         \begin{enumerate}
             \item \textbf{Validez de las entradas}
                 \begin{enumerate}
-                    \item Se debe implementa un protocolo de conexión que garantize la conexión de multiples microcontroladores de manera simultanea e independiente.
+                    \item Se debe implementa un protocolo de conexión que garantize multiples conexiónes de manera simultanea e independiente.
                     \item Se debe implementa un protocolo de conexión que permita la identificación única de cada microcontrolador mediante un ID.
                 \end{enumerate}   
             
@@ -103,7 +103,7 @@ propuesto.
         
             \item \textbf{Respuestas a situaciones anormales}
                 \begin{enumerate}
-                    \item El sistema emite una alerta y se registra en la base de datos ,si la comunicación con cualquier sensor (pH, temperatura, CO) se interrumpe ya sea en modo prueba o monitoreo.
+                    \item El sistema emite una alerta y la registra en la base de datos ,si la comunicación con cualquier sensor (pH, temperatura, CO) se interrumpe ya sea en modo prueba o monitoreo.
                     \item El sistema retransmite los datos recolectados por los 3 sensores en caso de un fallo en la conexión con la base de datos.
                     \item El sistema documenta en un log todos los intentos de conexión fallidos al servidor de base de datos.
                 \end{enumerate}   
@@ -119,6 +119,7 @@ propuesto.
                     \item El microcontrolador procesa lecturas crudas(haciendo la conversión de datos analogicos a digitales) de los sensores y genera paquetes de datos estructurados junto con un identificador del microcontrolador para su envío a la base de datos.
                 \end{enumerate}
         \end{enumerate}
+
     \item \label{it:RNF01} \textbf{RNF01}
             \item \begin{enumerate}
                     \item El sistema debe ser capaz de manejar múltiples conexiones simultáneas de microcontroladores sin degradar el rendimiento.
@@ -126,7 +127,7 @@ propuesto.
                     \item El sistema debe perimitir analizar diferentes cepas de bulgaros y diferentes tipos de leches.
             \end{enumerate}
 \end{enumerate}
-A continuación se muestran los casos de uso en las \cref{fig:RF01} y \cref{fig:RF02} de los casos de uso del \ref{it:RF01}.
+A continuación se ilustran los casos de uso en la \cref{fig:RF01} y \cref{fig:RF02} de los requeriminetos \ref{it:RF01}.
 \begin{figure}[htb]
 \centering
 \includegraphics[width=0.4\textwidth]{./UML/Modulo1/RF1.drawio.png}
@@ -140,16 +141,16 @@ A continuación se muestran los casos de uso en las \cref{fig:RF01} y \cref{fig:
 \caption{Modo monitoreo del módulo 1 RF01.}
 \label{fig:RF02}
 \end{figure} 
-
+\newpage 
 \subsection{Módulo 2}\
 \begin{enumerate}
 \item \label{it:RF04} \textbf{RF04-Análisis de datos}
         \begin{enumerate}
             \item \textbf{Validez de las entradas}
                 \begin{enumerate}
-                    \item Se valida que los datos recibidos de la base de datos estén completos y no contengan valores nulos.
-                    \item El módulo 2 recibe los datos en el formato especificado por el módulo 1 con su respectivo ID.
-                    \item El módoulo 2 realiza el análisis de los datos de acuerdo a los datos de cada usuario.   
+                    \item Se debe validar que los datos recibidos de la base de datos estén completos y no contengan valores nulos.
+                    \item El módulo 2 debe recibir los datos en el formato especificado por el módulo 1 con su respectivo ID.
+                    \item El módoulo 2 debe realizar el análisis de los datos de acuerdo a los datos de cada usuario.   
                 \end{enumerate}   
             
             \item \textbf{Secuencia exacta de operaciones}
@@ -179,7 +180,7 @@ A continuación se muestran los casos de uso en las \cref{fig:RF01} y \cref{fig:
         \end{enumerate}
 \item \textbf{RNF02}\label{it:RNF02}
             \item \begin{enumerate}
-                    \item El mpdulo 2 debe ser capaz de manejar múltiples solicitudes de análisis de datos de diferentes usuarios sin degradar el rendimiento.
+                    \item El módulo 2 debe ser capaz de manejar múltiples solicitudes de análisis de datos de diferentes usuarios sin degradar el rendimiento.
                     \item El módulo 2 debe ser escalable para soportar un aumento en el volumen de datos a analizar.
             \end{enumerate}
 \end{enumerate}
@@ -191,10 +192,10 @@ A continuación se muestran los casos de uso en las \cref{fig:RF01} y \cref{fig:
     \begin{enumerate}
             \item \textbf{Validez de las entradas}
                 \begin{enumerate}
-                    \item La Base de datos valida que los datos recibidos del módulo 1 estén completos y no contengan valores nulos.
+                    \item La Base de datos debe validar que los datos recibidos del módulo 1 estén completos y no contengan valores nulos.
                     \item La Base de datos deberá comprobar que todos los paquetes de datos provenientes de los sensores incluyan la marca de tiempo asociada y su ID único del microcontrolador
                     para asociarlo con su usuario correspondiente.
-                    \item La Base de datos valida las claves de acceso de los usuarios por medio de la página web.
+                    \item La Base de datos debe validar las claves de acceso de los usuarios por medio de la página web.
                 \end{enumerate}   
             
             \item \textbf{Secuencia exacta de operaciones}
@@ -228,7 +229,7 @@ A continuación se muestran los casos de uso en las \cref{fig:RF01} y \cref{fig:
     \end{enumerate}
 \item \label{it:RNF03} \textbf{RNF03}
             \item \begin{enumerate}
-                    \item El mpdulo 3 debe ser capaz de manejar múltiples solicitudes de almacenamiento y recuperación de datos de diferentes usuarios sin degradar el rendimiento.
+                    \item El módulo 3 debe ser capaz de manejar múltiples solicitudes de almacenamiento y recuperación de datos de diferentes usuarios sin degradar el rendimiento.
                     \item El módulo 3 debe ser escalable horizontalmente para soportar un aumento de usuarios y de datos almacenados.
                     \item La Base de datos proporciona acceso rápido y eficiente a los datos almacenados para su análisis y visualización.
                     \item La Base de datos garantiza una consistncia e integridad de los datos almacenados de cada usuario. 
@@ -407,7 +408,7 @@ A continuación se muestran los casos de uso en las \cref{fig:RF01} y \cref{fig:
         \end{enumerate}
         \item \label{it:RNF04} \textbf{RNF04}
             \item \begin{enumerate}
-                    \item El mpdulo 4 debe ser capaz soportar multiples usuarios conectados de manera simultanea sin degradar el rendimiento.
+                    \item El módulo 4 debe ser capaz soportar multiples sesiones de manera simultanea sin degradar el rendimiento.
                     \item El módulo 4 debe ofrecer una interfaz amigable e intuitiva de cara al usuarios.
             \end{enumerate}
  \end{enumerate}
