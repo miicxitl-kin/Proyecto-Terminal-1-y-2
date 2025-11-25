@@ -10,17 +10,17 @@ de normalización de datos en cada una de las tablas que componen la base de dat
 eficiencia en las consultas, además de reducir la redundancia y mejorar la integridad de
 los datos. 
 \newline
-El diseño parte del modelo entidad-relación (ER) mostrado en la \cref{fig:ModeloER}, 
+El diseño parte del modelo entidad-relación (MER) mostrado en la \cref{fig:ModeloER}, 
 en el cual se identifican claramente las entidades principales y sus interrelaciones. 
 En dicho modelo, el módulo 1 se encarga de la adquisición de los datos 
 provenientes de los sensores; por su parte, 
-el módulo 2 realiza el análisis de los datos recopilados; 
+la entidad proceso representa tanto los datos analizados como los ingredientes utilizados en la fermentación del kéfir de leche.; 
 finalmente, los usuarios finales quienes interactúan con el sistema mediante una interfaz
 web pueden pertenecer a distintas categorías, destacando los productores 
 iniciales o los productores raíz derivados de estos últimos.
 \newline
 Por ende, a primera instancia no va a estar normalizado, ya que se busca tener una visión
-general de las tablas y sus relaciones, para posteriormente llevar a cabo de manera progresiva, la
+general de las entidades y sus relaciones, para posteriormente llevar a cabo de manera progresiva, la
 normalización de los datos hasta alcanzar la tercera forma normal.
 \newline
 Asimismo, se elabora un diagrama de relación que representa las entidades,
@@ -31,216 +31,294 @@ de la estructura y las interacciones entre los diferentes componentes del sistem
 \begin{figure}[htb]
 \centering
 \includegraphics[width=0.9\textwidth]{./UML/Modulo3/modeloER.drawio.png}
-\caption{Moelo Entidad-Relación}
+\caption{Modelo Entidad-Relación(MER)}
 \label{fig:ModeloER}
 \end{figure} 
 
-\subsubsection{Normalización de datos}
-Por lo tanto para llevar a cabo la normalización de los datos, 
-se ha tomado como referencia la tablas previamente definidas en la sección 
+\subsubsection{Modelo Relacional}
+Por lo tanto para llevar a cabo el modelo relacional primero se debe normalizar los datos, 
+tomando como referencia las entidades previamente definidas en la sección 
 , con el fin de normalizar los datos 
 correspondientes a las tres primeras formas normales (1NF, 2NF y 3NF).
 
-A continuación, se presenta la tabla original y su descripción, seguida de la tabla
-normalizada hasta la forma correspondientes de cada una de las tres primeras formas normales (1NF, 2NF y 3NF).
+A continuación, se presenta la entidad original y su descripción, seguida de la entidad
+normalizada hasta la forma correspondientes de cada una.
 
-Apartir de la \cref{tab:Usuario} siendo esta la tabla
+Apartir de la \cref{tab:Usuario} siendo esta la entidad
 central, se procede a realizar la normalización de los datos.
 Obteniendo la tabla  las siguientes tablas normalizadas:
-En la  \cref{tab:Usuario} se definen los atributos del usuario, incluyendo
-información personal y de contacto, así como detalles relacionados con el proceso y
-nodo asociado al usuario.
-En la \cref{tab:Categoría} se define la categoría del usuario, vinculada a su
-identificador único.Siendo esta la relación con otros usuarios productores.
-En la \cref{tab:Dirección} se definen los atributos relacionados con la dirección
-del usuario, incluyendo ciudad, colonia, municipio, código postal, calle y número.
-En la \cref{tab:Proceso} se definen los atributos del proceso asociado al usuario,
-incluyendo eficiencia, estado y nivel del proceso, siendo esta tabla relacionada con
-el módulo 2.
 
-
-\begin{table}[htbp]
+\begin{table}[H]
     \centering
     \caption{Atribudos del Usuario} % Título Corregido (Ver Sección 2)
     \label{tab:Usuario}
     \footnotesize % Reducimos el tamaño de la fuente para ayudar al ajuste
 
     % Ajuste de Anchos de Columna (el ancho total debe sumar < 16cm)
-    \begin{tabular}{|>{\raggedright\arraybackslash}p{2.5cm}|c|}
+    \begin{tabular}{|>{\raggedright\arraybackslash}p{2.5cm}|}
         \hline
-        \textbf{Atributo}       & \textbf{Tipo de Dato}  \\ \hline
-        ID del usuario          & varchar(20)  \\ \hline
-        Categoría del usuario   & varchar(15) \\ \hline
-        ID del proceso          & INT          \\ \hline
-        ID del nodo             & VARCHAR(20)  \\ \hline
-        Eficiencia              & FLOAT        \\ \hline
-        Nombre                  & varchar(20)  \\ \hline 
-        Primer Apellido         & varchar(20)  \\ \hline
-        Segundo Apellido        & varchar(20)  \\ \hline
-        Género                  & varchar(15)  \\ \hline
-        Ciudad                  & varchar(20)  \\ \hline
-        Colonia                 & varchar(20)  \\ \hline
-        Municipio               & varchar(20)  \\ \hline
-        C.P.                      & varchar(10) \\ \hline
-        Calle                   & varchar(30)  \\ \hline
-        Número                  & INT          \\ \hline
-        Teléfono                & INT          \\ \hline
-        Correo                  & varchar(20)  \\ \hline
+        \textbf{Atributo}       \\ \hline
+        ID del usuario          \\ \hline
+        Categoría del usuario   \\ \hline
+        ID del proceso          \\ \hline
+        ID del nodo             \\ \hline
+        Eficiencia              \\ \hline
+        Nombre                  \\ \hline 
+        Primer Apellido         \\ \hline
+        Segundo Apellido        \\ \hline
+        Género                  \\ \hline
+        Ciudad                  \\ \hline
+        Colonia                 \\ \hline
+        Municipio              \\ \hline
+        C.P.                   \\ \hline
+        Calle                  \\ \hline
+        Número                 \\ \hline
+        Teléfono               \\ \hline
+        Correo                  \\ \hline
         
     \end{tabular}
 \end{table}
 
+En la  \cref{tab:norUsuario} se definen los atributos del usuario, incluyendo
+información personal y de contacto, así como los ID relacionados con el proceso , historial y
+dirección asociado al usuario.Destacando que todos los datos están vinculados a su
+identificador.
 
-\begin{table}[htbp]
+\begin{table}[H]
     \centering
     \caption{Usuario} % Título Corregido (Ver Sección 2)
-    \label{tab:Usuario}
+    \label{tab:norUsuario}
     \footnotesize % Reducimos el tamaño de la fuente para ayudar al ajuste
 
     % Ajuste de Anchos de Columna (el ancho total debe sumar < 16cm)
-    \begin{tabular}{|>{\raggedright\arraybackslash}p{2.5cm}|c|}
+    \begin{tabular}{|c|>{\raggedright\arraybackslash}p{2.5cm}|}
         \hline
-        \textbf{Atributo}       & \textbf{Tipo de Dato}  \\ \hline
-        \textbf{PK} ID del usuario & varchar(20)  \\ \hline
-        FK ID del proceso          & INT          \\ \hline
-        FK ID del nodo             & VARCHAR(20)  \\ \hline
-        FK Ciudad                  & varchar(20)  \\ \hline
-        Nombre                  & varchar(20)  \\ \hline 
-        Primer Apellido         & varchar(20)  \\ \hline
-        Segundo Apellido        & varchar(20)  \\ \hline
-        Género                  & varchar(15)  \\ \hline
-        Teléfono                & INT          \\ \hline
-        Correo                  & varchar(20)  \\ \hline
+        \textbf{Llave}       & \textbf{Atributo}   \\ \hline
+        \textbf{PK} & ID del usuario  \\ \hline
+        FK & ID historial       \\ \hline
+        FK & ID del proceso         \\ \hline
+        FK & ID dirección          \\ \hline
+        & Nombre                   \\ \hline 
+        & Primer Apellido          \\ \hline
+        & Segundo Apellido         \\ \hline
+        & Género                   \\ \hline
+        & Teléfono                 \\ \hline
+        & Correo                   \\ \hline
         
     \end{tabular}
 \end{table}
 
-\begin{table}[htbp]
+En la \cref{tab:Categoría} se define la categoría del usuario, vinculada a su
+identificador único.Siendo esta la relación con otros usuarios productores.Destacando
+que esta tabla es autorrelacionada, ya que un usuario puede ser origen de otros usuarios
+productores.
+
+\begin{table}[H]
     \centering
-    \caption{Categoría} % Título Corregido (Ver Sección 2)
+    \caption{Pertenece} % Título Corregido (Ver Sección 2)
     \label{tab:Categoría}
     \footnotesize % Reducimos el tamaño de la fuente para ayudar al ajuste
 
     % Ajuste de Anchos de Columna (el ancho total debe sumar < 16cm)
-    \begin{tabular}{|>{\raggedright\arraybackslash}p{2.5cm}|c|}
+    \begin{tabular}{|c|>{\raggedright\arraybackslash}p{2.5cm}|}
         \hline
-        \textbf{Atributo}       & \textbf{Tipo de Dato}  \\ \hline
-        Categoría del usuario   & varchar(15) \\ \hline
-        Id del usuario          & varchar(20)  \\ \hline
+        \textbf{Llave}       & \textbf{Atributo}   \\ \hline
+        FK & ID del usuario                         \\ \hline
+        FK & ID usuario origen                      \\ \hline
+           & Categoria                               \\ \hline
     \end{tabular}
 \end{table}
 
+En la \cref{tab:Dirección} se definen los atributos relacionados con la dirección
+del usuario, incluyendo ciudad, colonia, municipio, código postal, calle y número.
 
-\begin{table}[htbp]
+\begin{table}[H]
     \centering
     \caption{Dirección} % Título Corregido (Ver Sección 2)
     \label{tab:Dirección}
     \footnotesize % Reducimos el tamaño de la fuente para ayudar al ajuste
 
     % Ajuste de Anchos de Columna (el ancho total debe sumar < 16cm)
-    \begin{tabular}{|>{\raggedright\arraybackslash}p{2.5cm}|c|}
+    \begin{tabular}{|c|>{\raggedright\arraybackslash}p{2.5cm}|}
         \hline
-        \textbf{Atributo}       & \textbf{Tipo de Dato}  \\ \hline
-        Ciudad                  & varchar(20)  \\ \hline
-        Colonia                 & varchar(20)  \\ \hline
-        Municipio               & varchar(20)  \\ \hline
-        C.P.                      & varchar(10)  \\ \hline
-        Calle                   & varchar(30)  \\ \hline
-        Número                  & INT          \\ \hline  
+        \textbf{Llave}    & \textbf{Atributo}  \\ \hline
+         \textbf{PK} & Dirección   \\ \hline
+        & Ciudad                 \\ \hline
+        & Colonia                 \\ \hline
+        & Municipio               \\ \hline
+        & C.P.                    \\ \hline
+        & Calle                   \\ \hline
+        & Número                  \\ \hline  
     \end{tabular}
 \end{table}
 
-\begin{table}[htbp]
+En la \cref{tab:Proceso} se definen los atributos del proceso asociado al usuario,
+siendo la relacion con
+el módulo 2 y los ingredientes utilizados en el proceso.
+
+\begin{table}[H]
     \centering
     \caption{Proceso}% Título Corregido (Ver Sección 2)
     \label{tab:Proceso}
     \footnotesize % Reducimos el tamaño de la fuente para ayudar al ajuste
 
     % Ajuste de Anchos de Columna (el ancho total debe sumar < 16cm)
-    \begin{tabular}{|>{\raggedright\arraybackslash}p{2.5cm}|c|}
+    \begin{tabular}{|c|>{\raggedright\arraybackslash}p{2.5cm}|}
         \hline
-        \textbf{Atributo}       & \textbf{Tipo de Dato}  \\ \hline
-        Id del proceso          & INT          \\ \hline
-        Eficiencia              & FLOAT        \\ \hline
-        Estado                  & varchar(20)  \\ \hline % Ajustado: Nombre no es Tinyint
-        Nivel                   & varchar(20)  \\ \hline
+        \textbf{Llave}       & \textbf{Atributo}    \\ \hline
+         \textbf{PK} & Id del proceso               \\ \hline
+        FK & ID del análisis                                  \\ \hline
+        FK & ID ingredientes                                   \\ \hline 
     \end{tabular}
 \end{table}
 
+En la \cref{tab:Analisis} se definen los atributos del proceso asociado al usuario,
+incluyendo eficiencia, estado y nivel del proceso, siendo esta tabla relacionada con
+el módulo 2 y la relación con el módulo 1.
 
+\begin{table}[H]
+    \centering
+    \caption{Análisis}% Título Corregido (Ver Sección 2)
+    \label{tab:Analisis}
+    \footnotesize % Reducimos el tamaño de la fuente para ayudar al ajuste
+
+    % Ajuste de Anchos de Columna (el ancho total debe sumar < 16cm)
+    \begin{tabular}{|c|>{\raggedright\arraybackslash}p{2.5cm}|}
+        \hline
+        \textbf{Llave}       & \textbf{Atributo}    \\ \hline
+       \textbf{PK}  & ID del análisis                   \\ \hline
+        FK  & ID del nodo                              \\ \hline 
+        & Eficiencia                                       \\ \hline
+        & Estado                                           \\ \hline
+        & Nivel                                            \\ \hline
+    \end{tabular}
+\end{table}
+
+En la \cref{tab:ingredientes} se definen los atributos de los ingredientes utilizados en el proceso de fermentación del kéfir de leche, 
+incluyendo el identificador único del ingrediente, el nodo asociado, la cantidad de gramos de granos de kéfir y la marca de leche utilizada.
+
+\begin{table}[H]
+    \centering
+    \caption{Ingredientes}% Título Corregido (Ver Sección 2)
+    \label{tab:ingredientes}
+    \footnotesize % Reducimos el tamaño de la fuente para ayudar al ajuste
+
+    % Ajuste de Anchos de Columna (el ancho total debe sumar < 16cm)
+    \begin{tabular}{|c|>{\raggedright\arraybackslash}p{2.5cm}|}
+        \hline
+        \textbf{Llave}       & \textbf{Atributo}    \\ \hline
+       \textbf{PK}  & ID Ingredeintes                                 \\ \hline
+        FK  & ID del nodo                              \\ \hline 
+        & gramos Granos                                           \\ \hline
+        & Marce de leche                                            \\ \hline
+        & Lt Leche                                           \\ \hline
+    \end{tabular}
+\end{table}
+
+En la \cref{tab:historial} se definen los atributos del historial del proceso de fermentación del kéfir de leche,
+incluyendo el identificador único del historial y el nodo asociado al proceso.
+
+\begin{table}[H]
+    \centering
+    \caption{Historial}% Título Corregido (Ver Sección 2)
+    \label{tab:historial}
+    \footnotesize % Reducimos el tamaño de la fuente para ayudar al ajuste
+
+    % Ajuste de Anchos de Columna (el ancho total debe sumar < 16cm)
+    \begin{tabular}{|c|>{\raggedright\arraybackslash}p{2.5cm}|}
+        \hline
+        \textbf{Llave}       & \textbf{Atributo}    \\ \hline
+       \textbf{PK}  & ID Historial                                \\ \hline
+        FK  & ID del proceso                            \\ \hline 
+    \end{tabular}
+\end{table}
 
 Asimismo se presenta la \cref{tab:lecturas_kefir} siendo esta la tabla
 del módulo 1, de la cual al normalizarla se obtienen las siguientes tablas normalizadas:
-En la \cref{tab:Nodo} se definen los atributos del nodo, incluyendo su identificador único y la
-marca de tiempo de la lectura.
-En la \cref{tab:alarma} se definen los atributos de la alarma, vinculada al nodo
-correspondiente.
-En la \cref{tab:sensado} se definen los atributos del sensado, incluyendo la marca de
-tiempo y las lecturas de temperatura, pH y CO2
 
-
-\begin{table}[htbp]
+\begin{table}[H]
     \centering
     \caption{Atributos de los sensores}
     \label{tab:lecturas_kefir}
-    \begin{tabular}{|>{\raggedright\arraybackslash}p{2.5cm}|c|}
-                                 
+    \begin{tabular}{|>{\raggedright\arraybackslash}p{2.5cm}|}        
         \hline
-        \textbf{Atributo}         & \textbf{Tipo de dato}      \\ \hline
-        ID del nodo               & VARCHAR(20)                 \\ \hline
-        Timeset                   & TIMESTAMP                  \\ \hline
-        ph                        & FLOAT                      \\ \hline
-        $CO_{2}$                      & FLOAT                      \\ \hline
-        temperatura               & FLOAT                      \\ \hline
-        bandera\_alarma           & VARCHAR(20)                \\ \hline
+        \textbf{Atributo}         \\ \hline
+        ID del nodo               \\ \hline
+        Timeset                   \\ \hline
+        ph                        \\ \hline
+        $CO_{2}$                  \\ \hline
+        temperatura               \\ \hline
+        Alarma                    \\ \hline
     \end{tabular}
 \end{table}
 
-\begin{table}[htbp]
+En la \cref{tab:Nodo} se definen los atributos del nodo, incluyendo su identificador único, la
+marca de tiempo de la lectura y el ID de la alarma.
+
+
+\begin{table}[H]
     \centering
     \caption{Nodo}
     \label{tab:Nodo}
     \small
-   \begin{tabular}{|>{\raggedright\arraybackslash}p{2.5cm}|c|}
+   \begin{tabular}{|c|>{\raggedright\arraybackslash}p{2.5cm}|}
         \hline
-        \textbf{Atributo}         & \textbf{Tipo de dato}      \\ \hline
-        ID del nodo               & VARCHAR(20)                 \\ \hline
-        Timeset                   & TIMESTAMP                  \\ \hline
+        \textbf{Llave}         & \textbf{Atributo}    \\ \hline
+        \textbf{PK}  & ID del nodo                        \\ \hline
+        FK & Timeset                                      \\ \hline
+        FK & ID Alarma                                     \\ \hline
     \end{tabular}
 \end{table}
 
+En la \cref{tab:alarma} se definen los atributos de la alarma, vinculada al nodo
+correspondiente.
 
-\begin{table}[htbp]
+
+\begin{table}[H]
     \centering
     \caption{Alarma}
     \label{tab:alarma}
     \small
-    \begin{tabular}{|>{\raggedright\arraybackslash}p{2.5cm}|c|}
+    \begin{tabular}{|c|>{\raggedright\arraybackslash}p{2.5cm}|}
         \hline
-        \textbf{Atributo}         & \textbf{Tipo de dato}      \\ \hline
-        ID del nodo               & VARCHAR(20)                 \\ \hline
-        bandera de alarma           & VARCHAR(20)                \\ \hline
+        \textbf{Llave}         & \textbf{Atributo}            \\ \hline
+        \textbf{PK} & ID alarma                         \\ \hline 
+        & Alarma                                        \\ \hline
    \end{tabular}
 \end{table}
 
-\begin{table}[htbp]
+En la \cref{tab:sensado} se definen los atributos del sensado, incluyendo la marca de
+tiempo y las lecturas de temperatura, pH y CO2. 
+
+\begin{table}[H]
     \centering
     \caption{Medición}
     \label{tab:sensado}
     \small
-    \begin{tabular}{|>{\raggedright\arraybackslash}p{2.5cm}|c|}
+    \begin{tabular}{|c|>{\raggedright\arraybackslash}p{2.5cm}|}
         \hline
-        \textbf{Atributo}         & \textbf{Tipo de dato}      \\ \hline
-        Timeset                   & TIMESTAMP                  \\ \hline
-        Temperatura               & FLOAT                      \\ \hline
-        ph                        & FLOAT                      \\ \hline
-        $CO_{2}$                  & FLOAT                      \\ \hline
+        \textbf{Llave}         & \textbf{Atributo}      \\ \hline
+        \textbf{PK} & Timeset        \\ \hline
+        & Temperatura                \\ \hline
+        & ph                         \\ \hline
+        & $CO_{2}$                   \\ \hline
    \end{tabular}
 \end{table}
 
-\begin{figure}[htb]
-\centering
-\includegraphics[width=0.9\textwidth]{./UML/Modulo3/diseno3.drawio.png}
-\caption{Diagrama Relacional}
-\label{fig:DiagramaR}
-\end{figure} 
+Una vez normalizadas las tablas, se procede a elaborar el diagrama relacional mostrado en la
+\cref{fig:DiagramaR}, en el cual se representan las tablas normalizadas, 
+sus atributos y las relaciones entre ellas, facilitando la comprensión de la estructura 
+de la base de datos del módulo 3.
+
+\begin{landscape}
+    \vfill % Empuja la figura desde arriba
+    \begin{figure}[h!] % [H] requiere \usepackage{float} y fuerza la posición
+        \centering
+        % Usamos \textheight para el ancho en modo landscape
+        \includegraphics[width=1.5\textheight, keepaspectratio]{./UML/Modulo3/diseno3.drawio.png}
+        \caption{Módelo Relacional(MR)}
+        \label{fig:DiagramaR}
+    \end{figure} 
+    \vfill % Centra la figura entre este comando y el \vfill de arriba
+    \clearpage
+\end{landscape}

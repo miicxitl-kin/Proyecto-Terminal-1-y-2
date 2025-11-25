@@ -140,23 +140,28 @@ proporcionando al productor una guía clara para la toma de decisiones inmediata
     \centering
     \caption{Matriz de Reglas Difusas para la clasificación del kéfir.}
     \label{tab:reglas_ph_temp_renombrada}
-    % Se usa tabularx para que la tabla ocupe todo el ancho del texto.
-    % Los tipos de columna X permiten que las columnas ajusten su ancho automáticamente.
-    \begin{tabularx}{\textwidth}{|X|X|X|X|X|}
+    % Se usa tabularx con 6 columnas, todas flexibles (X) para ajustar el ancho.
+    \begin{tabularx}{\textwidth}{|X|X|X|X|X|X|}
         \hline
-        \multirow{2}{*}{\textbf{Temp.}} & \multicolumn{4}{c|}{\textbf{pH}} \\
-        \cline{2-5}
-        & \textbf{Adecuado} & \textbf{Semi-Ácido} & \textbf{Ideal} & \textbf{Muy Ácido} \\
+        % Fila 1: Temp, pH (fusionado en 4), y CO2
+        \multirow{2}{*}{\textbf{Temp.}} & \multicolumn{4}{c|}{\textbf{pH}} & \multirow{2}{*}{\textbf{CO$_2$}} \\
+        \cline{2-5} % La línea solo debe ir bajo las 4 columnas de pH
+        
+        % Fila 2: Sub-encabezados de pH y celda vacía para CO2
+        & \textbf{Adecuado} & \textbf{Semi-Ácido} & \textbf{Ideal} & \textbf{Muy Ácido} & \\ % La última celda está vacía
         \hline
-        \textbf{Muy Frío} & Inhibición (IN) & Inhibición (IN) & Inhibición (IN) & Riesgo Bajo (RIB) \\
+        
+        % Filas de datos (6 columnas)
+        \textbf{Muy Frío} & Inhibición (IN) & Inhibición (IN) & Inhibición (IN) & Riesgo Bajo (RIB) & \textbf{Muy bajo} \\
         \hline
-        \textbf{Frío} & Inicialmente Aceptable (IACE) & Progresivamente Aceptable (PACE) & Semi-Óptimo (SO) & Sobrefermentado (SOB) \\
+        \textbf{Frío} & Inicialmente Aceptable (IACE) & Progresiva- mente Aceptable (PACE) & Semi-Óptimo (SO) & Sobrefermen- tado (SOB) & \textbf{Bajo} \\
         \hline
-        \textbf{Ambiente} & Inicialmente Estable (IES) & Progresivamente Estable (PES) & \textbf{Perfecto (PER)} & Sobrefermentado (SOB) \\
+        \textbf{Ambiente} & Inicialmente Estable (IES) & Progresiva- mente Estable (PES) & \textbf{Perfecto (PER)} & Sobrefermen- tado (SOB) & \textbf{Medio} \\
         \hline
-        \textbf{Caliente} &  Inicialmente Aceptable (IACE) & Progresivamente Aceptable (PACE)  & Semi-Óptimo (SO) & Sobrefermentado (SOB) \\
+        \textbf{Caliente} & Inicialmente Aceptable (IACE) & Progresiva- mente Aceptable (PACE) & Semi-Óptimo (SO) & Sobrefermen- tado (SOB) & \textbf{Alto} \\
         \hline
-        \textbf{Muy Caliente} & Deficiente (DEF) & Deficiente (DEF) & Deficiente (DEF) & Peligro (PE) \\
+        % Nota: La última celda de datos se dejó vacía en tu original, se mantiene.
+        \textbf{Muy Caliente} & Deficiente (DEF) & Deficiente (DEF) & Deficiente (DEF) & Peligro (PE) & \textbf{Excesivo} \\ 
         \hline
     \end{tabularx}
 \end{table}
