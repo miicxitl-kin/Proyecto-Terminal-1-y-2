@@ -230,3 +230,127 @@ sensores.
         por parte de los sensores.
 \end{enumerate}
 
+\subsection{Justificación}
+
+Debido a la alta variabilidad inherente en los procesos de producción artesanal 
+del kéfir influida por la diversidad y evolución de las cepas microbianas en los granos 
+(búlgaros), muchos sistemas de monitoreo actuales resultan limitados, ya que suelen basarse en 
+una sola cepa estandarizada o se restringen a parámetros fijos como pH y temperatura, 
+sin considerar la producción de CO$_2$ como indicador directo de la actividad metabólica y 
+vitalidad microbiana. Además, estos sistemas a menudo asumen que los productores poseen un alto 
+nivel de \textit{expertise} técnico, tratándolos como expertos capaces de interpretar datos crudos 
+y complejos en entornos de producción altamente variables y poco estructurados.
+
+De aquí surge la importancia del desarrollo de este sistema telemático no invasivo, 
+que incorpora de manera integral el monitoreo en tiempo real de pH, temperatura y CO$_2$. 
+A diferencia de enfoques convencionales que ignoran o subestiman el CO$_2$ un subproducto 
+clave generado por la actividad levadurienta y bacteriana durante la fermentación heteroláctica, 
+este prototipo permite evaluar con precisión aspectos críticos como la mayor o menor actividad 
+de una cepa respecto a otra, la viabilidad y el envejecimiento de los granos 
+(dado su tiempo de vida limitado), o incluso riesgos asociados a un exceso de CO$_2$ que podría comprometer
+ la evolución del proceso o la seguridad del recipiente.
+
+Además, al registrar el árbol genealógico de las cepas utilizadas 
+(origen, evolución y características a lo largo de producciones sucesivas),
+ el sistema ofrece un registro estructurado y trazable, clave en la elaboración artesanal 
+ mexicana donde las cepas locales presentan variabilidad natural y potencial no explorado. 
+ Esto no solo facilita la identificación de cepas más útiles o adaptadas al contexto nacional, 
+ sino que también habilita estudios científicos sobre la diversidad microbiana del kéfir en México, 
+ contribuyendo al conocimiento de probióticos locales.
+
+Gracias al procesamiento mediante reglas de lógica difusa que modela la incertidumbre 
+y variabilidad natural del proceso, el sistema transforma datos complejos en visualizaciones 
+amigables y comprensibles, permitiendo que productores sin formación técnica especializada 
+interpreten fácilmente el estado de la fermentación. De esta forma, convierte un proceso
+ inherentemente elaborado y dinámico en algo accesible y práctico, facilitando decisiones informadas
+  en tiempo real sin requerir \textit{expertise} avanzado.
+
+No obstante, este sistema se enfoca primordialmente en el monitoreo base 
+fundamental de cualquier optimización productiva, ya que un análisis detallado y
+ basado en datos puede sentar las bases para futuros sistemas de control automatizado más específicos.
+
+En conclusión, el diseño único de este prototipo telemático es económico, accesible, 
+sin requerir infraestructura previa y adaptado a la realidad de pequeños productores 
+artesanales representa un avance significativo al transitar de procesos empíricos a uno 
+más estructurado y basado en evidencia. Al reducir mermas entre producciones, mejorar la 
+consistencia y calidad del producto final, democratizar el acceso a información técnica mediante
+ interfaces amigables y ampliar el panorama sobre la salud y utilidad de las cepas mexicanas, 
+ contribuye de forma efectiva a fortalecer y profesionalizar la elaboración artesanal del kéfir, 
+ potenciando su valor como alimento funcional sostenible en el contexto nacional.
+
+ \subsection{Metodología}
+El presente proyecto se centra en el desarrollo de un prototipo de sistema telemático destinado
+al monitoreo de la fermentación artesanal del kéfir de leche. Para garantizar 
+su correcta implementación, resulta fundamental contar con una metodología 
+estructurada que permita abordar cada una de las etapas del proyecto de manera ordenada, 
+sistemática y eficiente. De esta manera, no solo se asegura el cumplimiento de los objetivos 
+establecidos, sino que además se incorporan los antecedentes teóricos y técnicos indispensables 
+para validar y justificar tanto el diseño conceptual como la posterior implementación del sistema.
+Con base en lo anterior, se propone la siguiente metodología dividida en cinco etapas principales:
+
+\subsubsection{Revisión Bibliográfica}
+
+En la etapa de revisión bibliográfica, se realizó un análisis exhaustivo a través del estado del arte,
+sobre el proceso de fermentación artesanal del kéfir de leche, incluyendo los parámetros clave 
+que determinan su calidad (como temperatura, pH y evolución de acidez)así como investigaciones
+previas que han destacado brechas significativas en el monitoreo de este proceso.
+Entre estas brechas se identificó la escasez de soluciones accesibles y adaptadas específicamente 
+al kéfir artesanal en contextos locales, como la Ciudad de México, donde los productores 
+suelen depender de métodos empíricos sin soporte tecnológico estructurado, lo que permitió 
+justificar la necesidad del prototipo propuesto.
+
+Además, se estudiaron 
+sistemas telemáticos de monitoreo en procesos fermentativos similares, tecnologías de sensores 
+de bajo costo, aplicaciones de lógica difusa en evaluación de procesos biológicos y plataformas 
+para almacenamiento y visualización de datos . 
+Esta revisión permitió establecer un marco teórico sólido que orienta el diseño y 
+desarrollo del prototipo, identificando las mejores prácticas y tecnologías compatibles.
+
+\subsubsection{Análisis de la solución}
+
+En la etapa de análisis de la solución, se llevaron a cabo los requerimientos
+funcionales y no funcionales del sistema de cada módulo. Se evaluaron y seleccionaron los 
+componentes necesarios en hardware (sensores de temperatura y pH,así como microcontroladores 
+y protocolo de comunicación) y software para cada módulo .
+No obstante se consideraron aspectos básicos en la selección de componentes como compatibilidad 
+entre módulos, bajo consumo energético y costos.Permitiendo garantizar 
+una solución eficiente, escalable y adaptada a las condiciones para desarrollar el proyecto
+para producción artesanal 
+en la Ciudad de México, maximizando así el rendimiento y la viabilidad del prototipo.
+
+ \subsubsection{Diseño del sistema}
+
+En la etapa de diseño del sistema, se definió la estructura modular del prototipo con base en
+el análisis previo y los objetivos establecidos del proyecto. Se desarrollaron los diagramas 
+de arquitectura general del sistema, detallando la interacción entre los cuatro módulos principales.
+
+Por lo que respecta al módulo de sensores, se diseñaron los esquemas de conexión del hardware,
+incluyendo la disposición física de los sensores en el frasco de fermentación y su enlace con
+el microcontrolador. Para el módulo de análisis de datos, se definieron los dominios difusos y las reglas
+necesarias para evaluar el estado de la fermentación basándose en los datos recopilados por
+los sensores. En cuanto al módulo de base de datos, se estructuró el esquema de la base de datos
+para almacenar de manera eficiente los datos de fermentación y las alertas generadas. Finalmente,
+se diseñó la interfaz de usuario de la página web, asegurando una experiencia intuitiva y
+accesible para los diferentes tipos de usuarios (administradores y productores).
+
+\subsubsection{Implementación del prototipo}
+Para la etapa de implementación del prototipo, se procedera a ensamblar físicamente los componentes
+del sistema según el diseño establecido. Esto incluyó la integración de los sensores de pH,
+temperatura y CO$_2$ con el microcontrolador, así como la configuración del circuito necesario para su funcionamiento.
+Asimismo, se desarrollara el módelo de logica difusa para el análisis de datos, programando las reglas y dominios
+definidos en la etapa de diseño. Paralelamente, se implementará la base de datos, creando las tablas y relaciones necesarias para almacenar la información de fermentación.
+Finalmente, se desarrollará la página web, implementando las funcionalidades y la interfaz de usuario diseñada previamente.
+
+\subsubsection{Pruebas y validación}
+En la etapa de pruebas y validación, se llevarán a cabo una serie de ensayos para evaluar el funcionamiento
+integral del prototipo.
+Posteriormente a la implementación, se realizarán pruebas unitarias en cada módulo para verificar su correcto desempeño individual.
+Una vez validados los módulos por separado, se procederá a realizar pruebas de integración para asegurar
+que todos los componentes del sistema funcionen de manera conjunta y coordinada.
+Por consiguiente, se evaluaran los objetivos establecidos por medio del funcionamiento del sistema para corroborar 
+si es capaz de monitorear adecuadamente el proceso de fermentación del kéfir con diferentes parámetros iniciales y diferentes cepas de búlgaros.
+Docuementando los resultados obtenidos y realizando ajustes necesarios para optimizar el rendimiento del prototipo.
+
+
+
+

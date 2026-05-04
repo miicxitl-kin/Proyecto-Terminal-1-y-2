@@ -59,9 +59,7 @@ Obteniendo la tabla  las siguientes tablas normalizadas:
         \hline
         \textbf{Atributo}       \\ \hline
         ID del usuario          \\ \hline
-        Categoría del usuario   \\ \hline
-        ID del proceso          \\ \hline
-        ID del nodo             \\ \hline
+        Categoría                \\ \hline
         Eficiencia              \\ \hline
         Nombre                  \\ \hline 
         Primer Apellido         \\ \hline
@@ -152,9 +150,33 @@ del usuario, incluyendo ciudad, colonia, municipio, código postal, calle y núm
     \end{tabular}
 \end{table}
 
-En la \cref{tab:Proceso} se definen los atributos del proceso asociado al usuario,
+En la \cref{tab:atributoProceso} se definen los atributos del proceso asociado al usuario,
 siendo la relacion con
 el módulo 2 y los ingredientes utilizados en el proceso.
+
+\begin{table}[H]
+    \centering
+    \caption{Atributos del Proceso}% Título Corregido (Ver Sección 2)
+    \label{tab:atributoProceso}
+    \footnotesize % Reducimos el tamaño de la fuente para ayudar al ajuste
+
+    % Ajuste de Anchos de Columna (el ancho total debe sumar < 16cm)
+    \begin{tabular}{|>{\raggedright\arraybackslash}p{2.5cm}|}
+        \hline
+         \textbf{Atributo}    \\ \hline
+        ID del proceso               \\ \hline
+        ID del nodo                                  \\ \hline
+        Eficiencia                                       \\ \hline
+        Estado                                           \\ \hline
+        Nivel                                            \\ \hline
+        Cantidad granos                                           \\ \hline
+        Marce de leche                                            \\ \hline
+        Lt Leche                                           \\ \hline
+    \end{tabular}
+\end{table}
+
+En la \cref{tab:Proceso} se normalizan los atributos del proceso asociado al usuario,
+incluyendo los identificadores únicos del proceso, análisis e ingredientes utilizados.
 
 \begin{table}[H]
     \centering
@@ -167,6 +189,7 @@ el módulo 2 y los ingredientes utilizados en el proceso.
         \hline
         \textbf{Llave}       & \textbf{Atributo}    \\ \hline
          \textbf{PK} & Id del proceso               \\ \hline
+        FK & ID del nodo                                  \\ \hline
         FK & ID del análisis                                  \\ \hline
         FK & ID ingredientes                                   \\ \hline 
     \end{tabular}
@@ -187,7 +210,6 @@ el módulo 2 y la relación con el módulo 1.
         \hline
         \textbf{Llave}       & \textbf{Atributo}    \\ \hline
        \textbf{PK}  & ID del análisis                   \\ \hline
-        FK  & ID del nodo                              \\ \hline 
         & Eficiencia                                       \\ \hline
         & Estado                                           \\ \hline
         & Nivel                                            \\ \hline
@@ -209,7 +231,7 @@ incluyendo el identificador único del ingrediente, el nodo asociado, la cantida
         \textbf{Llave}       & \textbf{Atributo}    \\ \hline
        \textbf{PK}  & ID Ingredeintes                                 \\ \hline
         FK  & ID del nodo                              \\ \hline 
-        & gramos Granos                                           \\ \hline
+        & Cantidad granos                                           \\ \hline
         & Marce de leche                                            \\ \hline
         & Lt Leche                                           \\ \hline
     \end{tabular}
@@ -265,8 +287,12 @@ marca de tiempo de la lectura y el ID de la alarma.
         \hline
         \textbf{Llave}         & \textbf{Atributo}    \\ \hline
         \textbf{PK}  & ID del nodo                        \\ \hline
-        FK & Timeset                                      \\ \hline
         FK & ID Alarma                                     \\ \hline
+        & Timeset                                      \\ \hline
+        & Temperatura                \\ \hline
+        & ph                         \\ \hline
+        & $CO_{2}$                   \\ \hline
+
     \end{tabular}
 \end{table}
 
@@ -287,24 +313,6 @@ correspondiente.
    \end{tabular}
 \end{table}
 
-En la \cref{tab:sensado} se definen los atributos del sensado, incluyendo la marca de
-tiempo y las lecturas de temperatura, pH y CO2. 
-
-\begin{table}[H]
-    \centering
-    \caption{Medición}
-    \label{tab:sensado}
-    \small
-    \begin{tabular}{|c|>{\raggedright\arraybackslash}p{2.5cm}|}
-        \hline
-        \textbf{Llave}         & \textbf{Atributo}      \\ \hline
-        \textbf{PK} & Timeset        \\ \hline
-        & Temperatura                \\ \hline
-        & ph                         \\ \hline
-        & $CO_{2}$                   \\ \hline
-   \end{tabular}
-\end{table}
-
 Una vez normalizadas las tablas, se procede a elaborar el diagrama relacional mostrado en la
 \cref{fig:DiagramaR}, en el cual se representan las tablas normalizadas, 
 sus atributos y las relaciones entre ellas, facilitando la comprensión de la estructura 
@@ -312,7 +320,7 @@ de la base de datos del módulo 3.
 
 \begin{landscape}
     \vfill % Empuja la figura desde arriba
-    \begin{figure}[h!] % [H] requiere \usepackage{float} y fuerza la posición
+    \begin{figure}[H] % [H] requiere \usepackage{float} y fuerza la posición
         \centering
         % Usamos \textheight para el ancho en modo landscape
         \includegraphics[width=1.5\textheight, keepaspectratio]{./UML/Modulo3/diseno3.drawio.png}

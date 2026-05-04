@@ -179,39 +179,42 @@ fugas de monóxido de carbono ($CO_{2}$) en un entorno limitado.A traves de una 
 podra visualizar en tiempo real los niveles de $CO_{2}$ y recibir alertas mediante técnicas de realidad aumentada
 cuando se detecten niveles peligrosos del gas. El sistema utiliza sensores de $CO_{2}$ conectados a nodos inalámbricos que transmiten datos a un servidor central, 
 donde se procesan y analizan para generar las alertas visuales en la interfaz de realidad aumentada \cite{DiazAvila2021}.
+\newpage
+
 \subsection{Tabla comparativa}
 A continuación, se presenta la \cref{table:proyec} cual muestra tanto las principales
 características, así como los módulos en donde presentan similitudes marcados con
 un \checkmark, los proyectos, investigaciones y estudios antes mencionados con el sistema.
 
-\vspace{0.5cm}
-% Add these lines to your document preamble (before \begin{document}):
-% \usepackage{multirow}
-% \usepackage{array}
 
+% Requiere \usepackage{longtable, multirow, amssymb, array, ragged2e} en el preámbulo
 \begingroup
-\setlength{\tabcolsep}{3pt} % Espacio entre columnas ajustado
-\renewcommand{\arraystretch}{1.3} % Altura de fila cómoda
-\normalsize % Usamos tamaño normal (o \small si el tamaño normal es muy grande)
-% Anchos de columna ajustados para caber en el ancho vertical (aprox. 16cm total)
-\begin{longtable}{|m{2.2cm}|m{2.4cm}|m{2cm}|m{2.7cm}|m{2cm}|m{3cm}|}
-\caption{Tabla comparativa de los proyectos con semejanza al prototipo.}
+\setlength{\tabcolsep}{2pt} 
+\renewcommand{\arraystretch}{1.8} % Un poco más de altura para que luzca mejor
+\centering
+
+% Suma de anchos: 2 + 1.2*3 + 3.2*3 = 15.2cm (ajustado para márgenes estándar de tesis)
+\begin{longtable}{|>{\centering\arraybackslash}p{2.2cm}|*{3}{>{\centering\arraybackslash}p{1.1cm}|}*{3}{>{\centering\arraybackslash}p{3cm}|}}
+\caption{Tabla comparativa detallada de proyectos.}
 \label{table:proyec}
 \\ \hline
-\multirow{2}{*}{Proyecto} & \multicolumn{1}{c|}{Módulo 1} & \multicolumn{1}{c|}{Módulo 2} & \multicolumn{1}{c|}{Módulo 3} & \multicolumn{1}{c|}{Módulo 4} & \multirow{2}{*}{Tipo de relación} \\ \cline{2-5}
- & Sistema de Sensores & Análisis de datos & Base de datos & Página Web & \\ \hline
-\ref{sec:In1} & \begin{tabular}[c]{@{}c@{}}\checkmark\\ 1)Sensor de\\ pH\\ 2)Sensor de \\ temperatura\\ 3)Arduino\end{tabular} & & & \begin{tabular}[c]{@{}c@{}}\checkmark\\ Node Red\end{tabular} & \begin{tabular}[c]{@{}c@{}}Tecnología\\ implementada\\ y\\ problemática\\ a resolver\end{tabular} \\ \hline
-\ref{sec:In2} & & \begin{tabular}[c]{@{}c@{}}\checkmark\\ Modelo de\\ Lógica \\ difusa\end{tabular} & & & \begin{tabular}[c]{@{}c@{}}Técnicas de \\ análisis \\ implementada\\ y problemática a \\ resolver\end{tabular} \\ \hline
-\ref{sec:In3} & \begin{tabular}[c]{@{}c@{}}\checkmark\\ 1)Sensor de \\ temperatura\\ 2)ATMega32\end{tabular} & \begin{tabular}[c]{@{}c@{}}\checkmark\\ Sistema \\ con lógica\\ difusa\end{tabular} & & & \begin{tabular}[c]{@{}c@{}}Tecnología y \\ técnicas de \\ análisis \\ implementada\end{tabular} \\ \hline
-\ref{sec:Na1} & \begin{tabular}[c]{@{}c@{}}\checkmark\\ 1)Sensor de\\ pH\\ 2)Raspberry \\Pi Zero\end{tabular} & \begin{tabular}[c]{@{}c@{}}\checkmark\\ Red\\ Neuronal\\ NARX\end{tabular} & \begin{tabular}[c]{@{}c@{}}\checkmark\\ 1)Influxdb\\ cloud\\ 2)SQL\end{tabular} & \begin{tabular}[c]{@{}c@{}}\checkmark\\ Grafana\end{tabular} & \begin{tabular}[c]{@{}c@{}}Tecnología y\\ técnicas de \\ análisis\\ implementada\end{tabular} \\ \hline
-\ref{sec:Na2} & \begin{tabular}[c]{@{}c@{}}\checkmark\\ 1)Sensor de\\ pH\\ 2)Sensor de \\ temperatura\\ 3)Arduino\\ Mega\end{tabular} & & & & \begin{tabular}[c]{@{}c@{}}Tecnología \\ implementada\end{tabular} \\ \hline
-\ref{sec:Na3} & \begin{tabular}[c]{@{}c@{}}\checkmark\\ 1)Sensor de\\ $CO_{2}$\\ 3)Arduino\\ Nano\end{tabular} & & & \begin{tabular}[c]{@{}c@{}}\checkmark\\ LABVIEW\\ 2014\end{tabular} & \begin{tabular}[c]{@{}c@{}}Tecnología \\ implementada\end{tabular} \\ \hline
-\ref{sec:Na4} & \begin{tabular}[c]{@{}c@{}}\checkmark\\ 1)Sensor de\\ pH\\ 2)Sensor de \\ temperatura\\ 3)Raspberry\\ Pi 3\end{tabular} & & & & \begin{tabular}[c]{@{}c@{}}Tecnología \\ implementada\end{tabular} \\ \hline
-\ref{sec:IPN1} & \begin{tabular}[c]{@{}c@{}}\checkmark\\ 1)Sensor de\\ pH\\ 2)Sensor de \\ temperatura\\ 3)ESP32\end{tabular} & & \begin{tabular}[c]{@{}c@{}}\checkmark\\ Servidor de \\Azure\\ Database\\ para \\MySQL\end{tabular} & \begin{tabular}[c]{@{}c@{}}\checkmark\\ Framework\\ express\end{tabular} & \begin{tabular}[c]{@{}c@{}}Tecnología \\ implementada\end{tabular} \\ \hline
-\ref{sec:IPN2} & \begin{tabular}[c]{@{}c@{}}\checkmark\\ 1)Sensor de\\ $CO_{2}$ \\2) Raspberry \\PI\end{tabular}& \begin{tabular}[c]{@{}c@{}}\checkmark  \\ 1) Amazon \\ Sumerion \end{tabular}& \begin{tabular}[c]{@{}c@{}}\checkmark\\ AWS Cloud \\ Dynamo DB\end{tabular} & \begin{tabular}[c]{@{}c@{}}\checkmark  \\ 1) Amazon\\ Cloudfront \end{tabular} & \begin{tabular}[c]{@{}c@{}}Tecnología \\ implementada\end{tabular} \\ \hline
+\multirow{3}{*}{\textbf{Proyecto}} & \multicolumn{3}{c|}{\textbf{Módulo 1}} & \textbf{Módulo 2} & \textbf{Módulo 3} & \textbf{Módulo 4} \\ \cline{2-7}
+ & \multicolumn{3}{c|}{\textbf{Sensores}} & \textbf{Análisis} & \textbf{Base de} & \textbf{Página} \\ \cline{2-4}
+ & \textbf{pH} & \textbf{Temp} & \textbf{CO2} & \textbf{de datos} & \textbf{datos} & \textbf{Web} \\ \hline
+\endhead 
+
+\ref{sec:In1}  & \checkmark & \checkmark & X & X & X & \checkmark \\ \hline
+\ref{sec:In2}  & X & X & X & \checkmark & X & X \\ \hline
+\ref{sec:In3}  & X & \checkmark & X & \checkmark & X & X \\ \hline
+\ref{sec:Na1}  & \checkmark & \checkmark  & X & \checkmark & \checkmark & \checkmark \\ \hline
+\ref{sec:Na2}  & \checkmark & \checkmark & X & \checkmark  & \checkmark  & \checkmark  \\ \hline
+\ref{sec:Na3}  & \checkmark  & \checkmark  & \checkmark  & X & X & \checkmark \\ \hline
+\ref{sec:Na4}  & \checkmark & \checkmark & X & X & \checkmark  & \checkmark  \\ \hline
+\ref{sec:IPN1} & \checkmark & \checkmark & X & X & \checkmark & \checkmark \\ \hline
+\ref{sec:IPN2} & X & X & \checkmark & \checkmark & \checkmark & \checkmark \\ \hline
 \end{longtable}
 \endgroup
-\vspace{0.5cm}
+
 
 Como se observa en la tabla anterior, los trabajos revisados implementan diversos
 enfoques de monitoreo y análisis de datos aplicados a la producción de alimentos 

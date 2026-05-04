@@ -21,17 +21,20 @@
 \usepackage{enumitem}
 \usepackage{capt-of}
 \usepackage{pdflscape}
-\usepackage{cleveref}
+\usepackage[spanish]{cleveref}
 \usepackage{fancyhdr}
-\usepackage{xcolor}    % Necesario para \textcolor
 \usepackage{colortbl}  % Necesario para \rowcolor
 \usepackage{float}
 \usepackage{lscape}
+
+
 % Configuraciones adicionales
 \renewcommand{\familydefault}{\rmdefault}
 
 
 \crefname{table}{Tabla No.}{Tablas No.}
+\crefname{figure}{figura No.}{figuras No.}
+
 \setlist[enumerate,1]{ref=RF0\arabic*} 
 \setcounter{tocdepth}{4}
 \usetikzlibrary{calc}
@@ -120,12 +123,16 @@ Prototipo de un sistema telem\'atico \\
 %\include{AnalisisMicro}
 \include{Analisismodulo2}
 \include{AnalisisBase}
+
 \include{Analisismodulo4}
-\include{Framework}
+
+
 \include{Servidor}
 \include{disenomodulo1}
 \include{desmodulo2}
 \include{disenomodulo3}
+\include{desmodulo4}
+\include{desServidor}
 
 \bibliographystyle{IEEEtran}
 \bibliography{PT1}

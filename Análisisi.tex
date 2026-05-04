@@ -172,6 +172,7 @@ MG-811\cite{zotero-item-54} & +/- (30ppm+5\%)  & 350-10000 ppm & 20 a 50°C & 5-
     }
     \label{tab:sensoresCO2}
 \end{table}
+
 Uno de los par\'ametros m\'as dif\'iciles de medir en la fermentaci\'on es 
 el \textbf{${CO}_{2}$}. Dado que la fermentaci\'on del k\'efir libera grandes 
 cantidades de este gas, se requiere un sensor con una excelente precisi\'on y un 
@@ -202,36 +203,45 @@ metadatos complejos y ofrece validación estricta de esquemas, resulta demasiado
 lo que incrementa el consumo de recursos en los sistemas.
 
 \begingroup
-\setlength{\tabcolsep}{3pt} % Espacio entre columnas
-\renewcommand{\arraystretch}{1.2} 
-\footnotesize % Mantenemos la fuente pequeña para que el ancho sea manejable
-\begin{longtable}{|p{1cm}|p{1.2cm}|p{1.7cm}|p{3.0cm}|p{2.0cm}|p{3.0cm}|p{3.0cm}|}
+\setlength{\tabcolsep}{3pt} 
+\renewcommand{\arraystretch}{1.5} % Un poco más de aire para legibilidad
+\footnotesize 
+
+% Definimos anchos que sumen el 100% del ancho de página disponible
+\begin{longtable}{|p{0.09\textwidth}|p{0.10\textwidth}|p{0.12\textwidth}|p{0.20\textwidth}|p{0.11\textwidth}|p{0.16\textwidth}|p{0.12\textwidth}|}
 \caption{Formatos de Datos (Continúa en la página siguiente)}
 \label{tab:datos}
 \\
 \hline
-\textbf{Nom- bre} & \textbf{Tipo de Formato} & \textbf{Estructura Base} & \textbf{Caracterisit- icas} & \textbf{Enfoque} & \textbf{Ventaja Principal} & \textbf{Desventaja Principal} \\
+\textbf{Nombre} & \textbf{Tipo de Formato} & \textbf{Estructura Base} & \textbf{Características} & \textbf{Enfoque} & \textbf{Ventaja} & \textbf{Desventaja} \\
 \hline
 \endfirsthead
-% --- Encabezado para la segunda página (o siguientes) ---
-\multicolumn{7}{l}{\small\bfseries \tablename\ \thetable\ -- continuación de la página anterior} \\
+
+\multicolumn{7}{l}{\small\bfseries \tablename\ \thetable\ -- continuación} \\
 \hline
-\textbf{Nom- bre} & \textbf{Tipo de Formato} & \textbf{Estructura Base} & \textbf{Caracterisit- icas} & \textbf{Enfoque} & \textbf{Ventaja Principal} & \textbf{Desventaja Principal} \\
+\textbf{Nombre} & \textbf{Tipo de Formato} & \textbf{Estructura Base} & \textbf{Características} & \textbf{Enfoque} & \textbf{Ventaja} & \textbf{Desventaja} \\
 \hline
 \endhead
+
 \hline
 \multicolumn{7}{r}{\small\itshape Continúa en la página siguiente} \\
 \endfoot
+
 \hline
 \endlastfoot
 
-\textbf{JSON}\cite{2025}& Clave-Valor & JSON objetos anidados y arrays & Elimina la necesidad de un diseño de esquemas predeterminados al serializar datos semiestructurados y transmitirlos. & Enfoque a desarrollo con documentos JSON.  & Simplicidad y legibilidad lo que permite gran escalabilidad en diferentes lenguajes de programación & Mayor consumo de memoria dependiendo del formato JSON. \\
-\hline
-\textbf{CSV}\cite{zotero-item-76} & Comma Separated Values & Valores separados por un delimitador (coma, \texttt{|}, etc.). Sin anidamiento. & Permite la iteración de grandes cadenas de valores & Enfoque más especializado a hojas de datos. & Los valores son obvios, sin etiquetas. & Al trabajar con solo valores y delimitadores lo que ocasiona escasa escalabilidad. \\
-\hline
-\textbf{XML}\cite{zotero-item-73} & Lenguaje de marcado extensible & Documento estructurado con etiquetas jerárquicas. & Documentos XML están compuestos por una estructura física la cual contiene entidades y una lógica como referencias de caracteres, instrucciones de procesamiento, etc. & Enfocado a facilitar la implementación para la interoperabilidad con SGML y HTML. & Permite metadatos complejos y validación estricta del esquema (\textit{Schema Validation}). & Debido al cierre de etiquetas se vuelve demasiado pesado para microcontroladores. \\
+% Contenido corregido
+\textbf{JSON}\cite{2025} & Clave-Valor & JSON objetos anidados y arrays & Elimina la necesidad de esquemas predeterminados al serializar datos. & Desarrollo con documentos JSON. & Simplicidad y legibilidad; gran escalabilidad. & Mayor consumo de memoria según el formato. \\ \hline
+
+\textbf{CSV}\cite{zotero-item-76} & Comma Separated Values & Valores separados por delimitador. Sin anidamiento. & Permite la iteración de grandes cadenas de valores. & Hojas de datos especializadas. & Valores obvios, sin etiquetas. & Escasa escalabilidad por falta de metadatos. \\ \hline
+
+\textbf{XML}\cite{zotero-item-73} & Marcado extensible & Estructura jerárquica con etiquetas. & Estructura física (entidades) y lógica (instrucciones). & Interoperabi- lidad con SGML y HTML. & Metadatos complejos y validación estricta. & Muy pesado para microcontroladores por el cierre de etiquetas. \\ \hline
+
 \end{longtable}
 \endgroup
+
+
+
 
 
 \subsubsection{Topología de red}
@@ -260,39 +270,45 @@ en su gestión.
 Por lo tanto,la topología en estrella se considera la más adecuada ya que se ajusta a los 
 requerimientos funcionales \ref{it:RF02} y no funcionales RNF01 del sistema, garantizando una comunicación robusta, eficiente
 y adaptable a futuras necesidades.
+
 \begingroup
-\setlength{\tabcolsep}{2pt} % Espacio entre columnas muy reducido
-\renewcommand{\arraystretch}{1.1} % Altura de las filas
-% Usamos \scriptsize: el tamaño de fuente más pequeño, necesario para tablas anchas
+\setlength{\tabcolsep}{3pt} 
+\renewcommand{\arraystretch}{1.3} 
 \scriptsize
-\begingroup
-\setlength{\tabcolsep}{2pt} % Espacio entre columnas muy reducido
-\renewcommand{\arraystretch}{1.1} % Altura de las filas
-% Usamos \scriptsize: el tamaño de fuente más pequeño, necesario para tablas anchas
-\scriptsize
-\begin{table}[htbp]
-\centering
-\caption{Topologías de conexión}
-\label{tab:comparacion_topologias}
-% Reducción crítica de anchos: El ancho total es ahora ≈ 15cm para caber.
-\begin{tabular}{|>{\raggedright\arraybackslash}p{1.7cm}|>{\raggedright\arraybackslash}p{4.4cm}|>{\raggedright\arraybackslash}p{4.4cm}|>{\raggedright\arraybackslash}p{4.4cm}|}
+
+% Usamos longtable para que se pueda dividir entre páginas
+% Los anchos están calculados para sumar el ancho de la página (aprox 16cm totales)
+\begin{longtable}{|>{\raggedright\arraybackslash}p{1.8cm}|>{\raggedright\arraybackslash}p{4.2cm}|>{\raggedright\arraybackslash}p{4.2cm}|>{\raggedright\arraybackslash}p{4.2cm}|}
+\caption{Topologías de conexión} \label{tab:comparacion_topologias} \\
 \hline
-\textbf{Topolo- gía}\cite{CalderaPalma} & \textbf{Descripción} & \textbf{Ventajas} & \textbf{Desventajas} \\
+\textbf{Topología}\cite{CalderaPalma} & \textbf{Descripción} & \textbf{Ventajas} & \textbf{Desventajas} \\ \hline
+\endfirsthead
+
+% Encabezado que aparece cuando la tabla se corta y sigue en la otra página
+\multicolumn{4}{l}{\small\bfseries \tablename\ \thetable\ -- continuación} \\ \hline
+\textbf{Topología} & \textbf{Descripción} & \textbf{Ventajas} & \textbf{Desventajas} \\ \hline
+\endhead
+
 \hline
-\textbf{Bus o multiacceso} & Todos los dispositivos están conectados a un único medio de transmisión compartido, formando una línea común. & Fácil de implementar y configurar, adecuado para redes pequeñas con costos iniciales bajos. & Un fallo en el medio principal afecta toda la red. Dificultad para diagnosticar problemas y rendimiento que disminuye con muchos dispositivos debido a colisiones. \\
+\multicolumn{4}{r}{\itshape Continúa en la siguiente página...} \\
+\endfoot
 \hline
-\textbf{Anillo} & Cada dispositivo está conectado al siguiente, formando un círculo cerrado donde los datos fluyen en una dirección. & Transmisión ordenada que evita colisiones. Rendimiento predecible en redes pequeñas y fácil de gestionar en configuraciones simples. & Un fallo en un dispositivo o enlace puede interrumpir toda la red. Difícil de reconfigurar o escalar, y presenta retrasos en redes grandes debido al paso secuencial de datos. \\
-\hline
-\textbf{Malla} & Cada dispositivo está conectado directamente a todos los demás, formando múltiples enlaces. & Proporciona alta redundancia y tolerancia a fallos, gran capacidad de transmisión debido a conexiones directas y escalabilidad en redes críticas. & Configuración y mantenimiento complejos. Costos elevados debido a múltiples conexiones, poco práctica para redes muy grandes. \\
-\hline
-\textbf{Estrella} & Todos los dispositivos están conectados a un punto central, como un *switch* o *hub*. & Fácil de instalar y gestionar. Un fallo en un dispositivo no afecta a los demás y facilita el escalado al añadir nuevos dispositivos. & Depende del punto central, cuyo fallo afecta toda la red. Costos mayores debido al dispositivo central y mayor complejidad en su gestión. \\
-\hline
-\textbf{Árbol jerárquico} & Combina topologías en estrella organizadas en niveles, con un nodo raíz que conecta subredes. & Escalable para redes grandes y jerárquicas. Facilita la gestión segmentada de la red y permite una expansión modular. & Presenta complejidad en diseño y configuración. Depende del nodo raíz, cuyo fallo afecta niveles inferiores. Costos elevados por la infraestructura jerárquica. \\
-\hline
-\end{tabular}
-\end{table}
+\endlastfoot
+
+\textbf{Bus o multiacceso} & Todos los dispositivos están conectados a un único medio de transmisión compartido, formando una línea común. & Fácil de implementar y configurar, adecuado para redes pequeñas con costos iniciales bajos. & Un fallo en el medio principal afecta toda la red. Dificultad para diagnosticar problemas y rendimiento que disminuye con muchos dispositivos debido a colisiones. \\ \hline
+
+\textbf{Anillo} & Cada dispositivo está conectado al siguiente, formando un círculo cerrado donde los datos fluyen en una dirección. & Transmisión ordenada que evita colisiones. Rendimiento predecible en redes pequeñas y fácil de gestionar en configuraciones simples. & Un fallo en un dispositivo o enlace puede interrumpir toda la red. Difícil de reconfigurar o escalar, y presenta retrasos en redes grandes debido al paso secuencial de datos. \\ \hline
+
+\textbf{Malla} & Cada dispositivo está conectado directamente a todos los demás, formando múltiples enlaces. & Proporciona alta redundancia y tolerancia a fallos, gran capacidad de transmisión debido a conexiones directas y escalabilidad en redes críticas. & Configuración y mantenimiento complejos. Costos elevados debido a múltiples conexiones, poco práctica para redes muy grandes. \\ \hline
+
+\textbf{Estrella} & Todos los dispositivos están conectados a un punto central, como un *switch* o *hub*. & Fácil de instalar y gestionar. Un fallo en un dispositivo no afecta a los demás y facilita el escalado al añadir nuevos dispositivos. & Depende del punto central, cuyo fallo afecta toda la red. Costos mayores debido al dispositivo central y mayor complejidad en su gestión. \\ \hline
+
+\textbf{Árbol jerárquico} & Combina topologías en estrella organizadas en niveles, con un nodo raíz que conecta subredes. & Escalable para redes grandes y jerárquicas. Facilita la gestión segmentada de la red y permite una expansión modular. & Presenta complejidad en diseño y configuración. Depende del nodo raíz, cuyo fallo afecta niveles inferiores. Costos elevados por la infraestructura jerárquica. \\ \hline
+
+\end{longtable}
 \endgroup
-\newpage
+
+
 \subsubsection{Protocolo de Comunicación}
 
 En la \cref{tab:Proto_Acceso} se presenta una comparación de los principales
@@ -315,32 +331,36 @@ por lo que Wi-Fi se posiciona como la opción más equilibrada para cumplir con 
 Aunque no se descarta la posibilidad de usar Zigbee, ya que proporciona una red de malla escalable, robusta y de muy bajo consumo de energía,
 para múltiples dispositivos en una red local.
 
+\begin{longtable}{|p{1.8cm}|p{1.8cm}|p{1.4cm}|p{1.4cm}|p{1.2cm}|p{2.5cm}|p{2.5cm}|}
+    \caption{Protocolos de Acceso a la Red} \label{tab:Proto_Acceso} \\
+    \hline
+    \textbf{Protocolo} & \textbf{Tipo de Red} & \textbf{MAC} & \textbf{Banda} & \textbf{Veloc.} & \textbf{Ventajas} & \textbf{Desventajas} \\ \hline
+    \endfirsthead
 
-\captionof{table}{Protocolos de Acceso a la Red} % ¡Este es el cambio clave!
-\label{tab:Proto_Acceso}
-\begingroup
-\setlength{\tabcolsep}{3pt} % Reduce el espacio entre columnas
-\renewcommand{\arraystretch}{1.2} % Altura de las filas
+    \multicolumn{7}{l}{\small\bfseries \tablename\ \thetable\ -- continuación} \\ \hline
+    \textbf{Protocolo} & \textbf{Tipo de Red} & \textbf{MAC} & \textbf{Banda} & \textbf{Veloc.} & \textbf{Ventajas} & \textbf{Desventajas} \\ \hline
+    \endhead
 
-\begin{tabularx}{\textwidth}{|>{\RaggedRight}m{1.8cm}|>{\RaggedRight}X|>{\centering\arraybackslash}m{1.5cm}|>{\RaggedRight}m{1.8cm}|>{\centering\arraybackslash}m{1.5cm}|>{\RaggedRight}X|>{\RaggedRight}X|}
-\hline
-\textbf{Protocolo} & \textbf{Tipo de Red/Estándar} & \textbf{Protocolo MAC} & \textbf{Banda de Operación} & \textbf{Velocidad} & \textbf{Ventajas} & \textbf{Desventajas} \\
-\hline
-\textbf{Wi-Fi} (IEEE 802.11) \cite{2023} & LAN (Local Area Network) & CSMA/CA & 2.4/5 GHz & 11,54 y 600 Mbps  & Ofrece altas tasas de transferencia de datos y utiliza infraestructura de red existente. & Alto consumo de energía y limitado número de nodos conectados a un solo router. \\
-\hline
-\textbf{Bluetooth Classic} (IEEE 802.15.1) \cite{2025c} & PAN (Personal Area Network) & TDD-TDMA & 2.4 GHz & 1–3 Mbps & Ofrece alta tasa de datos en un enlace punto a punto para transmisión de voz o audio. & Alto consumo de energía y alcance limitado en la transferencia de datos. \\
-\hline
-\textbf{Bluetooth Low Energy (BLE)} (IEEE 802.15.1) \cite{2025c} & PAN/Malla & CSMA/CA & 2.4 GHz & 1–2 Mbps & Permite una operación de muy bajo consumo de energía, ideal para dispositivos a batería. & Su velocidad de transferencia de datos más baja en comparación con otras tecnologías. \\
-\hline
-\textbf{Zigbee} (IEEE 802.15.4) \cite{AllianInc.2015} & Malla (\textit{Mesh}) & CSMA/CA & 2.4 GHz & 250 Kbps & Proporciona una red de malla escalable,robusta y fiable. & Requiere un \textit{gateway} o \textit{hub} dedicado para conectarse a la red IP (Internet). \\
-\hline
-\textbf{Z-Wave} (ITU-T G.9959) \cite{Admin-z-wavealliance2022} & Malla (\textit{Mesh}) & CSMA/CA & Sub-GHz & 100 Kpbs & Opera en frecuencias más bajas, evitando la congestión de la banda de 2.4 GHz y mejorando la penetración en paredes. & Es una tecnología de código cerrado y está limitado a menos dispositivos en la red de malla. \\
-\hline
-\textbf{LoRaWAN} (LoRa Alliance) \cite{zotero-item-212} & LPWAN (Low Power Wide Area Network) & ALOHA & Sub-GHz & 0.0003–0.05 Kbps & Ofrece la mayor distancia de comunicación con un consumo de energía extremadamente bajo. & Su baja tasa de datos y un ciclo de trabajo limitado restringen su escalailidad a más dispositivos ya que el ancho de bada se comparte. \\
-\hline
-\end{tabularx}
-\endgroup
-\newpage
+    \hline
+    \multicolumn{7}{r}{\itshape Continúa en la siguiente página...} \\
+    \endfoot
+    \hline
+    \endlastfoot
+
+    \textbf{Wi-Fi} \cite{2023} & LAN & CSMA/ CA & 2.4/5 GHz & 11-600 Mbps & Altas tasas de transferencia y usa infraestructura existente. & Alto consumo de energía y límite de nodos por router. \\ \hline
+
+    \textbf{Bluetooth Classic} \cite{2025c} & PAN & TDD-TDMA & 2.4 GHz & 1-3 Mbps & Alta tasa en enlace punto a punto para voz/audio. & Alto consumo de energía y alcance limitado. \\ \hline
+
+    \textbf{BLE} \cite{2025c} & PAN/ Malla & CSMA/ CA & 2.4 GHz & 1-2 Mbps & Muy bajo consumo de energía, ideal para baterías. & Velocidad de transferencia baja comparada con otras. \\ \hline
+
+    \textbf{Zigbee} \cite{AllianInc.2015} & Malla & CSMA/ CA & 2.4 GHz & 250 Kbps & Red de malla escalable, robusta y fiable. & Requiere un gateway dedicado para red IP. \\ \hline
+
+    \textbf{Z-Wave} \cite{Admin-z-wavealliance2022} & Malla & CSMA/ CA & Sub-GHz & 100 Kpbs & Evita congestión de 2.4 GHz y penetra mejor paredes. & Código cerrado y limitado a menos dispositivos. \\ \hline
+
+    \textbf{LoRa- WAN} \cite{zotero-item-212} & LPWAN & ALOHA & Sub-GHz & 0.03 Kbps & Mayor distancia con consumo mínimo. & Baja tasa de datos y ciclo de trabajo limitado. \\ \hline
+
+\end{longtable}
+
 
 Para garantizar una comunicación eficiente y confiable entre el Módulo 1  y el Servidor, 
 se requiere un protocolo de aplicación que soporte la topología estrella definida anteriormente. 
@@ -361,19 +381,30 @@ consumo. WebSocket, pese a su baja latencia, mantiene conexiones persistentes qu
 consumo energético, haciéndolo inadecuado para los microcontroladores. MQTT-Zigbee, optimizado para redes 
 mesh y bajo consumo, requiere hardware específico y un gateway, lo que añade complejidad y limita su 
 integración en entornos .
-\begin{table}[h!]
+\begin{table}[htbp]
 \centering
 \caption{Protocolos de Transporte}
-\footnotesize
-\begin{tabularx}{\textwidth}{|p{1.5cm}|p{2.5cm}|p{1.5cm}|p{3.3cm}|p{3.3cm}|p{3.1cm}|}
-\hline
-\textbf{Prot- ocolo} & \textbf{Arquitectura} & \textbf{Trans- porte} & \textbf{Características} & \textbf{Ventajas} & \textbf{Desventajas} \\ \hline
-MQTT-WiFi\cite{zotero-item-80} & Pub/Sub & TCP & Mensajería ligera, basada en broker, en donde se envia un topic al cual uno o varios suscriptores pueden recibir dicho mensaje. & Ligero y con una gran escalabilidad en redes grandes de dispositivos atraves de QoS. & Dependencia de un broker. \\ \hline
-HTTP\cite{2025a} & Request-Response & TCP & Transferencia de hipertexto, solicitudes/re- spuestas mediante GET-POST. & Ideal para monitoreo esporadico, al ser universal es fácil la integración con APIs, ya que es estandarizado. & Tiene un alto overhead y no es apto para tiempo real. \\ \hline
-Web-Socket\cite{2025b} & Bidirec. Full-Duplex & TCP & Conexión bidireccional y en tiempo real mediante una unica solicitud-respuesta HTTP. & Permite una conexión continua lo que es ideal para tiempo real, bidireccional, baja latencia. & Alto consumo, conexiones persistentes, no apto para bajo consumo. \\ \hline
-MQTT-Zigbee\cite{AllianInc.2015} & Mesh Networking & IEEE 802.15.4 & Enfocada en comunicaciónes locales atraves de una Red de malla lo que permite un muy bajo consumo, & Baja interferencia, alta seguridad de los datos (AES-128) y una gran escalabilidad entre los dispositivos Zigbee & Hardware muy específico y dependencia de un gateway. \\ \hline
-\end{tabularx}
 \label{tab:protocolo}
+\begingroup
+\setlength{\tabcolsep}{3pt} % Espacio entre columnas
+\renewcommand{\arraystretch}{1.5} % Altura de las filas
+\footnotesize
+
+% Usamos columnas X para que LaTeX calcule el ancho exacto y la tabla no se salga
+\begin{tabularx}{\textwidth}{|l|l|c|>{\raggedright\arraybackslash}X|>{\raggedright\arraybackslash}X|>{\raggedright\arraybackslash}X|}
+\hline
+\textbf{Protocolo} & \textbf{Arquitectura} & \textbf{Trans.} & \textbf{Características} & \textbf{Ventajas} & \textbf{Desventajas} \\ \hline
+
+MQTT-WiFi\cite{zotero-item-80} & Pub/Sub & TCP & Mensajería ligera basada en \textit{broker}; sistema de publicación por tópicos. & Ligero y escalable en redes grandes mediante niveles de QoS. & Dependencia total de un \textit{broker} central. \\ \hline
+
+HTTP\cite{2025a} & Request-Response & TCP & Transferencia de hipertexto; solicitudes/respuestas mediante GET y POST. & Ideal para monitoreo esporádico; fácil integración con APIs estandarizadas. & Alto \textit{overhead} en las cabeceras; no es apto para tiempo real. \\ \hline
+
+WebSocket\cite{2025b} & Bidirec. Full-Duplex & TCP & Conexión bidireccional en tiempo real mediante una única solicitud HTTP. & Conexión continua, ideal para tiempo real y muy baja latencia. & Alto consumo de recursos por conexiones persistentes. \\ \hline
+
+MQTT-Zigbee\cite{AllianInc.2015} & Mesh Networking & IEEE 802.15.4 & Comunicación local a través de red de malla de muy bajo consumo. & Baja interferencia, alta seguridad (AES-128) y gran escalabilidad local. & Hardware específico y dependencia de un \textit{gateway}. \\ \hline
+
+\end{tabularx}
+\endgroup
 \end{table}
 
 \subsubsection{Microcontrolador}
@@ -621,21 +652,30 @@ A continuación se muestra en la \cref{tab:baterias} las bateiras a considerar,
 de las cuales se selecciono la batería módelo 802040 ya que esta tiene cuenta con 650mAh lo que 
 asegura la alimentación continua durante el proceso de monitoreo, aunque no se descarta el uso de las
 demás baterias o de otros modelos siempre y cuando cuenten con una capacidad mayor a 500mAh.
-\begin{table}[h!]
+
+\begin{table}[htbp]
 \centering
 \caption{Modelos de Baterías}
 \label{tab:baterias}
-\begin{tabular}{@{} |m{2cm}|m{2cm}|m{2cm}|m{2cm}|m{2cm}|m{4cm}|@{}}
+\begingroup
+\setlength{\tabcolsep}{5pt} 
+\renewcommand{\arraystretch}{1.5} 
+\small
+\begin{tabular}{|m{2cm}|c|c|c|c|c|}
 \hline
-\textbf{Modelo de Batería} & \textbf{Voltaje Nominal ($V$)} & \textbf{Capacidad ($\text{mAh}$)} & \textbf{Tipo} & \textbf{Precio Est. (USD)} & \textbf{Imagen} \\
+\textbf{Modelo de Batería} & \textbf{Voltaje (V)} & \textbf{Capacidad (mAh)} & \textbf{Tipo} & \textbf{Precio (USD)} & \textbf{Imagen} \\
 \hline
-802040 \cite{zotero-item-255} & $3.7\ \text{V}$ & $650$ & Li-Po & \$75 & \includegraphics[width=27mm, angle=90]{./Imagenes/Módulo1/Baterias/bateria.png}  \\
+802040 \cite{zotero-item-255} & 3.7 V & 650 & Li-Po & \$75 & 
+\includegraphics[width=22mm, height=22mm, keepaspectratio, angle=90]{./Imagenes/Módulo1/Baterias/bateria.png} \\
 \hline
-6022480 \cite{zotero-item-257}& $3.7\ \text{V}$ & $600$ & Li-Po & \$100 & \includegraphics[width=27mm, angle=90]{./Imagenes/Módulo1/Baterias/602248.png}  \\
+6022480 \cite{zotero-item-257} & 3.7 V & 600 & Li-Po & \$100 & 
+\includegraphics[width=22mm, height=22mm, keepaspectratio, angle=90]{./Imagenes/Módulo1/Baterias/602248.png} \\
 \hline
-303450 \cite{zotero-item-259} & $3.7\ \text{V}$ & $600$ & Li-Po & \$120 & \includegraphics[width=27mm, angle=90]{./Imagenes/Módulo1/Baterias/303450.png} \\
+303450 \cite{zotero-item-259} & 3.7 V & 600 & Li-Po & \$120 & 
+\includegraphics[width=22mm, height=22mm, keepaspectratio, angle=90]{./Imagenes/Módulo1/Baterias/303450.png} \\
 \hline
 \end{tabular}
+\endgroup
 \end{table}
 
 \subsection{Análisis del Módulo 2}

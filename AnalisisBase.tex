@@ -36,7 +36,7 @@ eficiencia y escalabilidad en este proyecto.
 \setlength{\tabcolsep}{6pt} % Espacio entre columnas
 \renewcommand{\arraystretch}{1.5} % Altura de las filas
 
-\begin{longtable}{|p{3.5cm}|p{5.5cm}|p{5.5cm}|}
+\begin{longtable}{|p{3.5cm}|p{5.5cm}|p{5.4cm}|}
 \caption{Modelo de base de datos.}
 \label{tab:modelodb} \\
 \hline
@@ -121,7 +121,7 @@ variaciones en los datos de fermentación por usuario. Descritors en las siguien
     \footnotesize % Reducimos el tamaño de la fuente para ayudar al ajuste
 
     % Ajuste de Anchos de Columna (el ancho total debe sumar < 16cm)
-    \begin{tabular}{|>{\raggedright\arraybackslash}p{2.5cm}|>{\raggedright\arraybackslash}p{6.0cm}|c|c|}
+    \begin{tabular}{|>{\raggedright\arraybackslash}p{2.5cm}|>{\raggedright\arraybackslash}p{5.5cm}|c|c|}
 		\hline
 		Parámetro & Descripción & Tipo de dato & Peso en by-tes \\ \hline
 		Id del nodo & Identificador de cada microcontrolador & Tinyint & 1 \\ \hline
@@ -262,7 +262,7 @@ este el caso más extremo, ya que este dato puede variar segun cada fermentació
     \footnotesize % Reducimos el tamaño de la fuente para ayudar al ajuste
 
     % Ajuste de Anchos de Columna (el ancho total debe sumar < 16cm)
-    \begin{tabular}{|>{\raggedright\arraybackslash}p{2.5cm}|>{\raggedright\arraybackslash}p{6.0cm}|c|c|}
+    \begin{tabular}{|>{\raggedright\arraybackslash}p{2.4cm}|>{\raggedright\arraybackslash}p{5.4cm}|c|c|}
         \hline
         \textbf{Atributo} & \textbf{Descripción} & \textbf{Tipo de Dato} & \textbf{Peso en Bytes} \\ \hline
         Categoría del usuario & Distingue si un usuario tiene la categoría de productor raíz o productor inicial & Tinyint & 1 \\ \hline
@@ -295,7 +295,7 @@ datos de usuarios en el sistema.
     \footnotesize % Reducimos el tamaño de la fuente para ayudar al ajuste
 
     % Ajuste de Anchos de Columna (el ancho total debe sumar < 16cm)
-    \begin{tabular}{|>{\raggedright\arraybackslash}p{2.5cm}|>{\raggedright\arraybackslash}p{6.0cm}|c|c|}
+    \begin{tabular}{|>{\raggedright\arraybackslash}p{2.4cm}|>{\raggedright\arraybackslash}p{5.5cm}|c|c|}
         \hline
         \textbf{Atributo} & \textbf{Descripción} & \textbf{Tipo de Dato} & \textbf{Peso en Bytes} \\ \hline
         Id del usuario & Identificador único de cada usuario al que pertenece la fermentación & varchar(20) & longitud de la cadena +1 \\ \hline
@@ -339,7 +339,7 @@ incluso con múltiples usuarios y fermentaciones.
     \footnotesize % Reducimos el tamaño de la fuente para ayudar al ajuste
 
     % Ajuste de Anchos de Columna (el ancho total debe sumar < 16cm)
-    \begin{tabular}{|>{\raggedright\arraybackslash}p{2.5cm}|>{\raggedright\arraybackslash}p{6.0cm}|c|c|}
+    \begin{tabular}{|>{\raggedright\arraybackslash}p{2.4cm}|>{\raggedright\arraybackslash}p{5.5cm}|c|c|}
         \hline
         \textbf{Atributo} & \textbf{Descripción} & \textbf{Tipo de Dato} & \textbf{Peso en Bytes} \\ \hline
         Id del usuario & Identificador único de cada usuario & varchar(20) & longitud de la cadena +1 \\ \hline

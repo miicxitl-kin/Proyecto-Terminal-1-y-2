@@ -13,43 +13,85 @@ ya que es muy ligero,
 tiene un ecosistema más reducido que limita las soluciones prediseñadas. Por consiguiente, React es la opción 
 óptima para desarrollar una interfaz escalable y reactiva en este sistema IoT.
 
-\caption{Comparación de Frameworks.}
-\label{tab:framework}
-\begingroup
-\setlength{\tabcolsep}{3pt} % Reduce el espacio entre columnas
-\renewcommand{\arraystretch}{1.5} % Altura de las filas
-\small % Reduce el tamaño de la fuente para ayudar al ajuste
-\centering
-\begin{tabularx}{\textwidth}{|l|l|X|X|X|}
-\hline
-\textbf{Tipo} & \textbf{Nombre} & \textbf{Enfoque Principal} & \textbf{Ventaja} & \textbf{Desventaja} \\
-\hline
-\textbf{Librería} & \textbf{React} \cite{zotero-item-134} & Construcción de Interfaces de Usuario (UI) interactivas basadas en componentes y empleando una sintaxis JSX(tipado dinámico). & Permite un alto rendimiento gracias al uso de \textbf{DOM Virtual}. Posse un amplio ecosistema de librerias gracias a su gran comunidad. & No es un framework completo; requiere librerías adicionales para enrutamiento y estado, lo que afecta en el espacio o tamaño necesario para implementar react. \\
-\hline
-\textbf{Framework} & \textbf{Angular} \cite{zotero-item-136} & Es un marco de diseño Modelo-Vista-Controlador (MVC) y desarrollo de código abierto para aplicaciones a gran escala de una Sola Página (SPA). & Permite soluciónes completas (\textit{full-featured})al incorporar de forma nativa TypeScript(tipado estático) y una arquitectura modular basado en componentes. & Al ser un framework es algo robusto y rígida su implementación e integración,aparte depende del uso obligatorio de TypeScript. \\
-\hline
-\textbf{Framework} & \textbf{Vue.js} \cite{zotero-item-138}& Implementa un modelo de programación declarativo basado en componentes mediante su modelo modular y reutilizable con HTML estándar, CSS y JavaScript. & Permite un diseño progresivo, ya que se puede integrar solo la librería central, siendo muy ligero y flexible pero con herramientas limitadas. & La menor escala de su ecosistema implica que hay menos soluciones prediseñadas (como plugins o props complejos) disponibles en comparación con React o Angular. Esto puede requerir el desarrollo manual de funcionalidades avanzadas, aumentando la complejidad del código. \\
-\hline
-\end{tabularx}
-\endgroup
+\begin{table}[htbp] % El entorno table es necesario para \caption y \label
+    \centering
+    \caption{Comparación de Frameworks}
+    \label{tab:framework}
+    \begingroup
+    \setlength{\tabcolsep}{3pt} 
+    \renewcommand{\arraystretch}{1.5} 
+    \small 
+    \begin{tabularx}{\textwidth}{|l|l|X|X|X|}
+    \hline
+    \textbf{Tipo} & \textbf{Nombre} & \textbf{Enfoque Principal} & \textbf{Ventaja} & \textbf{Desventaja} \\ \hline
+    
+    \textbf{Librería} & \textbf{React} \cite{zotero-item-134} & Construcción de Interfaces de Usuario (UI) basadas en componentes y JSX. & Alto rendimiento gracias al \textbf{DOM Virtual} y amplio ecosistema. & No es un framework completo; requiere librerías adicionales para enrutamiento. \\ \hline
+    
+    \textbf{Framework} & \textbf{Angular} \cite{zotero-item-136} & Marco MVC para aplicaciones a gran escala (SPA). & Solución \textit{full-featured} con TypeScript y arquitectura modular nativa. & Curva de aprendizaje alta, robusto y obligatorio el uso de TypeScript. \\ \hline
+    
+    \textbf{Framework} & \textbf{Vue.js} \cite{zotero-item-138} & Modelo declarativo basado en componentes con HTML, CSS y JS estándar. & Diseño progresivo, muy ligero y flexible para integraciones rápidas. & Ecosistema más pequeño; puede requerir desarrollo manual de funciones avanzadas. \\ \hline
+    \end{tabularx}
+    \endgroup
+\end{table}
 
-\caption{Librerias de graficos para React}
-\label{tab:graficas}
+Basado en la \cref{tab:graficas}, se selecciona Recharts para la visualización de datos en el Módulo 4,
+debido a su enfoque en componentes React, lo que facilita la integración directa.
+
+\begin{table}[H] % [H] fuerza la posición exacta debajo de este texto
+    \caption{Librerías de gráficos para React}
+    \label{tab:graficas}
+    \begingroup
+    \setlength{\tabcolsep}{4pt} 
+    \renewcommand{\arraystretch}{1.5} 
+    \footnotesize 
+    % Quitamos el \centering para que no se fuerce al centro si el ancho fuera menor
+    \begin{tabularx}{\textwidth}{|>{\RaggedRight}p{1.9cm}|>{\RaggedRight}p{1.7cm}|>{\RaggedRight}X|>{\RaggedRight}p{2.2cm}|>{\RaggedRight}X|}
+    \hline
+    \textbf{Librería} & \textbf{Tipo de Gráficos} & \textbf{Flexibilidad} & \textbf{Rendimiento} & \textbf{Comentarios / Uso Principal} \\
+    \hline
+    \textbf{Recharts} \cite{zotero-item-220} & Compon- entes React / SVG & Moderada; ideal para gráficos estándar. & Alto & Solución declarativa, adecuada para métricas de fermentación en tiempo real. \\
+    \hline
+    \textbf{React-Chartjs-2} \cite{zotero-item-222} & Compon- entes React / Canvas & Media; basada en la API de Chart.js. & Medio-alto & Eficiente para series temporales de sensores y alta frecuencia. \\
+    \hline
+    \textbf{Nivo} \cite{zotero-item-224} & SVG, Canvas, HTML & Alta; modularidad y herramientas interactivas. & Alto & Ideal para dashboards dinámicos con datos de IoT profesionales. \\
+    \hline
+    \textbf{Victory} \cite{zotero-item-226} & Componentes React / SVG & Alta; API consistente para gráficos reutilizables. & Medio & Enfocada en dashboards para monitoreo de múltiples parámetros. \\
+    \hline
+    \end{tabularx}
+    \endgroup
+\end{table}
+
+\subsection{Framework}
+
+Basado en la tabla comparativa, se selecciona Flask para el Módulo 4, 
+ya que su naturaleza como microframework proporciona flexibilidad y extensibilidad,
+permitiendo una integración directa con Python y JSON para gestionar datos de fermentación
+enviados por ESP32 vía MQTT, almacenados en MongoDB. Su estructura MVC adaptable optimiza 
+el desarrollo de una aplicación pequeña en un solo servidor, facilitando la conexión con React 
+mediante APIs ligeras. Aunque requiere configuración manual, esto es aceptable para un sistema compacto. 
+En contraste, Django es rígido y orientado a SQL, mientras que FastAPI, enfocado en APIs complejas, excede 
+las necesidades actuales. Por ello, Flask es la mejor opción por su simplicidad y escalabilidad.
+
 \begingroup
-\centering
-\setlength{\tabcolsep}{4pt} % Reduce el espacio entre columnas
-\renewcommand{\arraystretch}{1.5} % Altura de las filas
-\begin{tabularx}{\textwidth}{|>{\RaggedRight}m{2.5cm}|>{\RaggedRight}m{2cm}|>{\RaggedRight}X|>{\RaggedRight}m{2cm}|>{\RaggedRight}X|}
-\hline
-\textbf{Librería} & \textbf{Tipo de Gráficos} & \textbf{Flexibilidad y Personalización} & \textbf{Rendimiento} & \textbf{Comentarios / Uso Principal} \\
-\hline
-\textbf{Recharts} \cite{zotero-item-220}& Componentes React / SVG  & Moderada; ideal para gráficos estándar con personalización básica. & Alto & Solución declarativa optimizada para React, adecuada para visualizaciones rápidas de datos en tiempo real, como métricas de fermentación. \\
-\hline
-\textbf{React-Chartjs-2} \cite{zotero-item-222}& Componentes React / Canvas  & Media; personalización avanzada limitada por la API de Chart.js. & Medio-alto & Wrapper de Chart.js, eficiente para gráficos estadísticos simples y de alta frecuencia, como series temporales de sensores. \\
-\hline
-\textbf{Nivo}\cite{zotero-item-224} & Componentes React / SVG, Canvas, HTML  & Alta; ofrece modularidad y herramientas interactivas para gráficos complejos. & Alto & API moderna para visualizaciones profesionales, ideal para dashboards dinámicos con datos de IoT. \\
-\hline
-\textbf{Victory}\cite{zotero-item-226} & Componentes React / SVG & Alta; API consistente y flexible para gráficos reutilizables y personalizados. & Medio & Enfocada en dashboards interactivos, adecuada para monitoreo de múltiples parámetros de fermentación. \\
-\hline
-\end{tabularx}
+\setlength{\tabcolsep}{3pt} 
+\renewcommand{\arraystretch}{1.3} % Bajamos un poco el espacio para que quepa mejor
+\footnotesize % Bajamos a footnote para asegurar que la tabla no sea tan alta
+
+% Usamos longtable para que si NO cabe, se parta y no deje la hoja anterior vacía
+\begin{longtable}{|p{1.9cm}|>{\RaggedRight}p{2.8cm}|>{\RaggedRight}p{2.8cm}|>{\RaggedRight}p{3.2cm}|>{\RaggedRight}p{3.2cm}|}
+    \caption{Comparación de Frameworks para el módulo 4.} \label{tab:frameworks} \\
+    \hline
+    \textbf{Framework} & \textbf{Modularidad} & \textbf{Estructura} & \textbf{Ventaja} & \textbf{Desventaja} \\ \hline
+    \endfirsthead
+    
+    \multicolumn{5}{l}{\footnotesize\itshape -- continuación de la página anterior} \\ \hline
+    \textbf{Framework} & \textbf{Modularidad} & \textbf{Estructura} & \textbf{Ventaja} & \textbf{Desventaja} \\ \hline
+    \endhead
+
+    \textbf{Django} \cite{zotero-item-140} & Alta modularidad vía \textit{apps}; extensibilidad enfocada a SQL. & Patrón \textbf{MTV} rígido; framework "con opinión". & Solución \textit{full-stack} completa: ORM, admin y seguridad integrados. & Rigidez estructural; integración compleja con MongoDB. \\ \hline
+    
+    \textbf{Flask} \cite{zotero-item-142} & Microframework con excelente modularidad y máxima extensibilidad. & Patrón \textbf{MVC} flexible; el desarrollador define la organización. & Integración directa y de bajo acoplamiento con NoSQL (JSON). & Requiere configuración manual de cada librería externa. \\ \hline
+    
+    \textbf{FastAPI} \cite{zotero-item-144} & Alta modularidad mediante \textit{routers} y tipado estándar. & Basado en funciones de ruta y modelos \textit{Pydantic}. & Generación automática de documentación (\textit{Swagger}) y tipado rápido. & Enfocado estrictamente en APIs; no incluye motor de \textit{templates}. \\ \hline
+\end{longtable}
 \endgroup

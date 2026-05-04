@@ -25,30 +25,34 @@ a fallos, lo que afecta la continuidad del monitoreo. Por consiguiente,
 un servidor en la nube ofrece mayor robustez y flexibilidad para este
 sistema.
 
-\caption{Comparación de Servidor en la nube o local.}
-\label{tab:serlocal}
 \begingroup
-\centering
-\setlength{\tabcolsep}{4pt} % Reduce el espacio entre columnas
-\renewcommand{\arraystretch}{1.5} % Altura de las filas
-\small % Fuente pequeña para aprovechar el ancho
-\begin{tabularx}{\textwidth}{|l|X|X|}
-\hline
-\textbf{Categoría} & \textbf{Servidor Local} \cite{zotero-item-250} & \textbf{Servidor en la Nube} \cite{2017} \\
-\hline
-Costo & Sin costos recurrentes, solo inversión inicial en hardware. & Costos mensuales bajo demanda (\$10-40/mes para proyectos pequeños). \\
-\hline
-Escalabilidad & Limitada, requiere hardware adicional y configuración manual. & Alta, con autoescalado y balanceo de carga automáticos. \\
-\hline
-Mantenimiento & Responsabilidad del equipo, incluye actualizaciones y backups. & Gestionado por el proveedor, minimizando carga operativa. \\
-\hline
-Disponibilidad & Vulnerable a fallos de hardware o energía. & Alta disponibilidad (99.9\%+ SLA) con redundancia. \\
-\hline
-Integración & Configuración manual para MQTT, Flask, MongoDB, React. & Integración nativa con servicios como MongoDB Atlas y APIs. \\
-\hline
-Latencia & Baja en redes locales, ideal para pruebas iniciales. & Depende de internet, optimizable con regiones cercanas. \\
-\hline
-\end{tabularx}
+\setlength{\tabcolsep}{5pt} 
+\renewcommand{\arraystretch}{1.5} 
+\small 
+
+% Usamos longtable para evitar saltos de página innecesarios
+\begin{longtable}{|p{2.6cm}|>{\RaggedRight}p{5.8cm}|>{\RaggedRight}p{5.8cm}|}
+    \caption{Comparación de Servidor en la nube o local.} \label{tab:serlocal} \\
+    \hline
+    \textbf{Categoría} & \textbf{Servidor Local} \cite{zotero-item-250} & \textbf{Servidor en la Nube} \cite{2017} \\ \hline
+    \endfirsthead
+    
+    \multicolumn{3}{l}{\footnotesize\itshape -- continuación de la página anterior} \\ \hline
+    \textbf{Categoría} & \textbf{Servidor Local} & \textbf{Servidor en la Nube} \\ \hline
+    \endhead
+
+    Costo & Sin costos recurrentes, solo inversión inicial en hardware. & Costos mensuales bajo demanda (\$10-40/mes para proyectos pequeños). \\ \hline
+    
+    Escalabilidad & Limitada, requiere hardware adicional y configuración manual. & Alta, con autoescalado y balanceo de carga automáticos. \\ \hline
+    
+    Mantenimiento & Responsabilidad del equipo, incluye actualizaciones y backups. & Gestionado por el proveedor, minimizando carga operativa. \\ \hline
+    
+    Disponibilidad & Vulnerable a fallos de hardware o energía local. & Alta disponibilidad (99.9\%+ SLA) con redundancia. \\ \hline
+    
+    Integración & Configuración manual para MQTT, Flask, MongoDB, React. & Integración nativa con servicios como MongoDB Atlas y APIs cloud. \\ \hline
+    
+    Latencia & Muy baja en redes locales, ideal para pruebas iniciales. & Depende de internet, optimizable mediante regiones cercanas. \\ \hline
+\end{longtable}
 \endgroup
 
 
@@ -82,7 +86,7 @@ IoT en la nube.
 % Se usa longtable en lugar de tabularx. Se define p{ancho} para columnas fijas 
 % o >{\RaggedRight}X para columnas flexibles si usas tabularx.
 % Aquí usaremos p{ancho} para una mayor estabilidad y \textwidth en longtable.
-\begin{longtable}{|p{2.2cm}|p{3.5cm}|p{3cm}|p{3cm}|p{3cm}|}
+\begin{longtable}{|p{2.1cm}|p{3.5cm}|p{3cm}|p{2.8cm}|p{2.8cm}|}
 \caption{Comparación de servicios MQTT.}
 \label{tab:serMQTT}
 \\
@@ -128,29 +132,39 @@ asegurando baja latencia para flujos MQTT y visualizaciones en tiempo real, mien
 minimiza costos iniciales. En contraste, Google cloud computing, 
 aunque competitivo en precios, tiene un ecosistema menos intuitivo para integraciones híbridas, y Azure, pese a su soporte para Microsoft, presenta costos más elevados y complejidad en configuraciones para Python. Por consiguiente, AWS equilibra eficiencia, escalabilidad y simplicidad para este sistema IoT.
 
-\caption{Comparación de Servidores en la nube.}
-\label{tab:sernube}
+% Requiere \usepackage{longtable} y \usepackage{ragged2e} en el preámbulo
+
 \begingroup
-\centering
-\setlength{\tabcolsep}{4pt} % Reduce el espacio entre columnas
-\renewcommand{\arraystretch}{1.5} % Altura de las filas
-\small % Fuente pequeña para aprovechar el ancho
-\begin{tabularx}{\textwidth}{|>{\RaggedRight}m{2.15cm}|>{\RaggedRight}m{4.4cm}|>{\RaggedRight}m{4.2cm}|>{\RaggedRight}m{4.2cm}|}
-\hline
-\textbf{Categoría} \cite{SAMUELGUAYASESPIN2023} & \textbf{AWS} & \textbf{Google cloud} & \textbf{Azure} \\
-\hline
-Modelo & IaaS, PaaS, SaaS & IaaS, PaaS, SaaS & BaaS (Backend as a
-Service) \\
-\hline
-Herramientas & EC2, S3, Lambda, RDS, MongoDB Atlas & App Engine, Cloud Storage, Cloud Run, Firestore & App Service, Static Web Apps, Blob Storage, Cosmos DB \\
-\hline
-Seguridad & IAM, KMS, WAF, VPC & IAM, VPC Service Controls, Shield & Azure AD, Security Center, Sentinel \\
-\hline
-Ventajas & Alta escalabilidad, ecosistema amplio, free tier robusto & Escalabilidad flexible, precios competitivos, integración AI & Integración con Microsoft, soporte híbrido robusto \\
-\hline
-Desventajas & Complejidad en configuración, costos variables altos & Menor ecosistema, curva de aprendizaje técnica & Costos elevados, menos intuitivo para startups \\
-\hline
-Precio (mensual) & Bajo demanda, desde \$15-30 (EC2 t3.micro \$7, S3 \$1, Atlas \$9) & Bajo demanda , desde \$10-25 (App Engine free tier, Storage \$0.5/GB, Firestore \$1) & Bajo demanda, desde \$20-40 (App Service \$13, Static free, Cosmos \$24) \\
-\hline
-\end{tabularx}
+\setlength{\tabcolsep}{4pt} 
+\renewcommand{\arraystretch}{1.6} 
+\footnotesize % Usamos footnote para que la gran cantidad de texto en "Precio" quepa bien
+
+\begin{longtable}{|>{\RaggedRight}p{2.2cm}|>{\RaggedRight}p{4.1cm}|>{\RaggedRight}p{4cm}|>{\RaggedRight}p{4cm}|}
+    \caption{Comparación de Servidores en la nube.} \label{tab:sernube} \\
+    \hline
+    \textbf{Categoría} \cite{SAMUELGUAYASESPIN2023} & \textbf{AWS} & \textbf{Google Cloud} & \textbf{Azure} \\ \hline
+    \endfirsthead
+    
+    \multicolumn{4}{l}{\footnotesize\itshape -- continuación de la página anterior} \\ \hline
+    \textbf{Categoría} & \textbf{AWS} & \textbf{Google Cloud} & \textbf{Azure} \\ \hline
+    \endhead
+
+    \hline
+    \multicolumn{4}{r}{\itshape Continúa en la siguiente página...} \\
+    \endfoot
+    \hline
+    \endlastfoot
+
+    \textbf{Modelo} & IaaS, PaaS, SaaS & IaaS, PaaS, SaaS & BaaS (\textit{Backend as a Service}) \\ \hline
+    
+    \textbf{Herramientas} & EC2, S3, Lambda, RDS, MongoDB Atlas & App Engine, Cloud Storage, Cloud Run, Firestore & App Service, Static Web Apps, Blob Storage, Cosmos DB \\ \hline
+    
+    \textbf{Seguridad} & IAM, KMS, WAF, VPC & IAM, VPC Service Controls, Shield & Azure AD, Security Center, Sentinel \\ \hline
+    
+    \textbf{Ventajas} & Alta escalabilidad, ecosistema amplio, \textit{free tier} robusto. & Escalabilidad flexible, precios competitivos, integración AI. & Integración con Microsoft, soporte híbrido robusto. \\ \hline
+    
+    \textbf{Desventajas} & Complejidad en configuración, costos variables altos. & Menor ecosistema, curva de aprendizaje técnica. & Costos elevados, menos intuitivo para \textit{startups}. \\ \hline
+    
+    \textbf{Precio (mensual)} & Bajo demanda, desde \$15-30 (EC2 t3.micro \$7, S3 \$1, Atlas \$9). & Bajo demanda, desde \$10-25 (App Engine \textit{free tier}, Storage \$0.5/GB, Firestore \$1). & Bajo demanda, desde \$20-40 (App Service \$13, Static \textit{free}, Cosmos \$24). \\ \hline
+\end{longtable}
 \endgroup

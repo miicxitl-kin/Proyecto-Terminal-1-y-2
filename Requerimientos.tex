@@ -1,4 +1,5 @@
-\section{Capítulo: Requerimientos Funcionales y no Funcionales}
+\section{Capítulo: Modelado del sistema}
+
 
 En este capítulo se especifican los requerimientos funcionales y no funcionales
 según el modelo IEEE Std 830-1998, en los cuales 
@@ -7,30 +8,58 @@ e implementación. Asimismo, se detallan los casos de uso segun
 correspanda al requerimiento funcional para garantiza el correcto diseño, implementación y validación del sistema 
 propuesto.
 
+\subsection{Requerimientos Funcionales}
 
-\subsection{Módulo 1}
+En esta sección se detallan los requerimientos funcionales del sistema, 
+los cuales definen de manera precisa las funcionalidades que deben cumplir cada uno de
+los módulos que lo componen. Estos requerimientos abarcan desde la adquisición y procesamiento 
+en tiempo real de datos provenientes de los sensores (pH, temperatura y $CO_{2}$), pasando por el 
+formato y transmisión segura de la información, la gestión y almacenamiento persistente en la base 
+de datos, hasta la visualización interactiva, análisis de tendencias y notificación al usuario a través
+de la interfaz web. 
+
+Con el fin de facilitar su comprensión, especificación, implementación y verificación, 
+los requerimientos funcionales se organizan y presentan divididos en los siguientes módulos principales:
+
+\subsubsection{Módulo 1}
+A continuación se detallan los requerimientos funcionales del módulo 1, 
+que abarca desde las caractwerísticas del microcontrolador y los sensores, hasta
+la adquisición de datos de los sensores, así como la comunicación con la base de datos.
 
 \begin{enumerate}
     % \ref{it:RF01} 
-    \item \label{it:RF01} \textbf{RF01-Modos de operación} 
+    \item \label{it:RF01} \textbf{RF01-Modos de operación y obtención de datos} 
+    
+        En este requerimiento se definen las características de los sensores a implementar, así como 
+        el formato de datos para la transmisión a la base de datos y la secuencia
+        de operación del sistema en su modo Prueba y modo Monitoreo.
+
+
         \begin{enumerate}
             \item \textbf{Validez de las entradas}
                 \begin{enumerate}
-                    \item Se debe implementa un sensor de pH debe estar fabricado de un material de grado alimenticio que no contamine ni interfiera con el proceso de la fermentación, capaz operar en líquidos dentro de un rango de temperatura de 18 °C a 30 °C" y un rango de medición de pH de 4.0 a 7.0 con un tiempo de respuesta de máximo 1 minuto .
-                    \item Se debe implementa un sensor de temperatura debe estar fabricado de un material de grado alimenticio capaz de trabajar en líquidos , sin contaminar ni interferir con la fermentación del kéfir, atraves de un rango de medición de 18°C a 30°C.
-                    \item Se debe implementa un sensor de $CO_{2}$  debe ser capaz de medir en un rango de 0-10,000ppm en el aire dentro del frasco de fermentación, operando en el mismo rango de temperatura (18°C a 30°C).
-                    \item Se debe implementa frascos con capacidad minima de 1 litro para asegurar que los sensores de pH y temperatura esten completamente sumergidos en la leche durante la fermentación .
-                    \item Se debe implementa un formato de datos deberá integrar las lecturas de los sensores en un solo paquete, incluyendo un identificador único para cada conjunto de datos y una marca de tiempo.
-                    \item Se debe implementa un una salida para la liberación del gas $CO_{2}$ en las tapas de los frascos, la cual estará conectada mediante una manguera a un segundo frasco con agua (no mayor a 1 litro), destinado a disolver el $CO_{2}$ generado durante el proceso.
-                    \item Se debe implementa dos modos de operación(modo prueba y modo monitoreo), activados mediante dos botones físicos en el microcontrolador que, al presionarse, inicien el modo correspondiente y permitan salir del mismo al presionar nuevamente el botón.
-                \end{enumerate}   
+
+                    \item El sistema deberá incorporar un sensor de pH fabricado con material de grado alimenticio que no contamine ni interfiera con el proceso de fermentación del kéfir. Dicho sensor deberá operar correctamente en medios líquidos en el rango de temperatura de 18 °C a 30 °C, cubrir un rango de medición de pH entre 4.0 y 7.0 y presentar un tiempo de respuesta máximo de 1 minuto.
+
+                    \item El sistema deberá incorporar un sensor de temperatura fabricado con material de grado alimenticio que no contamine ni interfiera con la fermentación del kéfir, capaz de medir en el rango de 18 °C a 30 °C en medios líquidos.
+
+                    \item El sistema deberá incorporar un sensor de $CO_{2}$ capaz de medir concentraciones en el rango de 0 a 10,000 ppm en la fase gaseosa (interior del frasco de fermentación), funcionando correctamente en el rango de temperatura de 18 °C a 30 °C.
+
+                    \item Los frascos de fermentación deberán tener una capacidad mínima de 1 litro y estar fabricados de vidrio, garantizando que los sensores de pH y temperatura queden completamente sumergidos en el líquido durante todo el proceso de fermentación.
+
+                    \item El formato de datos deberá integrar en un único paquete las lecturas obtenidas de los sensores, incluyendo obligatoriamente una marca de tiempo (timestamp) precisa de cada lectura y un identificador único (ID) del microcontrolador que envía los datos. 
+                    \item Las tapas de los frascos deberán incorporar un sistema de salida de gas $CO_{2}$, conectado mediante manguera a un segundo frasco (trampa de gas) con capacidad máxima de 1 litro conteniendo agua, cuyo propósito es disolver $CO_{2}$ generado durante la fermentación.
+
+                    \item El sistema deberá contar con dos modos de operación claramente diferenciados: modo Prueba y modo Monitoreo. Ambos modos serán activados y desactivados mediante botones físicos independientes en el microcontrolador. La presión del botón correspondiente iniciará el modo seleccionado y una nueva presión lo detendrá o saldrá del modo.
+
+                \end{enumerate}
             
             \item \textbf{Secuencia exacta de operaciones}
                 \begin{enumerate}
+                    \item En ambos modos, el sistema deberá verificar la conexión con la base de datos antes de iniciar la recolección de datos, y en caso de fallo, no iniciar el monitoreo y encender un led indicando el fallo de conexión.
                     \item El sistema al entrar en modo prueba, deberá verificar el estado de los sensores al enviar los datos de los sensores cada 1 minuto exclusivamente a la página web para visualización temporal, sin almacenarlos en la base de datos.
                     \item En modo monitoreo, el sistema deberá verificar que el pH inicial de la leche esté entre 6.6 a 6.8 y su temperaturaesté entre 18°C a 30°C, en caso contrario, no iniciar el monitoreo y enviar una alerta a la base de datos.
-                    \item En modo monitoreo, el sistema deberá verificar la conexión con la base de datos antes de iniciar la recolección de datos, y en caso de fallo, no iniciar el monitoreo y enviar una alerta.
-                    \item En modo monitoreo, el sistema deberá iniciar la recolección y envío de datos a la base de datos.
+                    \item En modo monitoreo, el sistema deberá iniciar la recolección y envío de datos a al servidor siempre y cuando se cumplan las condiciones anteriores.
                     \item En modo monitoreo, el sistema deberá enviar los datos recopilados por los sensores de pH y $CO_{2}$  cada 10 minutos si el pH está en el rango de 6.8 a 5.6.
                     \item En modo monitoreo, el sistema deberá enviar los datos recopilados por los sensores cada de pH y $CO_{2}$  cada 5 minutos si el pH está en el rango de 5.5 a 5.0.
                     \item En modo monitoreo, el sistema deberá recopilar y enviar los datos de los tres sensores (pH, $CO_{2}$  y temperatura) cada 1 minuto si el pH está en el rango de 5.0 a 3.9 en adelante.
@@ -41,7 +70,7 @@ propuesto.
                 \begin{enumerate}
                     \item El sistema genera una alerta y la registra en la base de datos si la comunicación con cualquier sensor (pH, temperatura, CO) se interrumpe ya sea en modo prueba o monitoreo.
                     \item El sistema retrasmite los datos recolectados por los 3 sensores en caso de un fallo en la conexión con la base de datos.
-                    \item Si el pH supero el parametro de 3.9 , se genera una alerta y el sistema deja de sensar.
+                    \item Si el pH supero el parametro de 4.2, se genera una alerta y el sistema deja de sensar.
                 \end{enumerate}   
        
             \item \textbf{Efecto de los parámetros}
@@ -56,6 +85,10 @@ propuesto.
         \end{enumerate}
 
     \item \label{it:RF02} \textbf{RF02-Cónexion del Microcontrolador a la Base de Datos}
+    
+        En este requerimiento se definen las características del protocolo de conexión
+        entre el microcontrolador y la base de datos, así como la secuencia de operación
+        del sistema para garantizar la correcta transmisión de datos.
         \begin{enumerate}
             \item \textbf{Validez de las entradas}
                 \begin{enumerate}
@@ -87,6 +120,11 @@ propuesto.
         \end{enumerate}
 
     \item \label{it:RF03} \textbf{RF03-Microcontrolador}
+    
+        En este requerimiento se definen las características del microcontrolador a implementar,
+        así como la secuencia de operación del sistema para garantizar la correcta adquisición
+        de datos de los sensores y su transmisión a la base de datos.
+
         \begin{enumerate}
             \item \textbf{Validez de las entradas}
                 \begin{enumerate}
@@ -120,29 +158,16 @@ propuesto.
                 \end{enumerate}
         \end{enumerate}
 
-    \item \label{it:RNF01} \textbf{RNF01}
-            \item \begin{enumerate}
-                    \item El sistema debe ser capaz de manejar múltiples conexiones simultáneas de microcontroladores sin degradar el rendimiento.
-                    \item El sistema debe ser escalable para soportar un aumento en el número de microcontroladores en base al crecimiento de usuarios.
-                    \item El sistema debe perimitir analizar diferentes cepas de bulgaros y diferentes tipos de leches.
-            \end{enumerate}
-\end{enumerate}
-A continuación se ilustran los casos de uso en la \cref{fig:RF01} y \cref{fig:RF02} de los requeriminetos \ref{it:RF01}.
-\begin{figure}[htb]
-\centering
-\includegraphics[width=0.4\textwidth]{./UML/Modulo1/RF1.drawio.png}
-\caption{Modo prueba del módulo 1 RF01.}
-\label{fig:RF01}
-\end{figure} 
+ \end{enumerate}
 
-\begin{figure}[htb]
-\centering
-\includegraphics[width=0.65\textwidth]{./UML/Modulo1/RF01_2.drawio.png}
-\caption{Modo monitoreo del módulo 1 RF01.}
-\label{fig:RF02}
-\end{figure} 
 \newpage 
-\subsection{Módulo 2}\
+
+
+\subsubsection{Módulo 2}
+        En esta sección se detallan los requerimientos funcionales  del 
+        módulo 2,los cuales abarcan desde el software de análisis de datos hasta la 
+        secuencia de operación del sistema para garantizar la correcta interpretación.
+
 \begin{enumerate}
 \item \label{it:RF04} \textbf{RF04-Análisis de datos}
         \begin{enumerate}
@@ -178,15 +203,17 @@ A continuación se ilustran los casos de uso en la \cref{fig:RF01} y \cref{fig:R
                     \item El módulo 2 actualiza la base de datos con los resultados del análisis para su posterior consulta.
                \end{enumerate}
         \end{enumerate}
-\item \textbf{RNF02}\label{it:RNF02}
-            \item \begin{enumerate}
-                    \item El módulo 2 debe ser capaz de manejar múltiples solicitudes de análisis de datos de diferentes usuarios sin degradar el rendimiento.
-                    \item El módulo 2 debe ser escalable para soportar un aumento en el volumen de datos a analizar.
-            \end{enumerate}
+
+
 \end{enumerate}
   
 
-\subsection{Módulo 3}
+\subsubsection{Módulo 3}
+
+En esta sección se detallan los requerimientos funcionales del módulo 3,
+los cuales abarcan desde del modelo de la base de datos , así como la secuencia de operación 
+de la base de datos para garantizar la correcta gestión y almacenamiento de los datos.
+
 \begin{enumerate}
 \item \label{it:RF05} \textbf{RF05-Base de datos}
     \begin{enumerate}
@@ -200,7 +227,7 @@ A continuación se ilustran los casos de uso en la \cref{fig:RF01} y \cref{fig:R
             
             \item \textbf{Secuencia exacta de operaciones}
                 \begin{enumerate}
-                    \item La Base de datos almacena los datos recibidos en el orden en que fueron recibidos.
+                    \item La Base de datos almacena los datos en el orden en que fueron recibidos.
                     \item La Base de datos permite consultas y recuperaciones de datos por parte del módulo de análisis de datos.
                     \item La Base de datos envia los datos almacenados a la interfaz web para su visualización cuando sea solicitado por parte del usuario.
                 \end{enumerate}   
@@ -214,9 +241,16 @@ A continuación se ilustran los casos de uso en la \cref{fig:RF01} y \cref{fig:R
             \item \textbf{Efecto de los parámetros}
                 \begin{enumerate}
                     \item La Base de datos garantiza la compatiblidad con el formato de datos del módulo 1 y 2.
-                    \item La Base de datos adapta la frecuencia de datos recibidos por parte del módulo 1.
-                    \item La Base de datos optimiza las consultas si se detectan patrones comunes en las solicitudes de datos.
-                    \item La Base de datos garantiza una alta dispnibilidad y escalabilidad horizontal de cara a los usuarios.
+                    \item La Base de datos alamcena los usuarios iniciales con la siguiente estrucutura de ID: letra del abecedario en mayusculas empezando con la A.
+                 \item La base de datos almacena los usuarios raíz provenientes de uno o más usuarios iniciales con la siguiente estructura de ID:
+                 ID\_usuario(s)\_inicial(es) + ``-'' + numero\_usuario\_raiz.
+
+
+                    \item La base de datos almacena los procesos de fermentación con el siguiente identificador único:
+                    \texttt{ID\_usuario + número\_de\_fermentación}.
+
+                    \item La base de datos garantiza alta disponibilidad y escalabilidad horizontal orientada al crecimiento de usuarios.
+
                     \item La Base de datos solo debe permitir el acceso a los datos de los sensores a su usuario correspondientes y al admin, implementando mecanismos de autenticación y autorización adecuados.
                 \end{enumerate}   
         
@@ -227,16 +261,15 @@ A continuación se ilustran los casos de uso en la \cref{fig:RF01} y \cref{fig:R
                     \item La Base de datos permite la entrada de solicitudes desde el módulo 4 y envía los datos correspondientes para su visualización en la página web.
                 \end{enumerate}
     \end{enumerate}
-\item \label{it:RNF03} \textbf{RNF03}
-            \item \begin{enumerate}
-                    \item El módulo 3 debe ser capaz de manejar múltiples solicitudes de almacenamiento y recuperación de datos de diferentes usuarios sin degradar el rendimiento.
-                    \item El módulo 3 debe ser escalable horizontalmente para soportar un aumento de usuarios y de datos almacenados.
-                    \item La Base de datos proporciona acceso rápido y eficiente a los datos almacenados para su análisis y visualización.
-                    \item La Base de datos garantiza una consistncia e integridad de los datos almacenados de cada usuario. 
-            \end{enumerate}
+
  \end{enumerate}
 
-\subsection{Módulo 4}
+\subsubsection{Módulo 4}
+
+En esta sección se detallan los requerimientos funcionales del módulo 4,
+los cuales abarcan desde la página web hasta la secuencia de operación wue
+garantiza la correcta visualización e interacción del usuario con el sistema.
+
 \begin{enumerate}
     \item \label{it:RF07} \textbf{RF07-Página Web}
         \begin{enumerate}
@@ -295,6 +328,7 @@ A continuación se ilustran los casos de uso en la \cref{fig:RF01} y \cref{fig:R
         
                 \item \textbf{Efecto de los parámetros}
                     \begin{enumerate}
+                        \item La página web debe solicitar una credencial tanto para el usuario como para el admin, con un mínimo de 8 caracteres contando con 1 letra mayúscula, 1 letra minúscula y 1 número.
                         \item La página web debe cifrar las credenciales del usuario o admin antes de enviarlas a la base de datos para garantizar la seguridad.
                     \end{enumerate}   
                 \item \textbf{Relación entre las salidas y las entradas}
@@ -369,7 +403,7 @@ A continuación se ilustran los casos de uso en la \cref{fig:RF01} y \cref{fig:R
                     \end{enumerate}
         \end{enumerate}
 
-          \item \label{it:RF11} \textbf{RF11-Página web:administrador}
+        \item \label{it:RF11} \textbf{RF11-Página web:administrador}
         \begin{enumerate}
                 \item \textbf{Validez de las entradas}
                     \begin{enumerate}
@@ -406,44 +440,16 @@ A continuación se ilustran los casos de uso en la \cref{fig:RF01} y \cref{fig:R
                         \item La página web debe mostrar una lista actualizada de todos los usuarios del sistema, incluyendo su estado (activo o suspendido).
                     \end{enumerate}
         \end{enumerate}
-        \item \label{it:RNF04} \textbf{RNF04}
-            \item \begin{enumerate}
-                    \item El módulo 4 debe ser capaz soportar multiples sesiones de manera simultanea sin degradar el rendimiento.
-                    \item El módulo 4 debe ofrecer una interfaz amigable e intuitiva de cara al usuarios.
-            \end{enumerate}
+
  \end{enumerate}
 
- A continuación se muestran los diagramas de caso de uso de los requerimientos funcionales correspondientes de la página web:
-        
-        \begin{figure}[htb]
-        \centering
-        \includegraphics[width=0.7\textwidth]{./UML/Modulo1/RF08.drawio.png}
-        \caption{Iniciar Sesón Página Web RF08.}
-        \label{fig:RF03}
-        \end{figure} 
+\subsubsection{Servidor}
 
-         \begin{figure}[htb]
-        \centering
-        \includegraphics[width=0.9\textwidth]{./UML/Modulo1/RF09.drawio.png}
-        \caption{Iniciar/Terminar una fermentación RF09.}
-        \label{fig:RF04}
-        \end{figure} 
+En esta sección se detallan los requerimientos funcionales del servidor,
+los cuales abarcan desde la comunicación entre los módulos del sistema,
+así como la secuencia de operación del servidor para garantizar la correcta gestión
+y transmisión de los datos entre los módulos.
 
-         \begin{figure}[ht!]
-        \centering
-        \includegraphics[width=0.8\textwidth]{./UML/Modulo1/RF10.drawio.png}
-        \caption{visualizar historial de fermentación RF11.}
-        \label{fig:RF05}
-        \end{figure} 
-
-         \begin{figure}[hb!]
-        \centering
-        \includegraphics[width=0.9\textwidth]{./UML/Modulo1/RF11.drawio.png}
-        \caption{Diagrama de administrador RF11.}
-        \label{fig:RF06}
-        \end{figure} 
-\newpage    
-\subsection{Servidor}
 \begin{enumerate}
 \item \label{it:RF12} \textbf{RF12-Servidor}
     \begin{enumerate}
@@ -480,10 +486,178 @@ A continuación se ilustran los casos de uso en la \cref{fig:RF01} y \cref{fig:R
                     \item El servidor debe permitir la entrada de solicitudes desde el módulo 4 y enviar los datos correspondientes desde el módulo 3.
                 \end{enumerate}
     \end{enumerate}
-      \item \label{it:RNF04} \textbf{RNF05}
-            \item \begin{enumerate}
+      
+ \end{enumerate}
+
+
+ \subsection{Requerimientos No Funcionales}
+
+    En esta sección se detallan los requerimientos no funcionales de cada módulo del sistema.Los cuales
+    garantizan el rendimiento del sistema hasta la escalabilidad y seguridad de este. Permitiendo pueda
+    ser utilizado de manera eficiente y segura por los usuarios finales.A continuación se presentan los requerimientos no funcionales
+    de cada módulo:
+
+    \begin{enumerate}
+    \item \label{it:RNF01} \textbf{Módulo 1 RNF01:}
+                \begin{enumerate}
+                    \item El sistema deberá permitir al usuario cambiar entre el modo Prueba y el modo Monitoreo mediante botones físicos independientes en el microcontrolador.
+                        \item El sistema debe enviar los datos recopilados por los sensores a la base de datos en el formato especificado, incluyendo una marca de tiempo y un ID único del microcontrolador.
+                        \item El sistema debe ser capaz de manejar múltiples conexiones simultáneas de microcontroladores sin degradar el rendimiento.
+                        \item El sistema debe ser escalable para soportar un aumento en el número de microcontroladores en base al crecimiento de usuarios.
+                        \item El sistema debe perimitir analizar diferentes fermentaciónes con distintos tipos de leche en base con base a la variedad de cepas y cambios de temperatura.
+                \end{enumerate}
+
+    \item \textbf{Módulo 2 RNF02}\label{it:RNF02}
+                    \begin{enumerate}
+                            \item El módulo 2 debe ser capaz de manejar múltiples solicitudes de análisis de datos de diferentes usuarios sin degradar el rendimiento.
+                            \item El módulo 2 debe ser escalable para soportar un aumento en el volumen de datos a analizar.
+                    \end{enumerate}
+
+
+    \item \label{it:RNF03} \textbf{Módulo 3 RNF03}
+                \begin{enumerate}
+                        \item El módulo 3 debe ser capaz de manejar múltiples solicitudes de almacenamiento y recuperación de datos de diferentes usuarios sin degradar el rendimiento.
+                        \item El módulo 3 debe ser escalable horizontalmente para soportar un aumento de usuarios y de datos almacenados.
+                        \item La Base de datos proporciona acceso rápido y eficiente a los datos almacenados para su análisis y visualización.
+                        \item La Base de datos garantiza una consistncia e integridad de los datos almacenados de cada usuario. 
+                \end{enumerate}
+
+    \item \label{it:RNF04} \textbf{Módulo 4RNF04}
+                \begin{enumerate}
+                        \item El módulo 4 debe ser capaz soportar multiples sesiones de manera simultanea sin degradar el rendimiento.
+                        \item El módulo 4 debe ofrecer una interfaz amigable e intuitiva de cara al usuarios.
+                \end{enumerate}
+
+    \item \label{it:RNF04} \textbf{Servidor RNF05:}
+             \begin{enumerate}
                     \item El servidor debe garantizar la integración y comunicación entre todos lo módulos del sistema.
                     \item El servidor debe ser escalable para soportar un aumento en el volumen de datos y solicitudes entre los módulos.
                     \item El servidor debe implementar medidas de seguridad para proteger los datos transmitidos entre los módulos
             \end{enumerate}
- \end{enumerate}
+
+    \end{enumerate}
+
+\subsection{Diagrama de casos de uso}
+
+
+En esta sección se exponen los diagramas de casos de uso para cada módulo del sistema, 
+basados en los requerimientos funcionales correspondientes. Estos diagramas 
+UML representan las interacciones entre los actores (Usuario Inicial y Usuario Raíz) 
+y el sistema, delimitando claramente las funcionalidades principales y sus relaciones.
+Seguidamente se presentan los diagramas organizados por módulo:
+
+
+\begin{enumerate}
+    \item \label{it:CM1} \textbf{Casos de Uso Módulo 1}
+        
+                Con base en los requerimientos funcionales descritos en la sección \ref{it:RF01} del módulo 1, se definen los casos de uso correspondientes.
+                En la \cref{fig:RF01} se ilustra la interacción entre el actor ``Usuario'' que engloba las dos categorías definidas:
+                ``Inicial'' y ``Raíz'' y Módulo 1 en el modo Prueba. En este modo, el sistema recopila datos directamente de los sensores sin 
+                realizar validación previa y los transmite a la página web para su visualización temporal.
+
+                    \begin{figure}[htb]
+                        \centering
+                        \includegraphics[width=0.4\textwidth]{./UML/Modulo1/RF1.drawio.png}
+                        \caption{Modo prueba del módulo 1 RF01.}
+                        \label{fig:RF01}
+                    \end{figure} 
+        
+        
+                Por su parte, la \cref{fig:RF02} muestra la interacción entre el actor ``Usuario'' y el Módulo 1 en el modo 
+                Monitoreo. En dicho modo, el sistema adquiere los datos provenientes de los sensores, realiza la validación de 
+                los valores iniciales y los registra periódicamente en intervalos de tiempo predefinidos, para posteriormente
+                enviarlos al servidor con el fin de su almacenamiento y análisis posterior.
+            
+                    \begin{figure}[htb]
+                        \centering
+                        \includegraphics[width=0.65\textwidth]{./UML/Modulo1/RF01_2.drawio.png}
+                        \caption{Modo monitoreo del módulo 1 RF01.}
+                        \label{fig:RF02}
+                    \end{figure}   
+
+
+    \item \label{it:CM1} \textbf{Casos de Uso Módulo 4}
+
+    Con base en los requerimientos funcionales descritos en la sección RF11 del módulo 4, 
+    se definen los casos de uso correspondientes para el desarrollo de la página web. Estos casos de uso 
+    detallan las interacciones entre el actor Usuario'' (en sus categorías Inicial y Raíz) y la página web, 
+    abarcando desde el proceso de autenticación hasta la gestión completa de las fermentaciones monitoreadas.
+
+    En particular, la \cref{fig:RF03} ilustra el diagrama de casos de uso relacionado con la autenticación,
+    permite al usuario realizar el inicio de sesión mediante el ingreso de credenciales válidas, recuperar su contraseña 
+    en caso de olvido (mediante un flujo de restablecimiento seguro) y validar dichas credenciales contra la base de datos del sistema. 
+
+                \begin{figure}[htb]
+                \centering
+                \includegraphics[width=0.6\textwidth]{./UML/Modulo1/RF08.drawio.png}
+                \caption{Iniciar Sesón Página Web RF08.}
+                \label{fig:RF03}
+                \end{figure} 
+
+ \newpage
+                La \cref{fig:RF04} presenta el diagrama de casos de uso correspondiente a la gestión del ciclo de una fermentación, 
+                específicamente los escenarios de ``Iniciar Fermentación'' y ``Finalizar Fermentación''. 
+
+                En el caso de uso ``Iniciar Fermentación'', el actor ``Usuario'' (categorías Inicial o Raíz) proporciona los datos
+                necesarios mediante un formulario en la interfaz web, tales como tipo de leche,litros de leche y gramos de la cepa.
+                Una vez validada y registrada la información en la base de datos, el sistema habilita el monitoreo
+                de la fermentación. Simultáneamente, el módulo 1 comienza a recopilar las lecturas de los sensores 
+                (pH, temperatura y $CO_{2}$), las transmite al servidor y las almacena en la base de datos para su
+                procesamiento, análisis posterior y visualización dinámica en la página web.
+
+                Por su parte, el caso de uso ``Finalizar Fermentación'' permite al usuario concluir el proceso de forma 
+                manual , registrando el estado final.
+
+
+                \begin{figure}[htb]
+                \centering
+                \includegraphics[width=0.9\textwidth]{./UML/Modulo1/RF09.drawio.png}
+                \caption{Iniciar/Terminar una fermentación en modo Monitoreo RF09.}
+                \label{fig:RF04}
+                \end{figure} 
+                
+\newpage
+                Mientras que la \cref{fig:RF04_2} muestra un diagrama de casos para 
+                el modo prueba en el cual el sistema recopila datos directamente de los sensores 
+                sin realizar validación previa y los transmite a la página web para su visualización temporal, 
+                permitiendo al usuario corroborar el funcionamiento de los sensores y la transmisión de datos 
+                sin necesidad de iniciar una fermentación formal.
+
+                \begin{figure}[htb]
+                \centering
+                \includegraphics[width=0.9\textwidth]{./UML/Modulo1/RF09.drawio.png}
+                \caption{Visualizar datos en modo Prueba RF09.}
+                \label{fig:RF04_2}
+                \end{figure} 
+                La \cref{fig:RF05} ilustra el diagrama de casos de uso relacionado con la visualización del 
+                historial de fermentaciones pasadas.En el cual el actor ``Usuario'' (categorías Inicial o Raíz) puede
+                acceder a un historial detallado de sus fermentaciones previas mediante gráficos y tablas interactivas.
+                El sistema recupera los datos almacenados en la base de datos y los presenta de manera clara y comprensible,
+                permitiendo al usuario analizar el rendimiento y los resultados de sus fermentaciones anteriores.
+
+                \begin{figure}[ht!]
+                \centering
+                \includegraphics[width=0.8\textwidth]{./UML/Modulo1/RF10.drawio.png}
+                \caption{visualizar historial de fermentación RF11.}
+                \label{fig:RF05}
+                \end{figure} 
+
+La \cref{fig:RF06} muestra el diagrama de casos de uso correspondiente a las funcionalidades administrativas
+de la página web. En este caso, el actor ``Administrador'' tiene la capacidad de gestionar usuarios del sistema mediante 
+la creación, suspensión y activación de cuentas.
+El administrador ingresa los datos necesarios a través de un formulario en la interfaz web, 
+y el sistema valida y registra esta información en la base de datos. 
+Además, el administrador puede visualizar todas las fermentaciones activas y pasadas de todos los usuarios,
+lo que le permite supervisar y gestionar eficazmente el uso del sistema.
+
+                \begin{figure}[hb!]
+                \centering
+                \includegraphics[width=0.9\textwidth]{./UML/Modulo1/RF11.drawio.png}
+                \caption{Diagrama de administrador RF11.}
+                \label{fig:RF06}
+                \end{figure} 
+
+\end{enumerate}
+
+
+\newpage 
