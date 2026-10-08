@@ -5,7 +5,8 @@ En este capítulo se especifican los requerimientos funcionales y no funcionales
 según el modelo IEEE Std 830-1998, en los cuales 
 se detallan las funcionalidades del sistema, así como los criterios de diseño
 e implementación. Asimismo, se detallan los casos de uso segun 
-correspanda al requerimiento funcional para garantiza el correcto diseño, implementación y validación del sistema 
+correspanda al requerimiento funcional para garantiza el correcto diseño, 
+implementación y validación del sistema 
 propuesto.
 
 \subsection{Requerimientos Funcionales}
@@ -21,9 +22,9 @@ de la interfaz web.
 Con el fin de facilitar su comprensión, especificación, implementación y verificación, 
 los requerimientos funcionales se organizan y presentan divididos en los siguientes módulos principales:
 
-\subsubsection{Módulo 1}
+\subsubsection{Módulo 1:Sistema de Sensores}
 A continuación se detallan los requerimientos funcionales del módulo 1, 
-que abarca desde las caractwerísticas del microcontrolador y los sensores, hasta
+que abarca desde las caractrísticas del microcontrolador y los sensores, hasta
 la adquisición de datos de los sensores, así como la comunicación con la base de datos.
 
 \begin{enumerate}
@@ -56,7 +57,7 @@ la adquisición de datos de los sensores, así como la comunicación con la base
             
             \item \textbf{Secuencia exacta de operaciones}
                 \begin{enumerate}
-                    \item En ambos modos, el sistema deberá verificar la conexión con la base de datos antes de iniciar la recolección de datos, y en caso de fallo, no iniciar el monitoreo y encender un led indicando el fallo de conexión.
+                    \item Previo al inicio del proceso de medición en cualquiera de los dos modos, el sistema verificará el estado de la conexión con el servidor de base de datos. En caso de detectarse un fallo de comunicación, se abortará el inicio del monitoreo y se activará un indicador visual mediante un diodo LED de advertencia.
                     \item El sistema al entrar en modo prueba, deberá verificar el estado de los sensores al enviar los datos de los sensores cada 1 minuto exclusivamente a la página web para visualización temporal, sin almacenarlos en la base de datos.
                     \item En modo monitoreo, el sistema deberá verificar que el pH inicial de la leche esté entre 6.6 a 6.8 y su temperaturaesté entre 18°C a 30°C, en caso contrario, no iniciar el monitoreo y enviar una alerta a la base de datos.
                     \item En modo monitoreo, el sistema deberá iniciar la recolección y envío de datos a al servidor siempre y cuando se cumplan las condiciones anteriores.
@@ -64,25 +65,29 @@ la adquisición de datos de los sensores, así como la comunicación con la base
                     \item En modo monitoreo, el sistema deberá enviar los datos recopilados por los sensores cada de pH y $CO_{2}$  cada 5 minutos si el pH está en el rango de 5.5 a 5.0.
                     \item En modo monitoreo, el sistema deberá recopilar y enviar los datos de los tres sensores (pH, $CO_{2}$  y temperatura) cada 1 minuto si el pH está en el rango de 5.0 a 3.9 en adelante.
                     \item En modo monitoreo, el sistema deberá recopilar y enviar los datos del sensor de temperatura cada 2.5 minutos de manera independiente, y ajustar la frecuencia a cada 1 minuto de todos los sensores si la temperatura supera los 28°C.
+                    
                 \end{enumerate}   
-        
+         
+\newpage
             \item \textbf{Respuestas a situaciones anormales}
                 \begin{enumerate}
-                    \item El sistema genera una alerta y la registra en la base de datos si la comunicación con cualquier sensor (pH, temperatura, CO) se interrumpe ya sea en modo prueba o monitoreo.
-                    \item El sistema retrasmite los datos recolectados por los 3 sensores en caso de un fallo en la conexión con la base de datos.
-                    \item Si el pH supero el parametro de 4.2, se genera una alerta y el sistema deja de sensar.
+                    \item El sistema generará una alerta y la registrará en la base de datos.Si la comunicación con cualquier sensor (pH, temperatura, CO) se interrumpe ya sea en modo prueba o monitoreo.
+                    \item Si el pH supero el parametro de 4.2, se generará una alerta y el sistema dejará de sensar.
                 \end{enumerate}   
        
             \item \textbf{Efecto de los parámetros}
                 \begin{enumerate} 
-                    \item El formato de datos soporta diferentes tipos de datos (números decimales para pH y temperatura, enteros para CO2, cadenas para ID y timestamp) en una estructura anidada, permitiendo flexibilidad para futuros sensores.
+                    \item El formato de datos deberá soportar diferentes tipos de datos (números decimales para pH y temperatura, enteros para CO2, cadenas para ID y timestamp) en una estructura anidada, permitiendo flexibilidad para futuros sensores.
                 \end{enumerate}   
         
             \item \textbf{Relación entre las salidas y las entradas}
                 \begin{enumerate}
-                    \item Los sensores proporcionan valores crudos y el formato de datos integra dichos valores de forma anidada.
+                    \item Los sensores proporcionan valores crudos y el formato de datos integrará dichos valores de forma anidada.
                 \end{enumerate}
         \end{enumerate}
+
+
+
 
     \item \label{it:RF02} \textbf{RF02-Cónexion del Microcontrolador a la Base de Datos}
     
@@ -92,30 +97,30 @@ la adquisición de datos de los sensores, así como la comunicación con la base
         \begin{enumerate}
             \item \textbf{Validez de las entradas}
                 \begin{enumerate}
-                    \item Se debe implementa un protocolo de conexión que garantize multiples conexiónes de manera simultanea e independiente.
-                    \item Se debe implementa un protocolo de conexión que permita la identificación única de cada microcontrolador mediante un ID.
+                    \item El sistema tendrá un protocolo de conexión que garantize multiples conexiónes de manera simultanea e independiente.
+                    \item El sistema tendrá un protocolo de conexión que permita la identificación única de cada microcontrolador mediante un ID.
                 \end{enumerate}   
             
             \item \textbf{Secuencia exacta de operaciones}
                 \begin{enumerate}
-                    \item El microcontrolador establece la conexión con la base de datos al encenderse y verificar la conexión antes de enviar cualquier dato.
+                    \item El microcontrolador establecerá la conexión con la base de datos al encenderse y verificar la conexión antes de enviar cualquier dato.
                 \end{enumerate}   
         
             \item \textbf{Respuestas a situaciones anormales}
                 \begin{enumerate}
-                    \item El sistema registra en un log todos los intentos de conexión fallidos al servidor de base de datos.
+                    \item El sistema registrará en un log todos los intentos de conexión fallidos al servidor de base de datos.
                 \end{enumerate}   
        
             \item \textbf{Efecto de los parámetros}
                 \begin{enumerate} 
-                    \item El protocolo de conexión mantiene escalabilidad para soportar un aumento en el número de microcontroladores conectados sin degradar el rendimiento.
+                    \item El protocolo de conexión debrá tener escalabilidad para soportar un aumento en el número de microcontroladores conectados sin degradar el rendimiento.
                 \end{enumerate}   
         
             \item \textbf{Relación entre las salidas y las entradas}
                 \begin{enumerate}
-                    \item El protocolo de conexión del microcontrolador asegura compatibilidad con el servidor de base de datos para asegurar la correcta transmisión de datos.
-                    \item El protocolo de conexión incluye que los datos enviados a la base de datos incluyan una marca de tiempo para cada lectura, permitiendo un seguimiento preciso de la evolución de los parámetros monitoreados.
-                    \item El protocolo de conexión garantiza que los datos enviados a la base de datos estén en el formato requerido por el módulo de análisis de datos para su procesamiento posterior.
+                    \item El protocolo de conexión del microcontrolador asegurará compatibilidad con el servidor de base de datos para asegurar la correcta transmisión de datos.
+                    \item El protocolo de conexión incluirá que los datos enviados a la base de datos incluyan una marca de tiempo para cada lectura, permitiendo un seguimiento preciso de la evolución de los parámetros monitoreados.
+                    \item El protocolo de conexión garantizará que los datos enviados a la base de datos estén en el formato requerido por el módulo de análisis de datos para su procesamiento posterior.
                 \end{enumerate}
         \end{enumerate}
 
@@ -128,33 +133,31 @@ la adquisición de datos de los sensores, así como la comunicación con la base
         \begin{enumerate}
             \item \textbf{Validez de las entradas}
                 \begin{enumerate}
-                    \item Se debe implementa un microcontrolador que disponga las entradas analógicas necesarias para conectar los sensores de pH, temperatura y $CO_{2}$.
-                    \item Se debe implementa un microcontrolador que cuente con memoria suficiente para almacenar datos temporalmente en caso de fallos de conexión con la base de datos.
-                    \item Se debe implementa un microcontroladror que incluya la conexión requerida para hacer uso del protocolo de conexión.
-                    \item Se debe implementa un microcontrolador que gestione la lógica de control para los dos modos de operación (prueba y monitoreo) y ajustar la frecuencia de recolección de datos según los parámetros medidos.
+                    \item El sistema contara con un microcontrolador que disponga las entradas analógicas necesarias para conectar los sensores de pH, temperatura y $CO_{2}$.
+                    \item El sistema contara con el microcontrolador que cuentará con memoria suficiente para almacenar datos temporalmente en caso de fallos de conexión con la base de datos.
+                    \item El sistema contara con el microcontroladror que incluirá la conexión requerida para hacer uso del protocolo de conexión.
+                    \item El sistema contara con el microcontrolador que gestionará la lógica de control para los dos modos de operación (prueba y monitoreo) y ajustar la frecuencia de recolección de datos según los parámetros medidos.
                 \end{enumerate}   
             
             \item \textbf{Secuencia exacta de operaciones}
                 \begin{enumerate}
-                    \item El microcontrolador adquiere los datos de los sensores de manera secuencial (primero pH, luego $CO_{2}$ , luego temperatura) en cada ciclo de medición para optimizar el procesamiento.
+                    \item El microcontrolador recopilará y enviará los datos de los sensores de manera secuencial (primero pH, luego $CO_{2}$ , luego temperatura) en cada ciclo de medición para optimizar el procesamiento.
                 \end{enumerate}   
         
             \item \textbf{Respuestas a situaciones anormales}
                 \begin{enumerate}
-                    \item El sistema emite una alerta y la registra en la base de datos ,si la comunicación con cualquier sensor (pH, temperatura, CO) se interrumpe ya sea en modo prueba o monitoreo.
-                    \item El sistema retransmite los datos recolectados por los 3 sensores en caso de un fallo en la conexión con la base de datos.
-                    \item El sistema documenta en un log todos los intentos de conexión fallidos al servidor de base de datos.
+                    \item El sistema emitirá una alerta y la registra en la base de datos ,si la comunicación con cualquier sensor (pH, temperatura, CO) se interrumpe ya sea en modo prueba o monitoreo.
                 \end{enumerate}   
        
             \item \textbf{Efecto de los parámetros}
                 \begin{enumerate} 
                     \item El microcontrolador modifica la frecuencia de recolección de datos en función del rango de pH medido y la temperaura, como se especifica en la secuencia de operaciones.
-                    \item La alimentación del microcontrolador mantiene estabilidad y adecuación para garantizar el funcionamiento continuo durante el proceso de fermentación, considerando al menos un intervalo de 12 a 48 horas de operación ininterrumpida.
+                    \item La alimentación del microcontrolador mantendrá estabilidad y adecuación para garantizar el funcionamiento continuo durante el proceso de fermentación, considerando al menos un intervalo de 12 a 48 horas de operación ininterrumpida.
                 \end{enumerate}   
         
             \item \textbf{Relación entre las salidas y las entradas}
                 \begin{enumerate}
-                    \item El microcontrolador procesa lecturas crudas(haciendo la conversión de datos analogicos a digitales) de los sensores y genera paquetes de datos estructurados junto con un identificador del microcontrolador para su envío a la base de datos.
+                    \item El microcontrolador deberá realizar lecturas crudas(haciendo la conversión de datos analogicos a digitales) de los sensores y genera paquetes de datos estructurados junto con un identificador del microcontrolador para su envío a la base de datos.
                 \end{enumerate}
         \end{enumerate}
 
@@ -163,7 +166,7 @@ la adquisición de datos de los sensores, así como la comunicación con la base
 \newpage 
 
 
-\subsubsection{Módulo 2}
+\subsubsection{Módulo 2:Análisis de Datos}
         En esta sección se detallan los requerimientos funcionales  del 
         módulo 2,los cuales abarcan desde el software de análisis de datos hasta la 
         secuencia de operación del sistema para garantizar la correcta interpretación.
@@ -173,22 +176,22 @@ la adquisición de datos de los sensores, así como la comunicación con la base
         \begin{enumerate}
             \item \textbf{Validez de las entradas}
                 \begin{enumerate}
-                    \item Se debe validar que los datos recibidos de la base de datos estén completos y no contengan valores nulos.
-                    \item El módulo 2 debe recibir los datos en el formato especificado por el módulo 1 con su respectivo ID.
-                    \item El módoulo 2 debe realizar el análisis de los datos de acuerdo a los datos de cada usuario.   
+                    \item El sistema deberá validar que los datos recibidos de la base de datos estén completos y no contengan valores nulos.
+                    \item El análisis de datos deberá recibir los datos en el formato especificado por el módulo 1 con su respectivo ID.
+                    \item El análisis de datos deberá realizar el análisis de los datos de acuerdo a los datos de cada usuario.   
                 \end{enumerate}   
             
             \item \textbf{Secuencia exacta de operaciones}
                 \begin{enumerate}
-                    \item El sistema inicia el analisis automáticamente los datos conforme estos sean recibidos, ejecutando el proceso de análisis en tiempo real a medida que llega nueva información desde los sensores.
-                    \item El sistema procesa los datos en el orden en que fueron recibidos.
-                    \item El sistema produce un informe de análisis después de procesar un lote completo de datos.
+                    \item El sistema iniciará el analisis automáticamente los datos conforme estos sean recibidos, ejecutando el proceso de análisis en tiempo real a medida que llega nueva información desde los sensores.
+                    \item El sistema procesará los datos en el orden en que fueron recibidos.
+                    \item El sistema producirá un informe de análisis después de procesar un lote completo de datos.
                 \end{enumerate}   
         
             \item \textbf{Respuestas a situaciones anormales}
                 \begin{enumerate}
-                    \item El sistema emite una alerta si se detectan valores fuera del rango esperado en cualquiera de los parámetros (pH, temperatura, CO).
-                    \item El sistema registra en un log cualquier error encontrado durante el análisis de datos.
+                    \item El sistema emitirá una alerta si se detectan valores fuera del rango esperado en cualquiera de los parámetros (pH, temperatura, CO).
+                    \item El sistema registrará en un log cualquier error encontrado durante el análisis de datos.
                 \end{enumerate}   
        
             \item \textbf{Efecto de los parámetros}
@@ -208,7 +211,7 @@ la adquisición de datos de los sensores, así como la comunicación con la base
 \end{enumerate}
   
 
-\subsubsection{Módulo 3}
+\subsubsection{Módulo 3: Base de Datos}
 
 En esta sección se detallan los requerimientos funcionales del módulo 3,
 los cuales abarcan desde del modelo de la base de datos , así como la secuencia de operación 
@@ -219,52 +222,52 @@ de la base de datos para garantizar la correcta gestión y almacenamiento de los
     \begin{enumerate}
             \item \textbf{Validez de las entradas}
                 \begin{enumerate}
-                    \item La Base de datos debe validar que los datos recibidos del módulo 1 estén completos y no contengan valores nulos.
+                    \item La Base de datos deberá validar que los datos recibidos del módulo 1 estén completos y no contengan valores nulos.
                     \item La Base de datos deberá comprobar que todos los paquetes de datos provenientes de los sensores incluyan la marca de tiempo asociada y su ID único del microcontrolador
                     para asociarlo con su usuario correspondiente.
-                    \item La Base de datos debe validar las claves de acceso de los usuarios por medio de la página web.
+                    \item La Base de datos deberá validar las claves de acceso de los usuarios por medio de la página web.
                 \end{enumerate}   
             
             \item \textbf{Secuencia exacta de operaciones}
                 \begin{enumerate}
-                    \item La Base de datos almacena los datos en el orden en que fueron recibidos.
-                    \item La Base de datos permite consultas y recuperaciones de datos por parte del módulo de análisis de datos.
+                    \item La Base de datos almacenará los datos en el orden en que fueron recibidos.
+                    \item La Base de datos permitirá consultas y recuperaciones de datos por parte del módulo de análisis de datos.
                     \item La Base de datos envia los datos almacenados a la interfaz web para su visualización cuando sea solicitado por parte del usuario.
                 \end{enumerate}   
         
             \item \textbf{Respuestas a situaciones anormales}
                 \begin{enumerate}
-                    \item La Base de datos emite una alerta si se detectan intentos no autorizados de acceso.
-                    \item La Base de datos registra en un log cualquier error encontrado durante las operaciones de almacenamiento o recuperación de datos.
+                    \item La Base de datos emitirá una alerta si se detectan intentos no autorizados de acceso.
+                    \item La Base de datos registrará en un log cualquier error encontrado durante las operaciones de almacenamiento o recuperación de datos.
                 \end{enumerate}   
        
             \item \textbf{Efecto de los parámetros}
                 \begin{enumerate}
-                    \item La Base de datos garantiza la compatiblidad con el formato de datos del módulo 1 y 2.
-                    \item La Base de datos alamcena los usuarios iniciales con la siguiente estrucutura de ID: letra del abecedario en mayusculas empezando con la A.
-                 \item La base de datos almacena los usuarios raíz provenientes de uno o más usuarios iniciales con la siguiente estructura de ID:
+                    \item La Base de datos garantizarán la compatiblidad con el formato de datos del módulo 1 y 2.
+                    \item La Base de datos alamcenará los usuarios iniciales con la siguiente estrucutura de ID: letra del abecedario en mayusculas empezando con la A.
+                 \item La base de datos almacenará los usuarios raíz provenientes de uno o más usuarios iniciales con la siguiente estructura de ID:
                  ID\_usuario(s)\_inicial(es) + ``-'' + numero\_usuario\_raiz.
 
 
-                    \item La base de datos almacena los procesos de fermentación con el siguiente identificador único:
+                    \item La base de datos almacenará los procesos de fermentación con el siguiente identificador único:
                     \texttt{ID\_usuario + número\_de\_fermentación}.
 
                     \item La base de datos garantiza alta disponibilidad y escalabilidad horizontal orientada al crecimiento de usuarios.
 
-                    \item La Base de datos solo debe permitir el acceso a los datos de los sensores a su usuario correspondientes y al admin, implementando mecanismos de autenticación y autorización adecuados.
+                    \item La Base de datos deberá permitir el acceso a los datos de los sensores a su usuario correspondientes y al admin, implementando mecanismos de autenticación y autorización adecuados.
                 \end{enumerate}   
         
             \item \textbf{Relación entre las salidas y las entradas}
                 \begin{enumerate}
-                    \item La Base de datos permite la entrada de datos desde el módulo 1 para su almacenamiento.
-                    \item La Base de datos permite la entrada de solicitudes desde el módulo 2 y envía los datos necesarios para el análisis.
-                    \item La Base de datos permite la entrada de solicitudes desde el módulo 4 y envía los datos correspondientes para su visualización en la página web.
+                    \item La Base de datos permitirá la entrada de datos desde el módulo 1 para su almacenamiento.
+                    \item La Base de datos permitirá la entrada de solicitudes desde el módulo 2 y envía los datos necesarios para el análisis.
+                    \item La Base de datos permitirá la entrada de solicitudes desde el módulo 4 y envía los datos correspondientes para su visualización en la página web.
                 \end{enumerate}
     \end{enumerate}
 
  \end{enumerate}
 
-\subsubsection{Módulo 4}
+\subsubsection{Módulo 4:Página Web}
 
 En esta sección se detallan los requerimientos funcionales del módulo 4,
 los cuales abarcan desde la página web hasta la secuencia de operación wue
@@ -275,32 +278,32 @@ garantiza la correcta visualización e interacción del usuario con el sistema.
         \begin{enumerate}
                 \item \textbf{Validez de las entradas}
                     \begin{enumerate}
-                        \item El entorno de front de la página web debe permitir compatibilidad con el formato de datos del módulo 1,2 y 3 para su futura visualización.
-                        \item El entorno de front end de la página web 
-                        debe integrar una interfaz renderizada para gráficos y formularios interactivos para la visualización de datos en tiempo real.
+                        \item El entorno de \textit{front end} de la página web deberá permitir compatibilidad con el formato de datos del módulo 1,2 y 3 para su futura visualización.
+                        \item El entorno de \textit{front end} de la página web 
+                        deberá integrar una interfaz renderizada para gráficos y formularios interactivos para la visualización de datos en tiempo real.
                 
                     \end{enumerate}   
                 
                 \item \textbf{Secuencia exacta de operaciones}
                     \begin{enumerate}
-                        \item La página web debe integrar un sistema de autenticación seguro para que los usuarios puedan iniciar sesión con sus credenciales.
-                        \item La página web debe permitir a los usuarios visualizar los datos de sus fermentaciones en tiempo real.
+                        \item La página web deberá integrar un sistema de autenticación seguro para que los usuarios puedan iniciar sesión con sus credenciales.
+                        \item La página web deberá permitir a los usuarios visualizar los datos de sus fermentaciones en tiempo real.
                     \end{enumerate}   
             
                 \item \textbf{Respuestas a situaciones anormales}
                     \begin{enumerate}
-                        \item El entorno de front de la página web debe registrar en un log cualquier intento fallido de conexion hacia la base de datos.
+                        \item El entorno de \textit{front end} de la página web deberá registrar en un log cualquier intento fallido de conexión hacia la base de datos.
                     \end{enumerate}   
         
                 \item \textbf{Efecto de los parámetros}
                     \begin{enumerate}
-                        \item El entorno de front de la págia web debe poder permitir tener múltiples usuarios conectados de manera simultanea sin degradar el rendimiento.
-                        \item El entorno de front de la págia web debe escalar gráficos según el volumen de información obtenida de la base de datos.
+                        \item El entorno de \textit{front end} de la página \textit{web} deberá poder permitir tener múltiples usuarios conectados de manera simultánea sin degradar el rendimiento.
+                        \item El entorno de \textit{front end} de la página \textit{web} deberá escalar gráficos según el volumen de información obtenida de la base de datos.
                     \end{enumerate}   
             
                 \item \textbf{Relación entre las salidas y las entradas}
                     \begin{enumerate}
-                        \item El entorno de front de la página web debe permitir una conexión bidireccional con la base de datos para enviar y recibir datos en tiempo real.
+                        \item El entorno de \textit{front end} de la página web deberá  permitir una conexión bidireccional con la base de datos para enviar y recibir datos en tiempo real.
                     \end{enumerate}
         \end{enumerate}
 
@@ -308,32 +311,31 @@ garantiza la correcta visualización e interacción del usuario con el sistema.
         \begin{enumerate}
                 \item \textbf{Validez de las entradas}
                     \begin{enumerate}
-                        \item La página web solicita por medio de un solo formulario de registro 
+                        \item La página \textit{web} solicitará por medio de un solo formulario de registro 
                         las credenciales(nombre y contraseña) de acceso del usuario o admin para su validacíon en la base de datos.
-                        \item La página web debe permitir recuperar la contraseña en caso de olvido por medio de un correo electrónico asociado a la cuenta.
+                        \item La página \textit{web} debe permitirá recuperar la contraseña en caso de olvido por medio de un correo electrónico asociado a la cuenta.
                     \end{enumerate}   
                 
                 \item \textbf{Secuencia exacta de operaciones}
                     \begin{enumerate}
-                        \item El usuario ingresa sus credenciales en el formulario de inicio de sesión.
-                        \item La página web envía las credenciales a la base de datos para su validación.
-                        \item La base de datos verifica las credenciales y responde a la página web con el resultado.
-                        \item Si las credenciales son válidas, la página web redirige al usuario a la página principal.
+                        \item El usuario ingresará sus credenciales en el formulario de inicio de sesión.
+                        \item La página \textit{web} envíará las credenciales a la base de datos para su validación.
+                        \item La base de datos verificará las credenciales y responde a la página \textit{web} con el resultado.
                     \end{enumerate}   
             
                 \item \textbf{Respuestas a situaciones anormales}
                     \begin{enumerate}
-                        \item Si las credenciales son inválidas, la página web muestra un mensaje de error y permite al usuario intentar iniciar sesión nuevamente.
+                        \item Si las credenciales son inválidas, la página \textit{web} muestrará un mensaje de error y permite al usuario intentar iniciar sesión nuevamente.
                     \end{enumerate}   
         
                 \item \textbf{Efecto de los parámetros}
                     \begin{enumerate}
-                        \item La página web debe solicitar una credencial tanto para el usuario como para el admin, con un mínimo de 8 caracteres contando con 1 letra mayúscula, 1 letra minúscula y 1 número.
-                        \item La página web debe cifrar las credenciales del usuario o admin antes de enviarlas a la base de datos para garantizar la seguridad.
+                        \item La página \textit{web} deberá solicitar una credencial tanto para el usuario como para el admin, con un mínimo de 8 caracteres contando con 1 letra mayúscula, 1 letra minúscula y 1 número.
+                        \item La página \textit{web} deberá cifrar las credenciales del usuario o admin antes de enviarlas a la base de datos para garantizar la seguridad.
                     \end{enumerate}   
                 \item \textbf{Relación entre las salidas y las entradas}
                     \begin{enumerate}
-                        \item La página debe generar un token de sesión único para el usuario o admin al iniciar sesión exitosamente, que se utilizará para mantener la sesión activa.
+                        \item La página deberá generar un token de sesión único para el usuario o admin al iniciar sesión exitosamente, que se utilizará para mantener la sesión activa.
                     \end{enumerate}
         \end{enumerate}
         
@@ -341,35 +343,35 @@ garantiza la correcta visualización e interacción del usuario con el sistema.
         \begin{enumerate}
                 \item \textbf{Validez de las entradas}
                     \begin{enumerate}
-                        \item La página web por medio de un formulario solicita los datos 
-                        (cantidad de búlgaros, tipo de leche y cantidad) para iniciar una fermentación. 
-                        \item La página web muestra la fermentación activa en el módulo 1 del usuario por medio de un grafico.
-                        \item La página web permite al usuario registrar la finalización de la fermentación en el módulo 1.
+                        \item La página \textit{web} por medio de un formulario solicitará los datos 
+                        (cantidad de búlgaros, tipo de leche y cantidad) para iniciará una fermentación. 
+                        \item La página \textit{web} muestra la fermentación activará en el módulo 1 del usuario por medio de un grafico.
+                        \item La página \textit{web} permite al usuario registrará la finalización de la fermentación en el módulo 1.
                     \end{enumerate}   
                 
                 \item \textbf{Secuencia exacta de operaciones}
                     \begin{enumerate}
-                        \item El ususario debe inicar la fermentación en el módulo 1 por medio del modo monitoreo
-                        y posteriormente registrar los datos en la página web por medio del formulario.
-                        \item La página web muestra el estado de la fermentación en tiempo real.
-                        \item El usuario debe terminar la fermentación en el módulo 1
-                        y posteriormente registrar la finalización en la página web. 
-                        \item La página web actualiza el estado de la fermentación a "terminada" y muestra el analisis de los datos recopilados durante el proceso.
+                        \item El ususario deberá inicar la fermentación en el módulo 1 por medio del modo monitoreo
+                        y posteriormente registrará los datos en la página \textit{web} por medio del formulario.
+                        \item La página \textit{web} muestrará el estado de la fermentación en tiempo real.
+                        \item El usuario deberá terminará la fermentación en el módulo 1
+                        y posteriormente registrará la finalización en la página \textit{web}. 
+                        \item La página \textit{web} actualizará el estado de la fermentación a "terminada" y muestra el analisis de los datos recopilados durante el proceso.
                     \end{enumerate}   
             
                 \item \textbf{Respuestas a situaciones anormales}
                     \begin{enumerate}
-                        \item La fermentación no puede ser iniciada si el módulo 1 no está encendido o este determina si la fermentación esta en malas condiciones desde el inicio.
+                        \item La fermentación no puede ser iniciada si el Módulo 1 no está encendido o este determina si la fermentación esta en malas condiciones desde el inicio.
                     \end{enumerate}   
         
                 \item \textbf{Efecto de los parámetros}
                     \begin{enumerate}
-                        \item La página web adapta la visualización del estado de la fermentación según los datos recibidos del módulo 1 en tiempo real.
+                        \item La página \textit{web} adapta la visualización del estado de la fermentación según los datos recibidos del Módulo 1 en tiempo real.
                     \end{enumerate}   
             
                 \item \textbf{Relación entre las salidas y las entradas}
                     \begin{enumerate}
-                        \item La página web muestra los datos de la fermentación en tiempo real de pH, temperatura y CO2.
+                        \item La página \textit{web} muestra los datos de la fermentación en tiempo real de pH, temperatura y CO2.
                     \end{enumerate}
         \end{enumerate}
 
@@ -377,29 +379,29 @@ garantiza la correcta visualización e interacción del usuario con el sistema.
         \begin{enumerate}
                 \item \textbf{Validez de las entradas}
                     \begin{enumerate}
-                        \item La página web por medio de un formulario solicita la o las fermentaciónes específicas del usuario para mostrar o comparar en su historial.
-                        \item La página web debe mostrar el historial por medio de gráficos y tablas de las fermentaciones pasadas del usuario.
+                        \item La página \textit{web}  por medio de un formulario solicitará la o las fermentaciónes específicas del usuario para mostrar o comparar en su historial.
+                        \item La página \textit{web} deberá mostrar el historial por medio de gráficos y tablas de las fermentaciones pasadas del usuario.
                     \end{enumerate}   
                 
                 \item \textbf{Secuencia exacta de operaciones}
                     \begin{enumerate}
-                        \item La página web por medio de la base de datos valida que el usuario tenga permisos para acceder al historial solicitado.
+                        \item La página \textit{web} por medio de la base de datos validará que el usuario tenga permisos para acceder al historial solicitado.
                     \end{enumerate}   
             
                 \item \textbf{Respuestas a situaciones anormales}
                     \begin{enumerate}
-                        \item La página web muestra un mensaje de error y redirige a la página principal si no se encuentran fermentaciones pasadas asociadas al usuario
+                        \item La página \textit{web} muestrará un mensaje de error y redirige a la página principal si no se encuentran fermentaciones pasadas asociadas al usuario
                     \end{enumerate}   
         
                 \item \textbf{Efecto de los parámetros}
                     \begin{enumerate}
-                        \item La página web adapta la visualización del historial según los datos recibidos de la base de datos.
-                        \item La página web permite comparar múltiples fermentaciones segun el parametro especificado por el usuario.
+                        \item La página \textit{web} adaptará la visualización del historial según los datos recibidos de la base de datos.
+                        \item La página \textit{web} permitirá comparar múltiples fermentaciones segun el parametro especificado por el usuario.
                     \end{enumerate}   
             
                 \item \textbf{Relación entre las salidas y las entradas}
                     \begin{enumerate}
-                        \item Los gráficos y tablas deben mostrar los datos históricos de pH, temperatura y CO2 de las fermentaciones pasadas segun lo solicite el usuario.
+                        \item Los gráficos y tablas deben mostrarán los datos históricos de pH, temperatura y CO2 de las fermentaciones pasadas segun lo solicite el usuario.
                     \end{enumerate}
         \end{enumerate}
 
@@ -415,18 +417,18 @@ garantiza la correcta visualización e interacción del usuario con el sistema.
                 
                 \item \textbf{Secuencia exacta de operaciones}
                     \begin{enumerate}
-                        \item El administrador ingresa los datos del usuario en el formulario para crear un nuevo usuario.
-                        \item La página web envía los datos a la base de datos para crear el nuevo usuario.
-                        \item La base de datos confirma la creación del usuario y responde a la página web con el resultado.
-                        \item Si el administrador desea suspender un usuario, selecciona el usuario
+                        \item El administrador ingresará los datos del usuario en el formulario para crear un nuevo usuario.
+                        \item La página \textit{web} envíará los datos a la base de datos para crear el nuevo usuario.
+                        \item La base de datos confirmará la creación del usuario y responde a la página web con el resultado.
+                        \item Si el administrador desea suspenderá un usuario, selecciona el usuario
                         de una lista y confirma la suspensión.
-                        \item La página web envía la solicitud de suspensión a la base de datos.
+                        \item La página \textit{web} envíara la solicitud de suspensión a la base de datos.
                     \end{enumerate}   
             
                 \item \textbf{Respuestas a situaciones anormales}
                     \begin{enumerate}
-                        \item El administrador recibe un mensaje de error si intenta crear un usuario con un nombre o correo ya existente.
-                        \item El administrador recibe un mensaje de confirmación al suspender un usuario exitosamente.
+                        \item El administrador recibirá un mensaje de error si intenta crear un usuario con un nombre o correo ya existente.
+                        \item El administrador recibirá un mensaje de confirmación al suspender un usuario exitosamente.
                     \end{enumerate}   
         
                 \item \textbf{Efecto de los parámetros}
@@ -436,8 +438,8 @@ garantiza la correcta visualización e interacción del usuario con el sistema.
             
                 \item \textbf{Relación entre las salidas y las entradas}
                     \begin{enumerate}
-                        \item El formulario debe solicitar los datos necesarios para crear un nuevo usuario.
-                        \item La página web debe mostrar una lista actualizada de todos los usuarios del sistema, incluyendo su estado (activo o suspendido).
+                        \item El formulario deberá solicitar los datos necesarios para crear un nuevo usuario.
+                        \item La página \textit{web} deberá mostrar una lista actualizada de todos los usuarios del sistema, incluyendo su estado (activo o suspendido).
                     \end{enumerate}
         \end{enumerate}
 
@@ -455,35 +457,35 @@ y transmisión de los datos entre los módulos.
     \begin{enumerate}
             \item \textbf{Validez de las entradas}
                 \begin{enumerate}
-                    \item El entorno de desarrollo del servidor debe permitir compatibilidad con el formato de datos del módulo 1,2,3 y 4 para su futura integración.
-                    \item El entorno de desarrollo del servidor debe gestionar las solicitudes de los diferentes módulos de manera eficiente.
-                    \item El entorno de desarrollo del servidor debe implementar mecanismos de seguridad para proteger los datos transmitidos entre los módulos.
-                    \item El entorno de desarrollo del servidor debe manejar múltiples conexiones simultáneas sin degradar el rendimiento.
+                    \item El entorno de desarrollo del servidor deberá permitir compatibilidad con el formato de datos del módulo 1,2,3 y 4 para su futura integración.
+                    \item El entorno de desarrollo del servidor deberá gestionar las solicitudes de los diferentes módulos de manera eficiente.
+                    \item El entorno de desarrollo del servidor deberá implementar mecanismos de seguridad para proteger los datos transmitidos entre los módulos.
+                    \item El entorno de desarrollo del servidor deberá manejar múltiples conexiones simultáneas sin degradar el rendimiento.
                 \end{enumerate}   
             
             \item \textbf{Secuencia exacta de operaciones}
                 \begin{enumerate}
-                    \item El servidor recibe datos del módulo 1 y los almacena en la base de datos del módulo 3.
-                    \item El servidor recibe solicitudes de análisis de datos del módulo 2 y envía los datos necesarios desde la base de datos.
-                    \item El servidor recibe solicitudes de la página web del módulo 4 y envía los datos correspondientes desde la base de datos.
+                    \item El servidor recibirá datos del Módulo 1 y los almacena en la base de datos del módulo 3.
+                    \item El servidor recibirá solicitudes de análisis de datos del módulo 2 y envía los datos necesarios desde la base de datos.
+                    \item El servidor recibirá solicitudes de la página web del módulo 4 y envía los datos correspondientes desde la base de datos.
                 \end{enumerate}   
         
             \item \textbf{Respuestas a situaciones anormales}
                 \begin{enumerate}
-                    \item El servidor emite una alerta si se detectan intentos no autorizados de acceso.
+                    \item El servidor emitirá una alerta si se detectan intentos no autorizados de acceso.
                     \item El servidor registra en un log cualquier error encontrado durante las operaciones de transmisión de datos entre los módulos.
                 \end{enumerate}   
        
             \item \textbf{Efecto de los parámetros}
                 \begin{enumerate}
-                    \item El servidor debe adaptarse a la gestión de solicitudes según el volumen de datos transmitidos entre los módulos.
+                    \item El servidor deberá adaptarse a la gestión de solicitudes según el volumen de datos transmitidos entre los módulos.
                 \end{enumerate}   
         
             \item \textbf{Relación entre las salidas y las entradas}
                 \begin{enumerate}
-                    \item El servidor deber permitir la entrada de datos desde el módulo 1 y enviarlos al módulo 3 para su almacenamiento.
-                    \item El servidor debe permitir la entrada de solicitudes desde el módulo 2 y enviar los datos necesarios desde el módulo 3.
-                    \item El servidor debe permitir la entrada de solicitudes desde el módulo 4 y enviar los datos correspondientes desde el módulo 3.
+                    \item El servidor deberá permitir la entrada de datos desde el módulo 1 y enviarlos al módulo 3 para su almacenamiento.
+                    \item El servidor deberá permitir la entrada de solicitudes desde el módulo 2 y enviar los datos necesarios desde el módulo 3.
+                    \item El servidor deberá permitir la entrada de solicitudes desde el módulo 4 y enviar los datos correspondientes desde el módulo 3.
                 \end{enumerate}
     \end{enumerate}
       
@@ -492,47 +494,47 @@ y transmisión de los datos entre los módulos.
 
  \subsection{Requerimientos No Funcionales}
 
-    En esta sección se detallan los requerimientos no funcionales de cada módulo del sistema.Los cuales
+    En está sección se detallan los requerimientos no funcionales de cada módulo del sistema.Los cuales
     garantizan el rendimiento del sistema hasta la escalabilidad y seguridad de este. Permitiendo pueda
-    ser utilizado de manera eficiente y segura por los usuarios finales.A continuación se presentan los requerimientos no funcionales
+    ser utilizado de manera eficiente y segura por los usuarios finales.A continuación,se presentan los requerimientos no funcionales
     de cada módulo:
 
     \begin{enumerate}
-    \item \label{it:RNF01} \textbf{Módulo 1 RNF01:}
+    \item \label{it:RNF01} \textbf{Módulo 1:Sistema de Sensores RNF01:}
                 \begin{enumerate}
                     \item El sistema deberá permitir al usuario cambiar entre el modo Prueba y el modo Monitoreo mediante botones físicos independientes en el microcontrolador.
-                        \item El sistema debe enviar los datos recopilados por los sensores a la base de datos en el formato especificado, incluyendo una marca de tiempo y un ID único del microcontrolador.
-                        \item El sistema debe ser capaz de manejar múltiples conexiones simultáneas de microcontroladores sin degradar el rendimiento.
-                        \item El sistema debe ser escalable para soportar un aumento en el número de microcontroladores en base al crecimiento de usuarios.
-                        \item El sistema debe perimitir analizar diferentes fermentaciónes con distintos tipos de leche en base con base a la variedad de cepas y cambios de temperatura.
+                        \item El sistema deberá enviar los datos recopilados por los sensores a la base de datos en el formato especificado, incluyendo una marca de tiempo y un ID único del microcontrolador.
+                        \item El sistema deberá ser capaz de manejar múltiples conexiones simultáneas de microcontroladores sin degradar el rendimiento.
+                        \item El sistema deberá ser escalable para soportar un aumento en el número de microcontroladores en base al crecimiento de usuarios.
+                        \item El sistema deberá permitir analizar diferentes fermentaciónes con distintos tipos de leche en base con base a la variedad de cepas y cambios de temperatura.
                 \end{enumerate}
 
-    \item \textbf{Módulo 2 RNF02}\label{it:RNF02}
+    \item \textbf{Módulo 2:Análisis de Datos RNF02}\label{it:RNF02}
                     \begin{enumerate}
-                            \item El módulo 2 debe ser capaz de manejar múltiples solicitudes de análisis de datos de diferentes usuarios sin degradar el rendimiento.
-                            \item El módulo 2 debe ser escalable para soportar un aumento en el volumen de datos a analizar.
+                            \item El módulo 2 deberá ser capaz de manejar múltiples solicitudes de análisis de datos de diferentes usuarios sin degradar el rendimiento.
+                            \item El módulo 2 deberá ser escalable para soportar un aumento en el volumen de datos a analizar.
                     \end{enumerate}
 
 
-    \item \label{it:RNF03} \textbf{Módulo 3 RNF03}
+    \item \label{it:RNF03} \textbf{Módulo 3:Base de Datos RNF03}
                 \begin{enumerate}
-                        \item El módulo 3 debe ser capaz de manejar múltiples solicitudes de almacenamiento y recuperación de datos de diferentes usuarios sin degradar el rendimiento.
-                        \item El módulo 3 debe ser escalable horizontalmente para soportar un aumento de usuarios y de datos almacenados.
-                        \item La Base de datos proporciona acceso rápido y eficiente a los datos almacenados para su análisis y visualización.
-                        \item La Base de datos garantiza una consistncia e integridad de los datos almacenados de cada usuario. 
+                        \item El módulo 3 deberá ser capaz de manejar múltiples solicitudes de almacenamiento y recuperación de datos de diferentes usuarios sin degradar el rendimiento.
+                        \item El módulo 3 deberá ser escalable horizontalmente para soportar un aumento de usuarios y de datos almacenados.
+                        \item La Base de datos proporcionará acceso rápido y eficiente a los datos almacenados para su análisis y visualización.
+                        \item La Base de datos garantizará una consistncia e integridad de los datos almacenados de cada usuario. 
                 \end{enumerate}
 
-    \item \label{it:RNF04} \textbf{Módulo 4RNF04}
+    \item \label{it:RNF04} \textbf{Módulo 4:Página Web RNF04}
                 \begin{enumerate}
-                        \item El módulo 4 debe ser capaz soportar multiples sesiones de manera simultanea sin degradar el rendimiento.
-                        \item El módulo 4 debe ofrecer una interfaz amigable e intuitiva de cara al usuarios.
+                        \item El módulo 4 deberá ser capaz soportar multiples sesiones de manera simultanea sin degradar el rendimiento.
+                        \item El módulo 4 deberá ofrecer una interfaz amigable e intuitiva de cara al usuarios.
                 \end{enumerate}
 
     \item \label{it:RNF04} \textbf{Servidor RNF05:}
              \begin{enumerate}
-                    \item El servidor debe garantizar la integración y comunicación entre todos lo módulos del sistema.
-                    \item El servidor debe ser escalable para soportar un aumento en el volumen de datos y solicitudes entre los módulos.
-                    \item El servidor debe implementar medidas de seguridad para proteger los datos transmitidos entre los módulos
+                    \item El servidor deberá garantizar la integración y comunicación entre todos lo módulos del sistema.
+                    \item El servidor deberá ser escalable para soportar un aumento en el volumen de datos y solicitudes entre los módulos.
+                    \item El servidor deberá implementar medidas de seguridad para proteger los datos transmitidos entre los módulos
             \end{enumerate}
 
             
@@ -559,12 +561,12 @@ Seguidamente se presentan los diagramas organizados por módulo:
                     \begin{figure}[htb]
                         \centering
                         \includegraphics[width=0.4\textwidth]{./UML/Modulo1/RF1.drawio.png}
-                        \caption{Modo prueba del módulo 1 RF01.}
+                        \caption{Modo prueba del Módulo 1.}
                         \label{fig:RF01}
                     \end{figure} 
         
         
-                Por su parte, la \cref{fig:RF02} muestra la interacción entre el actor ``Usuario'' y el Módulo 1 en el modo 
+                Por su parte, la \cref{fig:RF02} muestra la interacción entre el actor ``Productor'' y el Módulo 1 en el modo 
                 Monitoreo. En dicho modo, el sistema adquiere los datos provenientes de los sensores, realiza la validación de 
                 los valores iniciales y los registra periódicamente en intervalos de tiempo predefinidos, para posteriormente
                 enviarlos al servidor con el fin de su almacenamiento y análisis posterior.
@@ -579,7 +581,7 @@ Seguidamente se presentan los diagramas organizados por módulo:
 
     \item \label{it:CM1} \textbf{Casos de Uso Módulo 4}
 
-    Con base en los requerimientos funcionales descritos en la sección RF11 del módulo 4, 
+    Con base en los requerimientos funcionales descritos en la sección RF11 del Módulo 4, 
     se definen los casos de uso correspondientes para el desarrollo de la página web. Estos casos de uso 
     detallan las interacciones entre el actor Usuario'' (en sus categorías Inicial y Raíz) y la página web, 
     abarcando desde el proceso de autenticación hasta la gestión completa de las fermentaciones monitoreadas.

@@ -1,0 +1,147 @@
+\section{Anexos}
+
+\subsection{Conexión de componentes al microcontrolador}
+\begin{table}[H]
+\centering
+\caption{Conexión de componentes al XIAO ESP32C6}
+\label{tab:conexion_xiao}
+\begin{tabularx}{0.7\textwidth}{|X|X|}
+\hline
+\textbf{Componente} & \textbf{Pin del XIAO} \\
+\hline
+DS18B20 VCC  & 3.3V-OUT \\
+\hline
+DS18B20 DQ   & D0 \\
+\hline
+DS18B20 GND  & GND \\
+\hline
+PH-4502C VCC & 3.3V-OUT \\
+\hline
+PH-4502C GND & GND \\
+\hline
+PH-4502C PO  & D1 \\
+\hline
+MG-811 VCC   & 3.3V-OUT \\
+\hline
+MG-811 GND   & GND \\
+\hline
+MG-811 AOUT  & D2 \\
+\hline
+LED Azul     & D4 \\
+\hline
+LED Rojo     & D5 \\
+\hline
+Switch       & D6 \\
+\hline
+\end{tabularx}
+\end{table}
+
+\subsection{Reglas de lógica difusa para el pH y la temperatura}
+
+\begin{enumerate}
+
+% --- Muy Frío ---
+\item IF Temp. es Muy Frío AND pH es Neutro THEN Condición es Inhibición (IN)
+\item IF Temp. es Muy Frío AND pH es Inicial THEN Condición es Inhibición (IN)
+\item IF Temp. es Muy Frío AND pH es Intermedio THEN Condición es Inhibición (IN)
+\item IF Temp. es Muy Frío AND pH es Óptimo THEN Condición es Inhibición (IN)
+\item IF Temp. es Muy Frío AND pH es Ácido THEN Condición es Riesgo Bajo (RIB)
+
+% --- Frío ---
+\item IF Temp. es Frío AND pH es Neutro THEN Condición es Deficiente (DEF)
+\item IF Temp. es Frío AND pH es Inicial THEN Condición es Inicialmente Aceptable (IACE)
+\item IF Temp. es Frío AND pH es Intermedio THEN Condición es Progresivamente Aceptable (PACE)
+\item IF Temp. es Frío AND pH es Óptimo THEN Condición es Semi-Óptimo (SO)
+\item IF Temp. es Frío AND pH es Ácido THEN Condición es Sobrefermentado (SOB)
+
+% --- Ambiente ---
+\item IF Temp. es Ambiente AND pH es Neutro THEN Condición es Deficiente (DEF)
+\item IF Temp. es Ambiente AND pH es Inicial THEN Condición es Inicialmente Estable (IES)
+\item IF Temp. es Ambiente AND pH es Intermedio THEN Condición es Progresivamente Estable (PES)
+\item IF Temp. es Ambiente AND pH es Óptimo THEN Condición es Perfecto (PER)
+\item IF Temp. es Ambiente AND pH es Ácido THEN Condición es Sobrefermentado (SOB)
+
+% --- Caliente ---
+\item IF Temp. es Caliente AND pH es Neutro THEN Condición es Deficiente (DEF)
+\item IF Temp. es Caliente AND pH es Inicial THEN Condición es Inicialmente Aceptable (IACE)
+\item IF Temp. es Caliente AND pH es Intermedio THEN Condición es Progresivamente Aceptable (PACE)
+\item IF Temp. es Caliente AND pH es Óptimo THEN Condición es Semi-Óptimo (SO)
+\item IF Temp. es Caliente AND pH es Ácido THEN Condición es Sobrefermentado (SOB)
+
+% --- Muy Caliente ---
+\item IF Temp. es Muy Caliente AND pH es Neutro THEN Condición es Peligro (PE)
+\item IF Temp. es Muy Caliente AND pH es Inicial THEN Condición es Deficiente (DEF)
+\item IF Temp. es Muy Caliente AND pH es Intermedio THEN Condición es Deficiente (DEF)
+\item IF Temp. es Muy Caliente AND pH es Óptimo THEN Condición es Deficiente (DEF)
+\item IF Temp. es Muy Caliente AND pH es Ácido THEN Condición es Peligro (PE)
+
+\end{enumerate}
+
+
+\subsection{Reglas de lógica difusa para el pH y el $CO_{2}$}
+
+\begin{enumerate}
+
+% --- CO2 Muy Bajo ---
+\item IF CO2 es Muy Bajo AND pH es Neutro THEN Condición es Inactivo (INA)
+\item IF CO2 es Muy Bajo AND pH es Inicial THEN Condición es Inactivo (INA)
+\item IF CO2 es Muy Bajo AND pH es Intermedio THEN Condición es Inactivo (INA)
+\item IF CO2 es Muy Bajo AND pH es Óptimo THEN Condición es Inactivo (INA)
+\item IF CO2 es Muy Bajo AND pH es Ácido THEN Condición es Inestable (INE)
+
+% --- CO2 Bajo ---
+\item IF CO2 es Bajo AND pH es Neutro THEN Condición es Inactivo (INA)
+\item IF CO2 es Bajo AND pH es Inicial THEN Condición es Saludable (SAL)
+\item IF CO2 es Bajo AND pH es Intermedio THEN Condición es Saludable (SAL)
+\item IF CO2 es Bajo AND pH es Óptimo THEN Condición es Saludable (SAL)
+\item IF CO2 es Bajo AND pH es Ácido THEN Condición es Excesivo (EXC)
+
+% --- CO2 Media ---
+\item IF CO2 es Media AND pH es Neutro THEN Condición es Inestable (INE)
+\item IF CO2 es Media AND pH es Inicial THEN Condición es Saludable (SAL)
+\item IF CO2 es Media AND pH es Intermedio THEN Condición es Saludable (SAL)
+\item IF CO2 es Media AND pH es Óptimo THEN Condición es Óptimo (OPT)
+\item IF CO2 es Media AND pH es Ácido THEN Condición es Excesivo (EXC)
+
+% --- CO2 Alto ---
+\item IF CO2 es Alto AND pH es Neutro THEN Condición es Riesgo (RIE)
+\item IF CO2 es Alto AND pH es Inicial THEN Condición es Saludable (SAL)
+\item IF CO2 es Alto AND pH es Intermedio THEN Condición es Saludable (SAL)
+\item IF CO2 es Alto AND pH es Óptimo THEN Condición es Óptimo (OPT)
+\item IF CO2 es Alto AND pH es Ácido THEN Condición es Excesivo (EXC)
+
+% --- CO2 Excesivo ---
+\item IF CO2 es Excesivo AND pH es Neutro THEN Condición es Riesgo (RIE)
+\item IF CO2 es Excesivo AND pH es Inicial THEN Condición es Excesivo (EXC)
+\item IF CO2 es Excesivo AND pH es Intermedio THEN Condición es Excesivo (EXC)
+\item IF CO2 es Excesivo AND pH es Óptimo THEN Condición es Excesivo (EXC)
+\item IF CO2 es Excesivo AND pH es Ácido THEN Condición es Riesgo (RIE)
+
+\end{enumerate}
+
+\subsection{Descripción de las categorías de la fermentación del kéfir}
+
+\begin{table}[htbp]
+    \centering
+    \caption{Explicación de las Etiquetas Resultantes}
+    \label{tab:explicacion_etiquetas_globales}
+    \begin{tabularx}{\textwidth}{|c|c|>{\raggedright\arraybackslash}p{3.8cm}|X|}
+        \hline
+        \textbf{Etiqueta} & \textbf{Abrev.} & \textbf{Significado Técnico Global} & \textbf{Implicación y Toma de Decisiones} \\
+        \hline
+        \textbf{Perfecto} & \textbf{PER} & Sincronía ideal entre cinéticas de acidificación, perfil térmico y desgasificación de $\text{CO}_2$. & Cosechar de inmediato para garantizar las máximas propiedades organolépticas y probióticas. \\
+        \hline
+        \textbf{Óptimo} & \textbf{OPT} & Desarrollo metabólico sobresaliente dentro de los márgenes óptimos de fermentación. & Cosecha próxima. Mantener el monitoreo constante sin alterar variables ambientales. \\
+        \hline
+        \textbf{Aceptable} & \textbf{ACE} & Proceso funcional estable con ligeras variaciones de tasa sin afectar la viabilidad del producto. & Continuar la fermentación. Permite el consumo directo sin requerir ajustes inmediatos. \\
+        \hline
+        \textbf{Incompleto} & \textbf{INC} & Desfasamiento por baja actividad microbiana o acidez insuficiente en relación con el tiempo. & Extender el tiempo de fermentación o ajustar ligeramente la temperatura para activar el cultivo. \\
+        \hline
+        \textbf{Caduco} & \textbf{CAD} & Inactividad metabólica prolongada o desintegración de las condiciones operativas de inocuidad. & El lote no alcanzó la acidificación adecuada. Se sugiere descartar el producto para evitar riesgos sanitarios. \\
+        \hline
+        \textbf{Riesgo} & \textbf{RIE} & Desequilibrio significativo por sobrefermentación, estrés térmico o hipercarbonatación. & Intervenir inmediatamente. Separar los granos de kéfir o refrigerar para frenar la cinética bacteriana. \\
+        \hline
+        \textbf{Peligro} & \textbf{PEL} & Desviación crítica irreversible con posible degradación hacia fermentación acética o contaminación. & Detener el proceso por completo, desechar el lote y esterilizar el contenedor e instrumental. \\
+        \hline
+    \end{tabularx}
+\end{table}

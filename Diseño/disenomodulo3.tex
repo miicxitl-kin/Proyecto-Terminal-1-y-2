@@ -1,0 +1,84 @@
+\subsection{Diseño Módulo 3}
+En esta sección se presenta el diseño formal del Módulo 3, correspondiente a la capa de base de datos, cuya función principal consiste en la gestión, almacenamiento y estructuración de los datos generados por el Módulo 1 (sensores y microcontroladores integrados en los frascos) y procesados por el motor de inferencia.
+
+Tal como se fundamentó en la sección de selección tecnológica, se optó por un paradigma NoSQL orientado a documentos. Esta elección se justifica por su elevada capacidad para gestionar series temporales de datos, su tolerancia al escalamiento horizontal y su flexibilidad de esquema (schema-less), lo que permite adaptar el modelo de datos ante futuras incorporaciones de sensores o parámetros sin comprometer la integridad del sistema.
+
+A continuación, se detalla la estructura lógica en formato JSON desarrollada para la base de datos, acompañada por un ejemplo de instanciación para cada uno de los tres documentos principales, ilustrados previamente en la \cref{fig:json_esquema_base_datos}:
+
+\begin{itemize}
+    \item \textbf{Documento de Usuarios (\texttt{users}):} Representa la entidad principal para la gestión de perfiles de productores dentro del ecosistema. Almacena la información demográfica y de localización geográfica (como municipio, colonia y código postal), junto con las credenciales de contacto y la categoría del usuario dentro del sistema (\textit{Productor Raíz} o \textit{Productor Inicial}). Asimismo, incluye la métrica de \texttt{eficiencia}, la cual registra el rendimiento histórico acumulado de sus fermentaciones.
+    
+    \item \textbf{Documento de Fermentaciones (\texttt{fermentations}):} Constituye el registro operativo del proceso biotecnológico. Cada documento se vincula relacionalmente con su productor mediante la clave foránea \texttt{user\_id} (que referencia al \texttt{\_id} de la colección \texttt{users}). Almacena la identificación física del dispositivo IoT (\texttt{id\_nodo}), el \texttt{estado} actual del proceso (\textit{En Proceso}, \textit{Finalizado}, etc.) y un arreglo dinámico de \texttt{lecturas} temporizadas que encapsula los parámetros físicos crudos: pH, concentración de $\text{CO}_2$ en ppm, temperatura en $^\circ\text{C}$ y el estado de alerta del sistema.
+    
+    \item \textbf{Documento de Análisis (\texttt{analysis}):} Representa la capa de abstracción diagnóstica generada por el motor de inferencia difuso. Se conecta de forma relacional con el lote activo a través de la clave \texttt{fermentation\_id} (referenciando al \texttt{\_id} de \texttt{fermentations}). Este documento consolida las métricas transformadas de la fermentación: el índice de \texttt{acidez}, el porcentaje general de \texttt{salud} y la etiqueta cualitativa unificada de \texttt{estado} (\textit{Saludable}, \textit{Riesgo}, \textit{Inactivo}, etc.), facilitando consultas rápidas para los paneles del Módulo 4 sin necesidad de procesar nuevamente las lecturas crudas.
+\end{itemize}
+
+
+
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[
+    box/.style={draw, rectangle, rounded corners=2pt, inner sep=5pt, text width=4.3cm, font=\scriptsize\ttfamily, align=left},
+    ref/.style={circle, fill=green!30, inner sep=1pt},
+    arrow/.style={-{Stealth[scale=1.0]}, thick, green!60!black}
+]
+
+% Nodo Usuarios
+\node[box] (user) {
+\textbf{\color{blue}users document}\\[2pt]
+\{ \\
+\hspace*{0.3cm}\_id: <ObjectId1>, \\
+\hspace*{0.3cm}categoria: "Productor\_Raiz", \\
+\hspace*{0.3cm}eficiencia: 95.5, \\
+\hspace*{0.3cm}nombre: "Juan", \\
+\hspace*{0.3cm}primer\_apellido: "Pérez", \\
+\hspace*{0.3cm}segundo\_apellido: "Gómez", \\
+\hspace*{0.3cm}genero: "Masculino", \\
+\hspace*{0.3cm}ciudad: "CDMX", \\
+\hspace*{0.3cm}colonia: "Lindavista", \\
+\hspace*{0.3cm}municipio: "GAM", \\
+\hspace*{0.3cm}cp: "07300", \\
+\hspace*{0.3cm}calle: "Av. IPN", \\
+\hspace*{0.3cm}numero: "2580", \\
+\hspace*{0.3cm}telefono: "5512345678", \\
+\hspace*{0.3cm}correo: "usuario@ejemplo.com" \\
+\}
+};
+
+% Nodo Fermentación
+\node[box, right=0.8cm of user] (fermentation) {
+\textbf{\color{blue}fermentations document}\\[2pt]
+\{ \\
+\hspace*{0.3cm}\_id: <ObjectId2>, \\
+\hspace*{0.3cm}user\_id: <ObjectId1>, \\
+\hspace*{0.3cm}id\_nodo: "ESP32\_KEFIR\_01", \\
+\hspace*{0.3cm}estado: "En\_Proceso", \\
+\hspace*{0.3cm}lecturas: [ \\
+\hspace*{0.6cm}\{ \\
+\hspace*{0.9cm}timestamp: "2026-09-29T10:00:00Z", \\
+\hspace*{0.9cm}ph: 6.7, \\
+\hspace*{0.9cm}co2: 450, \\
+\hspace*{0.9cm}temperatura: 22.5, \\
+\hspace*{0.9cm}alarma: "Normal" \\
+\hspace*{0.6cm}\} \\
+\hspace*{0.3cm}] \\
+\}
+};
+
+% Nodo Análisis (Tercer JSON)
+\node[box, right=0.8cm of fermentation] (analysis) {
+\textbf{\color{blue}analysis document}\\[2pt]
+\{ \\
+\hspace*{0.3cm}\_id: <ObjectId3>, \\
+\hspace*{0.3cm}fermentation\_id: <ObjectId2>, \\
+\hspace*{0.3cm}timestamp: "2026-09-29T10:05:00Z", \\
+\hspace*{0.3cm}acidez: 0.85, \\
+\hspace*{0.3cm}salud: 92.4, \\
+\hspace*{0.3cm}estado: "Saludable" \\
+\}
+};
+
+\end{tikzpicture}
+\caption{Estructura de los documentos JSON en la base de datos .}
+\label{fig:json_esquema_base_datos}
+\end{figure}

@@ -1,19 +1,22 @@
 
-\section{Capitulo: Análisis}
+\section{Capítulo: Análisis}
 \label{sec:cap5}
-A continuacón se presenta un análisis, comparación y selecccion de las 
+A continuacón se presenta un análisis, comparación y seleccción de las 
 herramientas y tecnologías a  utilizar en el desarrollo de este proyecto 
 ,así como las razones que justifican su elección considerando aspectos 
 técnicos, económicos y de disponibilidad en base a las necesidades del 
 proyecto. Se incluyen herramientas de hardware, software y plataformas 
-evalúando las ventajas y desventajas
+evaluando las ventajas y desventajas
 de cada una, así como su adecuación al proyecto.
-\subsection{Análisis del Módulo 1}
+\subsection{Análisis de tecnologías del Módulo 1}
 \label{sec:mod1}
-En esta sección se presenta un análisis,comparacción y selección tanto de los sensores,como del microcontrolador 
-a implementar en el Módulo 1 de este proyecto mediante una tabla comparativa de las diferentes opciones
-disponibles en el mercado que cumplen con los requerimientos funcionales del proyecto.
-A continuació se describen los componentes principales del Módulo 1:
+En esta sección se presentan el análisis, la comparación y la selección de los sensores, 
+así como del microcontrolador que se implementarán en el Módulo 1 del proyecto. 
+Dicha evaluación se lleva a cabo mediante tablas comparativas entre 
+las distintas opciones disponibles en el mercado que cumplen con los
+requerimientos funcionales establecidos.
+
+A continuación, se describen los componentes principales que integran el Módulo 1:
 \subsubsection{Sensor de pH}
 Para medir el pH del kéfir de leche durante la fermentación, se
 utilizará un sensor de pH analógico. Este sensor debe ser capaz de proporcionar
@@ -37,8 +40,7 @@ proyecto:
     \item \textbf{Disponibilidad y costo:}Se consideraron sensores que sean fácilmente
     adquiribles y con un costo razonable para el proyecto.
 \end{itemize}
-A continuación se presentan la  con diferentes sensores de pH
-considerados para el proyecto:
+A continuación, se presenta un análisis comparativo de los diferentes sensores de pH considerados para el proyecto:
 
 
 \begin{landscape}
@@ -79,7 +81,16 @@ PH-E201C \cite{zotero-item-47} & 0 a 14pH & 5V & Ag/AgCl & 0.02 & 5 seg. & 0-80�
 \end{table}
 \end{landscape}
 
-Tras un análisis comparativo detallado de los sensores presentados en la \cref{tab:sensorespH}, se ha determinado que el electrodo PH-E201C \cite{zotero-item-47} es la opción más viable para la integración en este proyecto. Si bien los modelos alternativos cumplen con la mayoría de los requerimientos funcionales, el PH-E201C ofrece una combinación óptima de rendimiento y coste. Este sensor destaca por su excelente precisión de 0.02 unidades de pH y un tiempo de respuesta rápido de 5 segundos. Además de estas características técnicas sólidas, su bajo coste y alta disponibilidad en el mercado lo convierten en la solución más accesible y eficiente frente a las opciones de mayor precio.
+Tras un análisis comparativo detallado de los sensores presentados en 
+la \cref{tab:sensorespH}, se determinó que el electrodo
+PH-E201C \cite{zotero-item-47} representa la opción más viable
+para su integración en el proyecto. Si bien los modelos alternativos 
+satisfacen la mayoría de los requerimientos funcionales, el PH-E201C 
+ofrece un equilibrio superior entre desempeño técnico y viabilidad económica. 
+Este sensor destaca por su elevada precisión de $0.02$\,unidades de pH y un 
+tiempo de respuesta de $5$\,segundos. Adicionalmente, su costo accesible y 
+amplia disponibilidad en el mercado lo consolidan como la solución más 
+conveniente y eficiente frente a las alternativas de mayor precio.
 
 \subsubsection{Sensor de Temperatura}
 Para medir la temperatura del kéfir de leche durante la fermentación, se
@@ -92,14 +103,14 @@ proyecto:
     \item \textbf{No contaminante:} El sensor debe ser adecuado para su uso en
     líquidos, en especial, en fermentaciones y no debe estar hecho de un material que pueda
     contaminar el kéfir por lo que es recomendado que este hecho de acero inoxidable de grado alimenticio.
-    \item \textbf{Rango de medición:}El sensor debe cubrir el rango de temperatura
+    \item \textbf{Rango de medición:} El sensor debe cubrir el rango de temperatura
     esperado durante la fermentación del kéfir de leche, que típicamente varía entre
     18 y 30 °C.
-    \item \textbf{Precisión:}El sensor debe tener una precisión adecuada para detectar
+    \item \textbf{Precisión:} El sensor debe tener una precisión adecuada para detectar
     cambios pequeños en la temperatura, idealmente con una precisión de ±0.5 °C.
-    \item \textbf{Salida:}Se consideraron sensores con salida digital (como I2C o
+    \item \textbf{Salida:} Se consideraron sensores con salida digital (como I2C o
     1-Wire) para facilitar la integración con el microcontrolador.
-    \item \textbf{Disponibilidad y costo:}Se consideraron sensores que sean fácilmente
+    \item \textbf{Disponibilidad y costo:} Se consideraron sensores que sean fácilmente
     adquiribles y con un costo razonable para el proyecto.
 \end{itemize}
 A continuación se presentan la tabla diferentes sensores de temperatura
@@ -119,7 +130,7 @@ E52-CA6DN 4M\cite{zotero-item-45} & 0–350 °C & 3.3–5.5 V & Acero inoxidable
 \label{tab:sensoresTemp}
 \end{table}
 
-En base a los sensores presentados en la \cref{tab:sensoresTemp}, 
+Con base en los sensores presentados en la \cref{tab:sensoresTemp}, 
 el sensor DS18B20 \cite{zotero-item-78} se integra mucho mejor al proyecto a diferencia de los otros sensores,
 ya que presenta un índice de error de solo +/-0.5C combinada con su bajo coste lo convierte en la elección más eficiente.
 
@@ -129,22 +140,22 @@ circundante al kéfir de leche durante la fermentación, se utilizará un
 sensor de $CO_{2}$. Este sensor debe ser capaz de proporcionar una lectura precisa
 de la concentración de $CO_{2}$ en partes por millón (ppm).
 Para la selección del sensor de $CO_{2}$, se consideraron los siguientes
-criterios en base a los requeriminetos funcionales \ref{it:RF01} del
+criterios en base a los requerimietos funcionales \ref{it:RF01} del
 proyecto:
 \begin{itemize}
-    \item \textbf{Rango de medición:}El sensor debe cubrir el rango de concentración
+    \item \textbf{Rango de medición:} El sensor debe cubrir el rango de concentración
     de $CO_{2}$ esperado durante la fermentación del kéfir de leche, que típicamente varía
     entre 0 y 5000 ppm.
-    \item \textbf{Precisión:}El sensor debe tener una precisión adecuada para detectar
+    \item \textbf{Precisión:} El sensor debe tener una precisión adecuada para detectar
     cambios pequeños en la concentración de $CO_{2}$, idealmente con una precisión de ±50 ppm.
     \item \textbf{Salida:}Se consideraron sensores con salida digital (como I2C o
     UART) para facilitar la integración con el microcontrolador.
-    \item \textbf{Temperatura de operación:}El sensor debe ser capaz de operar en el
+    \item \textbf{Temperatura de operación:} El sensor debe ser capaz de operar en el
     rango de temperatura esperado durante la fermentación (18-30 °C).
-    \item \textbf{Disponibilidad y costo:}Se consideraron sensores que sean fácilmente
+    \item \textbf{Disponibilidad y costo:} Se consideraron sensores que sean fácilmente
     adquiribles y con un costo razonable para el proyecto.
 \end{itemize}
-A continuación se presentan la tabla diferentes sensores de $CO_{2}$
+A continuación se presentan en la \cref{tab:sensoresCO2} diferentes sensores de $CO_{2}$
 considerados para el proyecto:
 
 
@@ -176,17 +187,19 @@ MG-811\cite{zotero-item-54} & +/- (30ppm+5\%)  & 350-10000 ppm & 20 a 50°C & 5-
 Uno de los par\'ametros m\'as dif\'iciles de medir en la fermentaci\'on es 
 el \textbf{${CO}_{2}$}. Dado que la fermentaci\'on del k\'efir libera grandes 
 cantidades de este gas, se requiere un sensor con una excelente precisi\'on y un 
-amplio rango de medici\'on. En base a los sensores presentados en la  \cref{tab:sensoresCO2},
-el sensor \textbf{SCD30 (Sensirion)} \cite{zotero-item-52} es la mejor opci\'on para el proyecto.
-Esto se debe a que presenta un \'indice de error de solo +/-(30ppm+3\%) y un rango de 
-medici\'on superior (0-40,000 ppm). Aunque no es el m\'as barato, su especializaci\'on en 
-la medici\'on de ${CO}_{2}$ evita los problemas de precisi\'on que tendr\'ian otros sensores 
-de menor calidad, como el MQ-135 (sensible a otros gases), o el rango limitado de los modelos MG-811 
-y MH-Z19 en el contexto espec\'ifico de la fermentaci\'on del k\'efir.
+amplio rango de medici\'on. Con base en los sensores presentados en la  \cref{tab:sensoresCO2},
+el sensor \textbf{MG-811} \cite{zotero-item-54} es la mejor opci\'on para el proyecto.
+Esto se debe a que presenta un \'indice de error de solo +/-(30ppm+3\%) y por su rango de 
+medici\'on . Aunque no es el m\'as barato, su especializaci\'on en 
+la medici\'on de ${CO}_{2}$ evita los problemas de precisi\'on que tendr\'ian otros sensores.
 \newline
 \newline
-Para facilitar la elección del microcontrolador, se van analizar los siguientes puntos, 
-esto con la finalidad de tener un mejor entendimiento de las capacidades y limitaciones de cada uno.
+
+Con el propósito de seleccionar el microcontrolador
+adecuado, resulta indispensable evaluar previamente un 
+conjunto de criterios técnicos; lo anterior permitirá analizar
+con precisión las capacidades, prestaciones y limitaciones de cada alternativa considerada.
+
 \subsubsection{Formato de Datos}
 La elección del formato de datos es un aspecto crítico en el diseño del sistemas 
 , ya que influye directamente en la eficiencia, la interoperabilidad y 
@@ -245,8 +258,8 @@ lo que incrementa el consumo de recursos en los sistemas.
 
 
 \subsubsection{Topología de red}
-En esta sección, se analiza y selecciona la topología de conexión a imple-
-mentar específicamente para la comunicación entre el microcontrolador y el
+En esta sección, se analiza y selecciona la topología de conexión a implementar 
+específicamente para la comunicación entre el microcontrolador y el
 servidor. Con base en los requerimientos funcionales \ref{it:RF02} establecidos y las 
 características de las topologías de red presentadas en la \cref{tab:comparacion_topologias} comparativa, se
 optó por la topología en estrella. Esta elección se fundamenta en su 
@@ -314,7 +327,7 @@ y adaptable a futuras necesidades.
 En la \cref{tab:Proto_Acceso} se presenta una comparación de los principales
 protocolos de acceso a la red inalámbrica considerados para la comunicación entre el Módulo 1 y 
 el servidor. Y en base a los requerimientos funcionales \ref{it:RF01} y 
-no funcionales RNF01 del proyecto, se selecciono Wi-Fi (IEEE 802.11) 
+no funcionales RNF01 del proyecto, se seleccionó Wi-Fi (IEEE 802.11) 
 como el protocolo más adecuado para este proyecto,ya que ofrece altas tasas de 
 transferencia de datos y aunque su consumo de energía es mayor en comparación 
 con otros protocolos como Bluetooth Low Energy (BLE) o Zigbee, ofrece la ventaja
@@ -409,7 +422,7 @@ MQTT-Zigbee\cite{AllianInc.2015} & Mesh Networking & IEEE 802.15.4 & Comunicaci�
 
 \subsubsection{Microcontrolador}
 
-En base a los sensores , el protocolo de acceso ,el protocolo de transporte seleccionados y los requerimientos funcionales \ref{it:RF03}  del proyecto,
+Con base en los sensores , el protocolo de acceso, el protocolo de transporte seleccionados y los requerimientos funcionales \ref{it:RF03}  del proyecto,
 se consideraron los siguientes microcontroladores mostrados en la \cref{tab:microcontroladores} 
 para su análisis comparativo, de los cuales el más adecuado para este proyecto 
 es el XIAO-ESP32C6 \cite{zotero-item-58}.
@@ -419,7 +432,7 @@ múltiples tareas,combinado con soporte para Wi-Fi 6,
 lo que asegura una comunicación robusta con WiFi-MQTT y de bajo 
 consumo energético durante los ciclos de muestreo adaptativo de los sensores.
 \newline 
-A diferencia de otros microcontroladores que a pesar de sus potentes 
+A diferencia de otros microcontroladores, que a pesar de sus potentes 
 arquitecturas (como Xtensa LX6 Dual-Core o ARM Cortex M0+
 Dual-Core), incluyen características 
 excesivas que incrementan innecesariamente el costo y el consumo energético.
@@ -466,242 +479,5 @@ Raspberry Pi Pico 2 W \cite{zotero-item-68}& ARM Cortex M0+ Dual-Core / 133 MHz 
 \endgroup
 \end{landscape}
 
-\subsubsection{Fuente de alimentación}
-En base a los requerimientos funcionales \ref{it:RF03} del proyecto,
-es necesario mantener el microcontrolador y los sensores en funcionamiento continuo durante
-el proceso de fermentación del kéfir de leche, que puede durar varios días.
-Por lo tanto en base al siguiente análisis en donde se calcula un aproximado
-del consumo energético total del Módulo 1, se selecciona una fuente de alimentación
-adecuada para garantizar un suministro estable y confiable de energía.
-\newline
-En base a la \cref{tab:consumos}, se muestran los consumos energéticos aproximados de cada componente del Módulo 1, 
-tanto en modo activo como en modo de bajo consumo (sleep). 
-Estos valores son estimados y pueden variar según las condiciones
-de operación específicas y la configuración del sistema.
-
-\begin{table}[h]
-\centering
-\caption{Consumos de corriente de los componentes del Módulo 1.}
-\label{tab:consumos}
-% Usamos \footnotesize para reducir el tamaño de la fuente y ahorrar espacio horizontal
-\footnotesize
-\begin{tabular}{|m{5cm}|m{4cm}|m{4cm}|}
-\hline
-\textbf{Componente} & \textbf{Modo Activo (mA)} & \textbf{Modo Reposo(mA)} \\
-\hline
-PH-E201C (sensor pH) & 5 (continuo en operación) & 5 (continuo) \\
-\hline
-DS18B20 (sensor temperatura) & 1.5 (durante conversión) & 0.001 ($<$1 $\mu$A) \\
-\hline
-SCD30 (sensor ${CO}_{2}$) & 19 (durante medición) & 0.03 (standby) \\
-\hline
-XIAO ESP32C6 (microcontrolador) & 50--100 (CPU activo); 150--300 (WiFi TX) & 0.015 (deep sleep) \\
-\hline
-\end{tabular}
-\end{table}
-
-La fermetación del kéfir de leche típicamente dura entre 12 y 48 horas,
-durante este tiempo, los sensores y el microcontrolador estarán en modo activo
-durante los ciclos de muestreo , y en modo de bajo consumo
-el resto del tiempo.Para este análisis se toma como referencia fermentaciónes 
-ya hehcas como las que se muestran en la \cref{fig:est1} del proyecto \ref{sec:In1}.
-Tomando el caso más extremo 
-de una fermentación de 48 horas (172800 segundos), en la cual en las primeras 
-33 horas esta el ph en un rango de 6.8 a 5.6
-,de la hora 34 a 41 esta el pH en un rango de 5.5 a 5.0
-y de la hora 41 a 48 el pH esta en un rango de
-5.0 a 4.2. En base a los anteriores rangos de pH, el módulo 1 debe ajustar la frecuencia
-de muestreo para capturar adecuadamente los cambios en el pH durante la fermentación segun los \ref{it:RF01}.
-\newline
-Para esto calculamos primero la carga en mA·s para cada fase del monitoreo (48 h, 3 fases), según consumos y requerimientos.
-\begin{itemize}
-    \item Corrientes (mA): $I_{\text{medición12}} = 54$ (fases 1-2: MCU 30 + pH 5 + CO2 19), $I_{\text{medición3}} = 55.5$ (fase 3: +DS18B20 1.5), $I_{\text{TX}} = 250$, $I_{\text{reposo}} = 0.01$.
-    \item Tiempos por ciclo (s): $t_{\text{medición}} = 5$, $t_{\text{TX}} = 5$, $t_{\text{activo}} = 10$.
-    \item Períodos (s): Fase 1 = 600, Fase 2 = 300, Fase 3 = 60.
-    \item Duraciones (s): Fase 1 (33 h) = 118800, Fase 2 (8 h) = 28800, Fase 3 (8 h) = 28800.
-\end{itemize}
-Para esto definimos las fórmulas a usar en este calculo:
-1. Carga por ciclo (mA·s):
-\begin{equation}
-\text{Carga por ciclo} = (I_{\text{medición}} \times t_{\text{medición}}) + (I_{\text{TX}} \times t_{\text{TX}}) + (I_{\text{reposo}} \times t_{\text{reposo}}) \label{eq:carga_ciclo}
-\end{equation}
-Con $t_{\text{reposo}} = \text{período} - t_{\text{activo}}$. Suma consumos en medición, transmisión y reposo.
-
-2. Número de ciclos:
-\begin{equation}
-\text{Número de ciclos} = \frac{\text{Duración fase}}{\text{Período ciclo}} \label{eq:ciclos}
-\end{equation}
-Divide duración de la fase por intervalo de ciclo.
-
-3. Carga por fase (mA·s):
-\begin{equation}
-\text{Carga fase} = \text{Número de ciclos} \times \text{Carga por ciclo} \label{eq:carga_fase}
-\end{equation}
-Escala la carga unitaria al total de ciclos.
-\newline
-Calculamos la caga por ciclo de cada fase como se muestra a continuación:
-
-Usamos \eqref{eq:carga_ciclo}.
-
-\begin{itemize}
-    \item \textbf{Fase 1}: $t_{\text{reposo1}} = 600 - 10 = 590$.
-    \begin{align*}
-    \text{Carga por ciclo1} &= (54 \times 5) + (250 \times 5) + (0.01 \times 590) \\
-    &= 270 + 1250 + 5.9 = 1525.9 \, \text{mA·s}.
-    \end{align*}
-    Medición (pH + CO2), WiFi, reposo prolongado.
-
-    \item \textbf{Fase 2}: $t_{\text{reposo2}} = 300 - 10 = 290$.
-    \begin{align*}
-    \text{Carga por ciclo2} &= (54 \times 5) + (250 \times 5) + (0.01 \times 290) \\
-    &= 270 + 1250 + 2.9 = 1522.9 \, \text{mA·s}.
-    \end{align*}
-    Igual que fase 1, pero reposo más corto.
-
-    \item \textbf{Fase 3}: $t_{\text{reposo3}} = 60 - 10 = 50$.
-    \begin{align*}
-    \text{Carga por ciclo3} &= (55.5 \times 5) + (250 \times 5) + (0.01 \times 50) \\
-    &= 277.5 + 1250 + 0.5 = 1528 \, \text{mA·s}.
-    \end{align*}
-    Incluye DS18B20, reposo mínimo.
-\end{itemize}
-
-Calculamos el número de ciclos de cada fase como se muestra a continuación:
-
-\begin{itemize}
-    \item Fase 1: $\frac{118800}{600} = 198$.
-    \item Fase 2: $\frac{28800}{300} = 96$.
-    \item Fase 3: $\frac{28800}{60} = 480$.
-\end{itemize}
-
-Y por ultimo obtenemos la carga de cada fase:
-
-\begin{itemize}
-    \item Fase 1: $198 \times 1525.9 = 301228.2$ mA·s.
-    \item Fase 2: $96 \times 1522.9 = 146198.4$ mA·s.
-    \item Fase 3: $480 \times 1528 = 733440$ mA·s.
-\end{itemize}
-
-obtenemos que la Fase 1: 301228.2 mA·s, Fase 2: 146198.4 mA·s, Fase 3: 733440 mA·s. Fase 3 en donde domina por su alta frecuencia.
-
-Una vexz obtenidos  la carga de cada fase ,
-determinamos la capacidad de la batería en mAh para 48 h de monitoreo, sumando las cargas de las tres fases, convirtiendo a mAh y aplicando un factor de seguridad.
-
-\begin{itemize}
-    \item Cargas por fase (mA·s): Fase 1 = 301228.2, Fase 2 = 146198.4, Fase 3 = 733440.
-    \item Duración total: 48 h = $48 \times 3600 = 172800$ s.
-    \item Factor de seguridad: 1.5 (para pérdidas por eficiencia, envejecimiento, variaciones).
-\end{itemize}
-
-Usamos las siguientes fórmulas :
-1. Carga total (mA·s):
-\begin{equation}
-\text{Carga total} = \text{Carga fase1} + \text{Carga fase2} + \text{Carga fase3} \label{eq:carga_total}
-\end{equation}
-Suma las cargas de cada fase.
-
-2. Capacidad sin seguridad (mAh):
-\begin{equation}
-\text{Capacidad sin seguridad} = \frac{\text{Carga total}}{3600} \label{eq:capacidad_base}
-\end{equation}
-Convierte mA·s a mAh (3600 s/hora).
-
-3. Capacidad requerida (mAh):
-\begin{equation}
-\text{Capacidad requerida} = \text{Capacidad sin seguridad} \times \text{Factor de seguridad} \label{eq:capacidad_final}
-\end{equation}
-Ajusta por pérdidas.
-
-Obtenemos la carga total sumanando las cargas obtenidas de cada fase
-, como se muestra a continuación:
-\begin{align*}
-\text{Carga total} &= 301228.2 + 146198.4 + 733440 \\
-&= 1180866.6 \, \text{mA·s}.
-\end{align*}
-Al sumar las cargas de fase 1 (33 h, ciclos cada 10 min), fase 2 (8 h, ciclos cada 5 min) y fase 3 (8 h, ciclos cada 1 min).
-
-Procedemos a obtener la carga sin seguridad
-\begin{align*}
-\text{Capacidad sin seguridad} &= \frac{1180866.6}{3600} \approx 328.02 \, \text{mAh}.
-\end{align*}
-En donde dividimos por 3600 para convertir a mAh.
-\newline
-Y obtenemos la capacidad requerida
 
 
-\begin{align*}
-\text{Capacidad requerida} &= 328.02 \times 1.5 \approx 492.03 \, \text{mAh}.
-\end{align*}
-Multiplica por 1.5 para cubrir ineficiencias (~85\%) y variaciones.
-
-Verificamos el calculo obteniendo la corriente promedio:
-\begin{align*}
-I_{\text{promedio}} &= \frac{1180866.6}{172800} \approx 6.83 \, \text{mA}.
-\end{align*}
-Obtenemos que la capacidad alternativa es de $6.83 \times 48 \times 1.5 \approx 492.03$ mAh, confirmando \eqref{eq:capacidad_final}.
-\newline
-Este calculo es una aproximación dado que puede
-variar los tiempos de fermentación, en este
-caso se tomo como ejermplo 
-una fermentación de  48 horas pero pueden durar 
-mucho menos por lo que gracias a este calculo obtenemos que la capacidad requerida 
-$\approx 492$ mAh, lo que nos permite implementar una batería siempre y 
-cuando sea mayor a 500 mAh.
-\newline
-A continuación se muestra en la \cref{tab:baterias} las bateiras a considerar,
-de las cuales se selecciono la batería módelo 802040 ya que esta tiene cuenta con 650mAh lo que 
-asegura la alimentación continua durante el proceso de monitoreo, aunque no se descarta el uso de las
-demás baterias o de otros modelos siempre y cuando cuenten con una capacidad mayor a 500mAh.
-
-\begin{table}[htbp]
-\centering
-\caption{Modelos de Baterías}
-\label{tab:baterias}
-\begingroup
-\setlength{\tabcolsep}{5pt} 
-\renewcommand{\arraystretch}{1.5} 
-\small
-\begin{tabular}{|m{2cm}|c|c|c|c|c|}
-\hline
-\textbf{Modelo de Batería} & \textbf{Voltaje (V)} & \textbf{Capacidad (mAh)} & \textbf{Tipo} & \textbf{Precio (USD)} & \textbf{Imagen} \\
-\hline
-802040 \cite{zotero-item-255} & 3.7 V & 650 & Li-Po & \$75 & 
-\includegraphics[width=22mm, height=22mm, keepaspectratio, angle=90]{./Imagenes/Módulo1/Baterias/bateria.png} \\
-\hline
-6022480 \cite{zotero-item-257} & 3.7 V & 600 & Li-Po & \$100 & 
-\includegraphics[width=22mm, height=22mm, keepaspectratio, angle=90]{./Imagenes/Módulo1/Baterias/602248.png} \\
-\hline
-303450 \cite{zotero-item-259} & 3.7 V & 600 & Li-Po & \$120 & 
-\includegraphics[width=22mm, height=22mm, keepaspectratio, angle=90]{./Imagenes/Módulo1/Baterias/303450.png} \\
-\hline
-\end{tabular}
-\endgroup
-\end{table}
-
-\subsection{Análisis del Módulo 2}
-
-En esta sección se presenta un análisis,comparacción y selección
-del lenguaje de programación considerado para llevar a cabo el 
-desarrollo del analisis de datos.Tomando en cuenta los requeriminetos 
-funcionales \ref{it:RF04} y el formato de datos (JSON) previamente seleccionado con 
-el cual va a trabajar el módulo 1 , 
-lo que es de suma importancia que el lenguaje de programación
-seleccionado tenga una integración nativa para el manejo de este formato.
-\newline
-\newline
-De la \cref{tab:lenguajesprogramacion}, donde se comparan diferentes lenguajes de programación, 
-de los cuales se seleccionó Python, ya que este lenguaje orientado a objetos cuenta con la 
-caracterisitca principal de permitir
-la herencia de propiedades y
-métodos en subclases, facilitando la reutilización de código sin duplicación lo que simplfica mucho el código
-y el almacenamiento para implementarlo. 
-\newline
-Además, su polimorfismo
-soporta procesos de análisis simultáneos sin afectar el rendimiento entre ellos, gracias a un amplio ecosistema 
-con librerías para manejo nativo de JSON y librerias nativas de lógica difusa. 
-Siendo que Python también ofrece prototipado rápido, integración sencilla 
-con servicios, visualización avanzada y soporte para aprendizaje automático. Por ello, presenta la mejor 
-relación entre facilidad de uso, herramientas y comunidad para el Módulo 2. En contraste, C\# se limita al 
-ecosistema .NET, complicando su implementación, mientras que R, aunque  no se descarta su uso debido a 
-se excelente rendimiento en secuencias de datos, se enfoca en análisis estadístico y academico
-limitando su flexibilidad hacia el desarrollo web.

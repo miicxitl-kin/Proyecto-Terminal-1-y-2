@@ -27,14 +27,21 @@
 \usepackage{float}
 \usepackage{lscape}
 \usepackage{circuitikz}
+\usepackage{tikz}
 
+%
+\usepackage{url}
+
+%
+
+\usetikzlibrary{shapes.geometric, arrows.meta, positioning}
 
 % Configuraciones adicionales
 \renewcommand{\familydefault}{\rmdefault}
 
 
-\crefname{table}{Tabla No.}{Tablas No.}
-\crefname{figure}{figura No.}{figuras No.}
+\crefname{table}{Tabla}{Tablas}
+\crefname{figure}{Figura}{Figuras}
 
 \setlist[enumerate,1]{ref=RF0\arabic*} 
 \setcounter{tocdepth}{4}
@@ -120,21 +127,30 @@ Prototipo de un sistema telem\'atico \\
 \include{estadodelarte}
 \include{marcoteorico}
 \include{Requerimientos}
-\include{Análisisi}
-%\include{AnalisisMicro}
-\include{Analisismodulo2}
-\include{AnalisisBase}
+%Análisis
+\include{Análisis/Análisisi}
+\include{Análisis/Analisismodulo2}
+\include{Análisis/AnalisisBase}
+\include{Análisis/Analisismodulo4}
+\include{Análisis/Servidor}
+%Diseño
 
-\include{Analisismodulo4}
+\include{Diseño/disenomodulo1}
+\include{Diseño/desmodulo2}
+\include{Diseño/disenomodulo3}
 
+\include{Diseño/desmodulo4}
+\include{Diseño/desServidor}
 
-\include{Servidor}
-\include{disenomodulo1}
-\include{desmodulo2}
-\include{disenomodulo3}
-\include{desmodulo4}
-\include{desServidor}
+%Pruebas
+\include{escnariopruebas}
+\include{Conclusiones}
+
 
 \bibliographystyle{IEEEtran}
 \bibliography{PT1}
+
+%Apendice
+\appendix
+\include{anexo}
 \end{document}

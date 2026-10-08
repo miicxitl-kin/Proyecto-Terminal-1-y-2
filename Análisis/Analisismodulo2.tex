@@ -1,0 +1,131 @@
+\subsection{Análisis de tecnologías del Módulo 2}
+
+En esta sección se presenta un análisis,comparacción y selección
+tanto del lenguaje de programación así como del módelo de logica difusa a implementar
+,tomando en cuenta los requerimientos funcionales y 
+el formato de datos (JSON) previamente seleccionado con el cual va a trabajar el Módulo 1.
+
+\subsubsection{Análisis del módelo de logica difusa}
+
+Con base en la evaluación de la \cref{tab:modelos_logica_difusa}, 
+se seleccionó el \textbf{Modelo de Mamdani} para el Módulo 2 por 
+ser el único capaz de procesar la alta incertidumbre de la fermentación
+del kéfir mediante conjuntos difusos cerrados y ponderaciones por 
+rangos (como pH de $4.2$ a $4.6$ y temperatura 
+de $18\,^{\circ}\text{C}$ a $30\,^{\circ}\text{C}$), 
+mapeando directamente las reglas hacia la superficie de control 
+con una elevada fiabilidad. En contraste, se descartó 
+el modelo Takagi-Sugeno debido a que no utiliza un conjunto difuso 
+consecuente y exige conocer de antemano la superficie de control 
+mediante datos históricos preexistentes, los cuales no están 
+disponibles en este proceso artesanal. Por su parte, 
+el modelo de Tsukamoto requiere estrictamente funciones de 
+pertenencia abiertas y monótonas en las salidas, por lo que el
+uso de los rangos cerrados propios de este proyecto generaría 
+una indefinición matemática al arrojar múltiples valores escalares
+para una misma coordenada de corte.
+
+Asimismo, con base en el proyecto presentado en la \cref{sec:In2} 
+del estado del arte, se demuestra la elevada fiabilidad del modelo 
+de Mamdani en este tipo de bioprocesos, al contar con un antecedente 
+exitoso de implementación documentado.
+
+\begin{table}[htbp]
+    \centering
+    \small
+    \caption{Modelos de lógica difusa.}
+    \label{tab:modelos_logica_difusa}
+    \begin{tabular}{|>{\raggedright\arraybackslash}p{2.6cm}|>{\raggedright\arraybackslash}p{3.8cm}|>{\raggedright\arraybackslash}p{4.2cm}|>{\raggedright\arraybackslash}p{3.8cm}|}
+        \hline
+        \textbf{Criterio} & \textbf{Modelo Mamdani}\cite{Morcillo} & \textbf{Takagi-Sugeno (TSK)} & \textbf{Modelo Tsukamoto} \\ \hline
+        \textbf{Tipo de Consecuente} & Conjunto difuso (etiqueta lingüística). & Función matemática lineal o valor constante. & Conjunto difuso con función monótona. \\ \hline
+        \textbf{Geometría de Salida} & Soporta funciones de pertenencia cerradas (rangos). & Sin conjunto difuso consecuente (salida escalar). & Exige funciones abiertas (monótonas continuas). \\ \hline
+        \textbf{Requisito de Información} & Basado en reglas expertas e intervalos de operación. & Requiere conocer la superficie de control o datos previos. & Evaluación de un solo valor por nivel de corte $\alpha$. \\ \hline
+        \textbf{Desfuzificación} & Integración geométrica (Centroide, Bisectriz). & Promedio ponderado (\textit{Weighted Average}). & Promedio ponderado de puntos de corte. \\ \hline
+        \textbf{Limitación Principal} & Mayor costo computacional en la desfuzificación con base a las entradas. & Inviable sin datos históricos del proceso. & Ambigüedad $z_1, z_2$ con rangos cerrados. \\ \hline
+        \textbf{Aplicación} & Sistemas de monitoreo, diagnóstico e inferencia cualitativa. & Descartado: Control adaptativo con curva conocida. & Descartado: Sistemas simples con salidas abiertas. \\ \hline
+    \end{tabular}
+\end{table}
+
+
+\subsubsection{Análisis del lenguaje de programación}
+
+
+
+
+Con base en la evaluación presentada en la \cref{tab:lenguajesprogramacion}, 
+se seleccionó \textbf{Python} como el lenguaje de programación para el
+desarrollo del análisis de datos en el Módulo~2. Dicha decisión 
+satisface de forma estricta los requerimientos funcionales descritos 
+en la \cref{it:RF04}, garantizando una integración nativa con el formato 
+JSON utilizado por el Módulo 1 mediante su biblioteca estándar \texttt{json}, 
+lo que simplifica el intercambio de información sin requerir dependencias 
+externas complejas.
+
+En relación con la complejidad computacional del modelo de 
+Mamdani asociada principalmente al cálculo de la desfuzificación 
+por centroide, la selección de Python como lenguaje de ejecución
+resulta técnicamente idónea para el Módulo~2. Si bien Python es 
+un lenguaje interpretado, bibliotecas especializadas como
+\texttt{scikit-fuzzy} y \texttt{NumPy} delegan el cálculo matricial 
+e integración numérica a rutinas internas. 
+Esta integración vectorial reduce drásticamente 
+los tiempos de procesamiento.
+
+En contraste, se descartó C\# debido a su alta rigidez y dependencia 
+del ecosistema .NET, lo que incrementa el consumo de memoria y dificulta 
+la flexibilidad de despliegue. Por su parte, aunque R presenta fortalezas 
+en el análisis estadístico matricial, su sintaxis especializada y su baja 
+versatilidad para el desarrollo web e integración con microcontroladores
+limitan su aplicabilidad en la arquitectura telemática propuesta.
+
+
+
+
+
+\begin{landscape}
+\begingroup
+\setlength{\tabcolsep}{.1pt} % Espacio entre columnas reducido
+\renewcommand{\arraystretch}{1.5} % Altura de las filas ligeramente reducida
+
+% 1. El entorno longtable se reemplaza por tabular.
+% 2. La tabla completa está dentro de \resizebox para forzar el ajuste al ancho total (landscape).
+\begin{table}[h!]
+\centering
+\caption{Lenguajes de programación: C\#, Python y R}
+\label{tab:lenguajesprogramacion}
+\footnotesize 
+% <-- Ajusta la tabla al ancho de la página horizontal
+    % El comando \small reduce el tamaño de la fuente para ayudar al ajuste
+    \small 
+    \begin{tabular}{|>{\raggedright\arraybackslash}p{2.5cm}|>{\raggedright\arraybackslash}p{6.7cm}|>{\raggedright\arraybackslash}p{7cm}|>{\raggedright\arraybackslash}p{6.7cm}|}
+    \hline
+    \textbf{Aspecto} & \textbf{C\#}\cite{MarceloVillalobos2008}\cite{M.Deitel2007} & \textbf{Python}\cite{GonzalezDuque}\cite{Downey2002} & \textbf{R}\cite{Paradis2003} \\
+    \hline
+    \textbf{Caracterí- sticas} & Lenguaje de programación visual orientado a objetos, tipado, estático y controlado por eventos mediante el uso de un IDE. Desarrollado e integrado para el ecosistema .NET  & Lenguaje multiparadigma ya que soporta una programación orientada a objetos, imperativa y funcional con tipado dinámico y con una sintaxis muy fácil de aprender & Lenguaje especializado en análisis estadístico con un enfoque en manipulación de datos y generación de gráficos. \\
+    \hline
+    \textbf{Rendimi- ento} & Compilado en MSIL y luego optimizado mediante JIT en .NET, de nivel medio. & Interpretado, de alto nivel, lo que implica menor velocidad en tareas intensivas en CPU. Pero permite una gran portabilidad en diferentes entornos de programación. & Interpretado, de alto nivel, optimizado para operaciones estadísticas y matriciales, pero menos eficiente en tareas generales. \\
+    \hline
+    \textbf{Escalabi- lidad} & Compatible con JSON a través de bibliotecas siendo ampliamente eficiente en sistemas distribuidos y escalables como en ASP.NET. & Soporte nativo para JSON con la biblioteca json y escalable de forma nativa con diferentes \textit{frameworks} para aplicaciones web y con bases de datos modernas. & Compatible con JSON mediante paquetes y escalable en entornos estadísticos de \textit{big data}.\\
+    \hline
+    \textbf{Ventaja} & 
+    Permite una gran integración y soporte multiplataforma robusta con .NET Core al tener un rendimiento optimizado y un tipado estático lo que reduce errores en tiempo de ejecución.
+    & 
+    Al tener una curva de aprendizaje suave su sintaxis es muy simple y clara, teniendo un ecosistema extenso y una comunidad activa lo que permite una amplia gama de bibliotecas para ciencia de datos y otras herramientas.
+    & 
+    Permite una visualización muy especializada y un análisis estadístico muy avanzado, siendo que tiene un gran soporte en sus bibliotecas especializadas en el análisis de datos respaldadas por una gran comunidad académica.
+    \\
+    \hline
+    \textbf{Desventaja} & 
+    Menor flexibilidad al tener mucha dependencia del ecosistema .NET Core lo que hace gran dependencia a este ecosistema. Esto también hace que algunas herramientas o bibliotecas puedan tener algún costo, aparte el ecosistema .NET puede ser algo robusto en cuestión de memoria.
+    & 
+    Tiende a tener un rendimiento limitado debido a una concurrencia y un tipado dinámico al hacer la interpretación de línea por línea, lo que lo hace más lento en aplicaciones intensivas. Haciendo que tenga dependencia de bibliotecas externas para algunas aplicaciones.
+    & 
+    Tiene una flexibilidad muy baja con otros entornos enfocados al desarrollo web, esto debido a su sintaxis única lo que hace que tenga una curva de aprendizaje más pronunciada.
+    \\
+    \hline
+    \end{tabular}
+\end{table}
+
+\endgroup
+\end{landscape}

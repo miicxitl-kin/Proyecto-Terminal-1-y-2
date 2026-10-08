@@ -330,3 +330,62 @@ de la base de datos del módulo 3.
     \vfill % Centra la figura entre este comando y el \vfill de arriba
     \clearpage
 \end{landscape}
+
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[
+    box/.style={draw, rectangle, rounded corners=2pt, inner sep=6pt, text width=5.5cm, font=\small\ttfamily, align=left},
+    ref/.style={circle, fill=green!30, inner sep=1pt},
+    arrow/.style={-{Stealth[scale=1.2]}, thick, green!60!black}
+]
+
+
+\node[box] (user) {
+\textbf{\color{blue}users document}\\[2pt]
+\{ \\
+\hspace*{0.5cm}\_id: <ObjectId1>, \\
+\hspace*{0.5cm}categoria: "Productor\_Raiz", \\
+\hspace*{0.5cm}eficiencia: 95.5, \\
+\hspace*{0.5cm}nombre: "Juan", \\
+\hspace*{0.5cm}primer\_apellido: "Pérez", \\
+\hspace*{0.5cm}segundo\_apellido: "Gómez", \\
+\hspace*{0.5cm}genero: "Masculino", \\
+\hspace*{0.5cm}ciudad: "Ciudad de México", \\
+\hspace*{0.5cm}colonia: "Lindavista", \\
+\hspace*{0.5cm}municipio: "Gustavo A. Madero", \\
+\hspace*{0.5cm}cp: "07300", \\
+\hspace*{0.5cm}calle: "Av. Instituto Politécnico Nacional", \\
+\hspace*{0.5cm}numero: "2580", \\
+\hspace*{0.5cm}telefono: "5512345678", \\
+\hspace*{0.5cm}correo: "usuario@ejemplo.com" \\
+\}
+};
+
+
+% Nodo Fermentación
+\node[box, right=2.5cm of user] (fermentation) {
+\textbf{\color{blue}fermentations document}\\[2pt]
+\{ \\
+\hspace*{0.5cm}\_id: <ObjectId2>, \\
+\hspace*{0.5cm}user\_id: <ObjectId1>, \\
+\hspace*{0.5cm}id\_nodo: "ESP32\_KEFIR\_01", \\
+\hspace*{0.5cm}estado: "En\_Proceso", \\
+\hspace*{1.0cm}\{ \\
+\hspace*{1.5cm}timestamp: "2026-09-29T10:00:00Z", \\
+\hspace*{1.5cm}ph: 6.7, \\
+\hspace*{1.5cm}co2: 450, \\
+\hspace*{1.5cm}temperatura: 22.5, \\
+\hspace*{1.5cm}alarma: "Normal" \\
+\hspace*{1.0cm}\} \\
+\hspace*{0.5cm}] \\
+\}
+};
+
+% Opción curva alternativa si los nodos están alineados verticalmente o se superponen
+\draw[arrow] (fermentation) to[out=180, in=0] node[midway, above, font=\tiny\sffamily] {pertenece a} (user);
+
+
+\end{tikzpicture}
+\caption{Modelo de datos NoSQL.}
+\label{fig:nosql_schema}
+\end{figure}

@@ -1,0 +1,365 @@
+\subsection{Análisis del Módulo 3}
+\label{sec:mod3}
+En esta sección, se lleva a cabo un análisis y comparación entre bases de datos SQL y NoSQL, 
+con base en sus características, propiedades y adoperación a los requerimientos del sistema. 
+Asimismo, se realiza un cálculo inicial del peso de los atributos de las tablas o colecciones, 
+considerando la estructura de datos JSON generada por los microcontroladores a través del
+protocolo MQTT. Por consiguiente, se justifica la selección del tipo de base de datos más idóneo,
+garantizando escalabilidad, flexibilidad para cambios en la estructura de datos y eficiencia en 
+la gestión de flujos de datos en tiempo real, en función de las necesidades de asociar usuarios
+a dispositivos y permitir la incorporación de nuevos nodos sin afectar el sistema existente. 
+
+\subsubsection{Modelo de base de datos}
+Basado en la \cref{tab:modelodb}, se seleccionó una base de datos NoSQL para 
+la implementación del Módulo 3, dado que satisface los requerimientos
+no funcionales (RNF03) de escalabilidad horizontal, ya que permite gestionar 
+múltiples nodos (microcontroladores) de manera simultánea y añadir nuevos
+dispositivos sin comprometer la integridad de los existentes. Por ello,
+la arquitectura distribuida de NoSQL, junto con su modelo BASE, asegura
+alta disponibilidad y tolerancia a particiones, lo cual es crucial para procesar 
+flujos de datos MQTT en tiempo real con mínima latencia. Además, 
+su soporte nativo para JSON facilita una integración directa y 
+eficiente con el protocolo MQTT, porque permite adaptarse rápidamente a 
+datos cuya estructura puede variar según la fermentación de cada usuario.
+\newline
+A pesar de que el sistema estará alojado inicialmente en un solo servidor, 
+el diseño flexible de NoSQL posibilita una transición sencilla a entornos 
+distribuidos en el futuro. Sin embargo, las bases de datos SQL, con su esquema 
+fijo y enfoque en escalado vertical, resultan menos adecuadas, dado que su 
+rigidez dificulta la adaptación a cambios dinámicos en los datos y su arquitectura
+monolítica compromete la escalabilidad en contextos IoT. Por consiguiente,
+NoSQL se consolida como la opción óptima para garantizar flexibilidad, 
+eficiencia y escalabilidad en este proyecto.
+
+
+\begingroup
+\setlength{\tabcolsep}{6pt} % Espacio entre columnas
+\renewcommand{\arraystretch}{1.5} % Altura de las filas
+
+\begin{longtable}{|p{3.5cm}|p{5.5cm}|p{5.4cm}|}
+\caption{Modelo de base de datos.}
+\label{tab:modelodb} \\
+\hline
+\textbf{Característica} & \textbf{SQL (Relacional)}\cite{Oppel2011} & \textbf{NoSQL (No Relacional)}\cite{Gomez} \\
+\hline
+\textbf{Modelo de Datos} & \textbf{Esquema Fijo} (Tablas, Filas y Columnas predefinidas en una estructura). & \textbf{Esquema Dinámico/Flexible} (Documentos, Pares Clave-Valor, Grafos, etc.). \\
+\hline
+\textbf{Escalabilidad} & Escalabilidad  principalmente Vertical (mejorar servidor) y horizontal (sharding). & Principalmente permite una escalabilidad horizontal (añadir más servidores o nodos), lo que permite mayor distribución \\
+\hline
+\textbf{Transacciones } & ACID (Atomicidad, Consistencia, Aislamiento, Durabilidad). & BASE (Básicamente Disponible, Estado Suave, Consistencia Eventual). \\
+\hline
+\textbf{Arquitectura} & Monolítica, centralizada en un único servidor o clúster. & Distribuida, diseñada para clústeres de nodos a lo largo de múltiples servidores. \\
+\hline
+\textbf{Ventajas} & Basado en el modelo relacional permite la integridad de datos,garantizada, consultas complejas con JOINs eficientes y modelado de relaciones claro. & Permite una alta velocidad y consistencia en inserción/lectura, adaptabilidad a cambios, y rendimiento en grandes volúmenes de datos. \\
+\hline
+\textbf{Desventajas} & Bastante robustas lo que las vuelve menos flexibles a cambios en el esquema. Teniendo un rendimiento limitado para escrituras y lecturas distribuidas. & Compromete la fiabilidad a cambio de rendimiento, y al tener no tener propiedades ACID tan estrucuturadas no permite relaciones complejas. \\
+\hline
+\end{longtable}
+\endgroup
+
+
+\subsubsection{Base de datos NoSQL}
+Basado en la \cref{tab:nosql}, se determinó que MongoDB es la base de datos NoSQL más adecuada 
+para el Módulo 3, dado que cumple con los requerimientos funcionales (\ref{it:RF05}) y no funcionales 
+(RNF03). En efecto, su modelo de documentos con soporte nativo para JSON permite integrar directamente
+los datos enviados por los microcontroladores a través de MQTT, ya que se adapta a estructuras
+dinámicas que varían según la fermentación de cada usuario. Además, su propiedad CP (consistencia y
+tolerancia a particiones) asegura fiabilidad en el monitoreo, lo cual es crucial para asociar datos
+a usuarios específicos, mientras que su tolerancia a fallos garantiza que, a pesar de utilizar un
+único broker MQTT inicialmente, un fallo en la conexión de un microcontrolador no afecte a otros 
+usuarios. Por otra parte, MongoDB ofrece escalabilidad horizontal, de modo que facilita la incorporación 
+de nuevos dispositivos sin comprometer los existentes. Asimismo, su diseño flexible permite operar en un 
+solo servidor, pero a su vez posibilita una transición fluida a entornos distribuidos en el futuro. 
+En contraste, Cassandra prioriza disponibilidad sobre consistencia, por lo que puede introducir latencias 
+en la sincronización de datos usuario-dispositivo. De igual manera, Redis, aunque rápido, está limitado 
+por su naturaleza en memoria, lo que encarece la persistencia a largo plazo, DynamoDb permite una
+integración al tener un módelo basado en docuemntos pero se ve limitado ya que solo se puede integrar
+por medio del eosistema de AWS. Por su parte, InfluxDB, 
+optimizado para series temporales, resulta menos adecuado para relaciones usuario-dispositivo no temporales. 
+En consecuencia, MongoDB se consolida como la mejor opción, puesto que equilibra consistencia, flexibilidad y 
+escalabilidad.
+\begin{landscape}
+\begingroup
+\setlength{\tabcolsep}{.1pt} % Espacio entre columnas reducido
+\renewcommand{\arraystretch}{1.5} % Altura de las filas ligeramente reducida
+
+\begin{table}[h!]
+
+\caption{Bases de datos NoSQL}
+\label{tab:nosql}
+\footnotesize 
+\begin{tabular}{|>{\raggedright\arraybackslash}p{2.5cm}|>{\raggedright\arraybackslash}p{2.5cm}|>{\raggedright\arraybackslash}m{2.5cm}|>{\raggedright\arraybackslash}p{4cm}|>{\raggedright\arraybackslash}p{2.5cm}|>{\raggedright\arraybackslash}p{2.5cm}|>{\raggedright\arraybackslash}p{2.5cm}|>{\raggedright\arraybackslash}p{3cm}|}
+\hline
+\textbf{Base} & \textbf{Modelo de Datos} & \textbf{CAP}& \textbf{Características} & \textbf{Licencia} & \textbf{Propiedades ACID} & \textbf{Propiedades BASE} & \textbf{Implementación en la Nube o Local} \\
+\hline
+\textbf{MongoDB}\cite{zotero-item-107} & Documento (nativo BSON/JSON) & CP & Permite esquemas flexibles, asignando cada documento a un objeto. & Código abierto SSPL/Apache & Media:Permite transacciones ACID entre documentos pero de forma limitada. & Fuerte (Consistencia Eventual en clústeres distribuidos). & Nube (MongoDB Atlas, AWS, GCP, Azure) y Local\\
+\hline
+\textbf{Cassandra}\cite{zotero-item-108} & Columna Amplia (Wide-Column) & AP & Permite una escalabilidad lineal al optimiza las consultas por medio de CQL(Lenguaje de consulta de Cassandra) para grandes cantidades de datos. & Apache & Bajo (Garantías mínimas de consistencia y aislamiento). & Fuerte (Alta disponibilidad y particionamiento automático).& Nube (AWS, GCP, Azure) y Local \\
+\hline
+\textbf{Redis}\cite{zotero-item-111} & Clave-Valor (Key-Value) & CP & Almacenamiento en memoria (*in-memory*), uso primario como caché y broker de mensajes. & BSD & Parcial (Transacciones atómicas básicas en comandos únicos). & Fuerte (Alta velocidad y disponibilidad por naturaleza *in-memory*). & Nube (ElastiCache, Memorystore) y Local\\
+\hline
+\textbf{InfluxDB}\cite{zotero-item-113} & Series de Tiempo (TSDB) & AP & Optimizado para ingesta masiva de datos indexados por secuencias de tiempo. & MIT y Comercial & Bajo (Prioriza la velocidad de ingesta sobre la atomicidad). & Fuerte (Alta disponibilidad, optimizado para particionamiento temporal). & Nube (InfluxDB Cloud) y Local\\
+\hline
+\textbf{DynamoDB} \cite{zotero-item-252} & Clave-Valor y Documento & AP & Escalable sin servidor, optimizado para lecturas/escrituras rápidas de datos IoT. & Propietaria (AWS) & Media: Soporta transacciones ACID limitadas para operaciones específicas. & Fuerte (Alta disponibilidad y particionamiento automático). & Nube (AWS) \\
+\hline
+    \end{tabular}
+\end{table}
+\endgroup
+\end{landscape}
+
+\subsubsection{Estimación del volumen de la base de datos}
+En esta sección, se describen y especifican, mediante las tablas correspondientes, los volúmenes estimados de 
+datos generados \cite{2003} por los microcontroladores a través del protocolo MQTT, considerando la estructura de 
+documentos JSON almacenados en la base de datos NoSQL seleccionada. Para ello, se calcula el peso de los 
+atributos de cada colección, en función de la frecuencia de los mensajes, el número de dispositivos y las 
+variaciones en los datos de fermentación por usuario. Descritors en las siguientes tablas:
+
+\begin{table}[htbp]
+	\centering
+	\caption{Atributos del módulo 1}
+    \label{tab:Dato1}
+    \footnotesize % Reducimos el tamaño de la fuente para ayudar al ajuste
+
+    % Ajuste de Anchos de Columna (el ancho total debe sumar < 16cm)
+    \begin{tabular}{|>{\raggedright\arraybackslash}p{2.5cm}|>{\raggedright\arraybackslash}p{5.5cm}|c|c|}
+		\hline
+		Parámetro & Descripción & Tipo de dato & Peso en by-tes \\ \hline
+		Id del nodo & Identificador de cada microcontrolador & Tinyint & 1 \\ \hline
+		Time-set & Tiempo de registro del dato del sensor & Timestamp & 4 \\ \hline
+        pH & Dato del sensor de pH & Float & 4 \\ \hline
+        $CO_{2}$ & Dato del sensor de $CO_{2}$ & Float & 4 \\ \hline
+        Temperatura & Dato del sensor de Temperatura & Flaot & 4 \\ \hline
+        bandera de alarma & Dato que indica la alarma correspondientes & varchar(20) & longitud de la cadena +1 \\ \hline
+	\end{tabular}
+\end{table}
+
+En base a la tabla \cref{tab:Dato1}, se describen los datos proporcionados por el módulo 1, dichos datos son pertenencientes 
+a una fermentación, dado que estas pueden variar en el tiempo. Se toma el caso más extremo 
+de una fermentación de 48 horas (172800 segundos), en la cual en las primeras 
+33(118800 segundos) horas esta el ph en un rango de 6.8 a 5.6
+,de la hora 34 a 41 esta el pH en un rango de 5.5 a 5.0
+y de la hora 41 a 48 el pH esta en un rango de
+5.0 a 4.2.Siguiendo los \ref{it:RF01} en los que especifican la frecuencia en que los sensores adquieren los datos , 
+se puede obtener una estimación de la peso de estos atributos descritos a continuación:
+
+\begin{enumerate}
+        \item \textbf{Rango 1 (primeras 33 horas)}: En este intervalo, los datos de pH y CO$_2$ se registran cada 10 minutos (600 segundos), generando, según la operación \ref{eq:calculo_peso1}, un peso de 14 bytes por registro, dado que no se incluye la temperatura. Mediante la operación \ref{eq:calculo_peso2}, se determinan 198 registros, lo que resulta en 2772 bytes conforme a la operación \ref{eq:calculo_peso3}. Por otra parte, la temperatura se envía de forma independiente cada 2.5 minutos (150 segundos), con un peso de 10 bytes por registro, según la operación \ref{eq:calculo_peso41}. Así, la operación \ref{eq:calculo_peso4} indica 792 registros, equivalentes a 7920 bytes, conforme a la operación \ref{eq:calculo_peso5}. En consecuencia, el total de bytes para este rango es de 10692 bytes, calculado mediante la operación \ref{eq:calculo_peso6}.
+
+            \begin{equation}
+            1 + 4 + 4 + 4 + 1 = 14 bytes
+            \label{eq:calculo_peso1}
+            \end{equation}
+
+            \begin{equation}
+            118800 \div 600 = 198 registros
+            \label{eq:calculo_peso2}
+            \end{equation}
+
+            \begin{equation}
+            198 \times 14 = 2772 bytes
+            \label{eq:calculo_peso3}
+            \end{equation}
+
+            \begin{equation}
+            1 + 4 + 4 + 1 = 10 bytes
+            \label{eq:calculo_peso41}
+            \end{equation}
+
+            \begin{equation}
+            118800 \div 150 = 792 registros
+            \label{eq:calculo_peso4}
+            \end{equation}
+
+            \begin{equation}
+            792 \times 10 = 7920 bytes
+            \label{eq:calculo_peso5}
+            \end{equation}
+
+            \begin{equation}
+            2772 + 7920 = 10692 bytes
+            \label{eq:calculo_peso6}
+            \end{equation}
+
+    \item \textbf{Rango 2 (horas 34-41)}: En este intervalo, los datos de pH y CO$_2$ se registran cada 5 minutos (300 segundos), generando, según la operación \ref{eq:calculo_peso7}, un peso de 14 bytes por registro, dado que no se incluye la temperatura. Mediante la operación \ref{eq:calculo_peso8}, se determinan 96 registros, lo que resulta en 1344 bytes conforme a la operación \ref{eq:calculo_peso9}. Por otra parte, la temperatura se envía de forma independiente cada 2.5 minutos (150 segundos), con un peso de 10 bytes por registro, según la operación \ref{eq:calculo_peso10}. Así, la operación \ref{eq:calculo_peso11} indica 192 registros, equivalentes a 1920 bytes, conforme a la operación \ref{eq:calculo_peso12}. En consecuencia, el total de bytes para este rango es de 3264 bytes, calculado mediante la operación \ref{eq:calculo_peso13}.
+
+        \begin{equation}
+        1 + 4 + 4 + 4 + 1 = 14 bytes
+        \label{eq:calculo_peso7}
+        \end{equation}
+
+        \begin{equation}
+        28800 \div 300 = 96 registros
+        \label{eq:calculo_peso8}
+        \end{equation}
+
+        \begin{equation}
+        96 \times 14 = 1344 bytes
+        \label{eq:calculo_peso9}
+        \end{equation}
+
+        \begin{equation}
+        1 + 4 + 4 + 1 = 10 bytes
+        \label{eq:calculo_peso10}
+        \end{equation}
+
+        \begin{equation}
+        28800 \div 150 = 192 registros
+        \label{eq:calculo_peso11}
+        \end{equation}
+
+        \begin{equation}
+        192 \times 10 = 1920 bytes
+        \label{eq:calculo_peso12}
+        \end{equation}
+
+        \begin{equation}
+        1344 + 1920 = 3264 bytes
+        \label{eq:calculo_peso13}
+        \end{equation}
+    
+        \item \textbf{Rango 3 (horas 41-48)}: En este intervalo, los datos de pH,
+        CO$_2$ y temperatura se registran cada 1 minuto (60 segundos), generando, 
+        según la operación \ref{eq:calculo_peso14}, un peso de 18 bytes por registro, 
+        dado que se incluyen todos los atributos. Mediante la operación 
+        \ref{eq:calculo_peso15}, se determinan 420 registros, lo que resulta en 
+        7560 bytes conforme a la operación \ref{eq:calculo_peso16}. Puesto que los 
+        envíos de temperatura están incluidos en estos registros, no se generan envíos 
+        independientes adicionales. En consecuencia, el total de bytes para este rango 
+        es de 7560 bytes, calculado mediante la operación \ref{eq:calculo_peso16}.
+
+        \begin{equation}
+        1 + 4 + 4 + 4 + 4 + 1 = 18 bytes
+        \label{eq:calculo_peso14}
+        \end{equation}
+
+        \begin{equation}
+        25200 \div 60 = 420 registros
+        \label{eq:calculo_peso15}
+        \end{equation}
+
+        \begin{equation}
+        420 \times 18 = 7560 bytes
+        \label{eq:calculo_peso16}
+        \end{equation}
+
+\end{enumerate}
+Por consecuencia, al sumar los bytes generados en los tres rangos de la fermentación
+de 48 horas, se obtiene un total de 21516 bytes. Esto se calcula, según la operación 
+\ref{eq:calculo_peso_total}, combinando los 10692 bytes del Rango 1, los 3264 bytes del
+Rango 2 y los 7560 bytes del Rango 3. Por consiguiente, esta estimación refleja el 
+volumen de datos generado por los microcontroladores  mediante MQTT, considerando 
+este el caso más extremo, ya que este dato puede variar segun cada fermentación.
+
+\begin{equation}
+10692 + 3264 + 7560 = 21516 bytes
+\label{eq:calculo_peso_total}
+\end{equation}
+
+\begin{table}[htbp]
+    \centering
+    \caption{Atributos del módulo 3} % Título Corregido (Ver Sección 2)
+    \label{tab:Dato2}
+    \footnotesize % Reducimos el tamaño de la fuente para ayudar al ajuste
+
+    % Ajuste de Anchos de Columna (el ancho total debe sumar < 16cm)
+    \begin{tabular}{|>{\raggedright\arraybackslash}p{2.4cm}|>{\raggedright\arraybackslash}p{5.4cm}|c|c|}
+        \hline
+        \textbf{Atributo} & \textbf{Descripción} & \textbf{Tipo de Dato} & \textbf{Peso en Bytes} \\ \hline
+        Categoría del usuario & Distingue si un usuario tiene la categoría de productor raíz o productor inicial & Tinyint & 1 \\ \hline
+        Id del usuario & Identificador único de cada usuario & varchar(20) & longitud de la cadena +1 \\ \hline
+        Nombre & Nombre del usuario & varchar(20) & longitud de la cadena +1 \\ \hline % Ajustado: Nombre no es Tinyint
+        Primer Apellido & Primer Apellido del usuario & varchar(20) & longitud de la cadena +1 \\ \hline
+        Segundo Apellido & Segundo Apellido del usuario & varchar(20) & longitud de la cadena +1 \\ \hline
+        Género & Género del usuario & varchar(15) & longitud de la cadena +1 \\ \hline
+        Fecha de nacimiento & Fecha de nacimiento & DATE & 3 \\ \hline
+        Correo & Correo del usuario & varchar(20) & longitud de la cadena +1 \\ \hline
+    \end{tabular}
+\end{table}
+
+Para la tabla \ref{tab:Dato2}, que describe los atributos de la entidad Usuario, 
+se estima el peso total de un registro en la base de datos MongoDB,
+por medio de la operación \ref{eq:calculo_peso_usuario}. 
+Se obtiene un total de 71 bytes por registro.
+Por consiguiente, esta estimación permite dimensionar el almacenamiento necesario para los
+datos de usuarios en el sistema.
+
+\begin{equation}
+1 + 11 + 11 + 11 + 11 + 7 + 3 + 16 = 71 bytes
+\label{eq:calculo_peso_usuario}
+\end{equation}
+
+\begin{table}[htbp]
+    \centering
+    \caption{Atributos del módulo 2} % Título Corregido (Ver Sección 2)
+    \label{tab:Dato4}
+    \footnotesize % Reducimos el tamaño de la fuente para ayudar al ajuste
+
+    % Ajuste de Anchos de Columna (el ancho total debe sumar < 16cm)
+    \begin{tabular}{|>{\raggedright\arraybackslash}p{2.4cm}|>{\raggedright\arraybackslash}p{5.5cm}|c|c|}
+        \hline
+        \textbf{Atributo} & \textbf{Descripción} & \textbf{Tipo de Dato} & \textbf{Peso en Bytes} \\ \hline
+        Id del usuario & Identificador único de cada usuario al que pertenece la fermentación & varchar(20) & longitud de la cadena +1 \\ \hline
+        Estado & Estado de la fermentación , si fue exitosa o no & varchar(20) & longitud de la cadena +1 \\ \hline % Ajustado: Nombre no es Tinyint
+        Nivel & Nivel de la fermentación si fue alta, medio o baja & varchar(20) & longitud de la cadena +1 \\ \hline
+    \end{tabular}
+\end{table}
+
+Para la tabla \ref{tab:Dato4}, que describe los atributos del Módulo 2 relacionados 
+con los datos de fermentación, se estima el peso total de un registro en la base de
+datos MongoDB, en base a la operación \ref{eq:calculo_peso_modulo2}. 
+Se obtiene 
+un total de 27 bytes por registro. 
+
+\begin{equation}
+11 + 9 + 7 = 27 bytes
+\label{eq:calculo_peso_modulo2}
+\end{equation}
+
+En base a los datos generados por 
+las tablas \ref{tab:Dato1}, 
+\ref{tab:Dato2} y \ref{tab:Dato4}. La suma de los bytes del Módulo 1 (21516 bytes),
+Usuarios (71 bytes) y Módulo 2 (27 bytes) resulta en un total de 21614 bytes por 
+usuario, conforme a la operación \ref{eq:calculo_peso_total_usuario}. Por consiguiente, 
+este valor representa el tamaño del documento JSON que agrupa los datos de sensores,
+información del usuario y estado de la fermentación en la base de datos MongoDB. 
+Dado que MongoDB permite documentos de hasta 16 MB (16777216 bytes), 
+este total de aproximadamente 21 KB es totalmente permitido, 
+lo que garantiza una gestión eficiente y escalable de los datos,
+incluso con múltiples usuarios y fermentaciones.
+
+\begin{equation}
+21516 + 71 + 27 = 21614 bytes
+\label{eq:calculo_peso_total_usuario}
+\end{equation}
+
+\begin{table}[htbp]
+    \centering
+    \caption{Atributos del administrador} % Título Corregido (Ver Sección 2)
+    \label{tab:Dato3}
+    \footnotesize % Reducimos el tamaño de la fuente para ayudar al ajuste
+
+    % Ajuste de Anchos de Columna (el ancho total debe sumar < 16cm)
+    \begin{tabular}{|>{\raggedright\arraybackslash}p{2.4cm}|>{\raggedright\arraybackslash}p{5.5cm}|c|c|}
+        \hline
+        \textbf{Atributo} & \textbf{Descripción} & \textbf{Tipo de Dato} & \textbf{Peso en Bytes} \\ \hline
+        Id del usuario & Identificador único de cada usuario & varchar(20) & longitud de la cadena +1 \\ \hline
+        Nombre & Nombre del usuario & varchar(20) & longitud de la cadena +1 \\ \hline % Ajustado: Nombre no es Tinyint
+        Primer Apellido & Primer Apellido del usuario & varchar(20) & longitud de la cadena +1 \\ \hline
+        Segundo Apellido & Segundo Apellido del usuario & varchar(20) & longitud de la cadena +1 \\ \hline
+        Género & Género del usuario & varchar(15) & longitud de la cadena +1 \\ \hline
+        Fecha de nacimiento & Fecha de nacimiento & DATE & 3 \\ \hline
+        Correo & Correo del usuario & varchar(20) & longitud de la cadena +1 \\ \hline
+    \end{tabular}
+\end{table}
+
+
+Para la tabla \ref{tab:Dato3}, que describe los atributos de
+la entidad Administrador, con un peso calculado en la operación \ref{eq:calculo_peso_admin}. 
+se obtiene un total de 70 bytes por registro. Por consiguiente, esta estimación 
+permite dimensionar el almacenamiento necesario para los datos de administradores 
+en el sistema.
+
+\begin{equation}
+10 + 10 + 10 + 10 + 6 + 3 + 15 = 70 bytes
+\label{eq:calculo_peso_admin}
+\end{equation}
